@@ -26,6 +26,32 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Trip> Trips { get; set; }
+
+        public DbSet<City> Cities { get; set; }
+
+        public DbSet<Country> Countries { get; set; }
+
+        public DbSet<Location> Locations { get; set; }
+
+        public DbSet<LocationCategory> LocationCategories { get; set; }
+
+        public DbSet<Message> Messages { get; set; }
+
+        public DbSet<Transport> Transports { get; set; }
+
+        public DbSet<TripImage> Images { get; set; }
+
+        public DbSet<Tag> Tags { get; set; }
+
+        public DbSet<Rating> UsersRatings { get; set; }
+
+        public DbSet<EventsUsers> TripsUsers { get; set; }
+
+        public DbSet<TripsTags> TripsTags { get; set; }
+
+        public DbSet<Event> Events { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -72,6 +98,10 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            builder.Entity<EventsUsers>().HasKey(x => new { x.UserId, x.EventId });
+            builder.Entity<Rating>().HasKey(x => new { x.UserId, x.TripId });
+            builder.Entity<TripsTags>().HasKey(x => new { x.TagId, x.TripId });
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

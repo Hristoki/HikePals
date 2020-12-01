@@ -44,4 +44,8 @@
     <ProjectReference Include="..\HikePals.Data.Models\HikePals.Data.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
