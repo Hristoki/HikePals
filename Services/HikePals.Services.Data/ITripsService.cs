@@ -8,7 +8,7 @@ namespace HikePals.Services.Data
 {
     public interface ITripsService
     {
-        Task AddNewTrip(CreateTripInputViewModel model);
+        Task AddNewTrip(CreateTripInputViewModel model, string userId, string imageDirectoryPath);
 
     }
 }

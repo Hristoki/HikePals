@@ -1,9 +1,8 @@
-﻿namespace HikePals.Data.Migrations
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace HikePals.Data.Migrations
 {
-    using System;
-
-    using Microsoft.EntityFrameworkCore.Migrations;
-
     public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +18,7 @@
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -36,7 +35,7 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -53,7 +52,7 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -71,7 +70,7 @@
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Value = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -89,7 +88,7 @@
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -106,7 +105,7 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -121,7 +120,7 @@
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -145,7 +144,7 @@
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    CountryId = table.Column<int>(nullable: false),
+                    CountryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -179,10 +178,11 @@
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     CityId = table.Column<int>(nullable: false),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -208,7 +208,7 @@
                     Name = table.Column<string>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false),
                     CityId = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -235,7 +235,7 @@
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -255,7 +255,7 @@
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false),
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -273,7 +273,7 @@
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -299,7 +299,7 @@
                     UserId = table.Column<string>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Value = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -324,7 +324,7 @@
                     TripId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
-                    Extentsion = table.Column<string>(nullable: true),
+                    Extentsion = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -353,7 +353,7 @@
                     CreatedByUserId = table.Column<string>(nullable: true),
                     Length = table.Column<int>(nullable: false),
                     ApproximateDuration = table.Column<TimeSpan>(nullable: false),
-                    TripImageId = table.Column<string>(nullable: true),
+                    TripImageId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -392,7 +392,7 @@
                     EndTime = table.Column<DateTime>(nullable: false),
                     MaxGroupSize = table.Column<int>(nullable: false),
                     TransportId = table.Column<int>(nullable: false),
-                    TripId = table.Column<int>(nullable: false),
+                    TripId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -424,7 +424,7 @@
                     TripId = table.Column<string>(nullable: false),
                     TagId = table.Column<string>(nullable: false),
                     TripId1 = table.Column<int>(nullable: true),
-                    TagId1 = table.Column<int>(nullable: true),
+                    TagId1 = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -451,7 +451,7 @@
                     TripId = table.Column<int>(nullable: false),
                     Rate = table.Column<byte>(nullable: false),
                     Id = table.Column<int>(nullable: false),
-                    UserId1 = table.Column<string>(nullable: true),
+                    UserId1 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -482,7 +482,7 @@
                     Content = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<string>(nullable: true),
                     TripId = table.Column<int>(nullable: false),
-                    EventId = table.Column<string>(nullable: true),
+                    EventId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -518,7 +518,7 @@
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    EventId1 = table.Column<string>(nullable: true),
+                    EventId1 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

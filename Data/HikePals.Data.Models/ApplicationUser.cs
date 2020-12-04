@@ -29,6 +29,8 @@ namespace HikePals.Data.Models
 
         public virtual City City { get; set; }
 
+        public DateTime DateOfBirth { get; set; }
+
         public virtual ICollection<Trip> CreatedTrips { get; set; }
 
         public virtual ICollection<Message> Messages { get; set; }

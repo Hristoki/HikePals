@@ -1,14 +1,13 @@
-﻿
-using HikePals.Web.ViewModels.Home;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HikePals.Services.Data
+﻿namespace HikePals.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using HikePals.Web.ViewModels.Home;
+
     public interface IGetHomePageDataService
     {
          IndexViewModel GetCounts();
-
     }
 }

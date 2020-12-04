@@ -1,0 +1,66 @@
+﻿@model HikePals.Web.ViewModels.Trips.CreateTripInputViewModel
+
+<h1 class="offset-md-3">Create a new trip!</h1>
+
+
+<form method="post" class="col-md-6 offset-md-3">
+
+    <div class="form-group">
+        <label asp-for="TripName">Name</label>
+        <input asp-for="TripName" class="form-control" />
+        <span asp-validation-for="TripName" class="text-danger"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <textarea asp-for="Description" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Destination">Destination / Point of Interest</label>
+        <input asp-for="Destination" class="form-control" />
+        <span asp-validation-for="Destination" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TypeOfDestinationId">Destination Category</label>
+        <select asp-for="TypeOfDestinationId" class="form-control" asp-items="Model.TypeOfDestinationItems" class="custom-select">
+            <option value="">Choose Destination Category</option>
+        </select>
+        <span asp-validation-for="TypeOfDestinationId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CityId">City</label>
+        <select asp-for="CityId" class="form-control" asp-items="Model.CityItems" class="custom-select">
+            <option value="">Choose City</option>
+        </select>
+        <span asp-validation-for="CityId" class="text-danger"></span>
+    </div>
+
+    @*<div class="form-group">
+            <label asp-for="CountryId">Country</label>
+            <select asp-for="CountryId" class="form-control" asp-items="Model.CountryItems">
+                <option value="">Choose Country</option>
+
+            </select>
+            <span asp-validation-for="CountryId" class="text-danger"></span>
+        </div>*@
+
+    @*<div class="form-group">
+        <label asp-for="MaxGroupSize">Group Size</label>
+        <input asp-for="MaxGroupSize" class="form-control" />
+        <span asp-validation-for="MaxGroupSize" class="text-danger"></span>
+    </div>*@
+
+    <div class="form-group">
+        <label asp-for="TripImage">Image</label>
+        <input asp-for="TripImage" class="form-control" />
+        <span asp-validation-for="TripImage" class="text-danger"></span>
+    </div>
+
+    <input type="submit" value="Submit" class="btn-block" />
+
+</form>

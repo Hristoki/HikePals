@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -12,18 +13,21 @@
 
     public class TripsService : ITripsService
     {
+        private static readonly string[] AllowedImageExtensions = { ".jpeg", ".jpg", ".png", ".tiff", ".gif" };
         private readonly IDeletableEntityRepository<Trip> tripRepositry;
         private readonly IDeletableEntityRepository<City> cityRepository;
         private readonly IDeletableEntityRepository<Location> locationRepository;
+        private readonly IDeletableEntityRepository<TripImage> imageRepository;
 
-        public TripsService(IDeletableEntityRepository<Trip> tripRepositry, IDeletableEntityRepository<City> cityRepository, IDeletableEntityRepository<Location> locationRepository)
+        public TripsService(IDeletableEntityRepository<Trip> tripRepositry, IDeletableEntityRepository<City> cityRepository, IDeletableEntityRepository<Location> locationRepository, IDeletableEntityRepository<TripImage> imageRepository)
         {
             this.tripRepositry = tripRepositry;
             this.cityRepository = cityRepository;
             this.locationRepository = locationRepository;
+            this.imageRepository = imageRepository;
         }
 
-        public async Task AddNewTrip(CreateTripInputViewModel model)
+        public async Task AddNewTrip(CreateTripInputViewModel model, string userId, string path)
         {
             var destination = this.locationRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == model.Description);
 
@@ -43,6 +47,27 @@
                 Description = model.Description,
                 Destination = destination,
             };
+
+            var imageExtension = Path.GetExtension(model.TripImage.FileName.ToLower());
+
+            if (!AllowedImageExtensions.Contains(imageExtension))
+            {
+                throw new ArgumentException("Invalid image type!");
+            }
+
+            var image = new TripImage
+            {
+                Trip = trip,
+                UserId = userId,
+                Extentsion = imageExtension,
+            };
+
+            trip.TripImage = image;
+
+            // Add image to File System
+            var physicalPath = $"{path}/trips/{image.Id}.{imageExtension}";
+            using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+            await model.TripImage.CopyToAsync(fileStream);
 
             await this.tripRepositry.AddAsync(trip);
             await this.tripRepositry.SaveChangesAsync();
