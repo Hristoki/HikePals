@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HikePals.Services.Data
 {
-    public interface ICountryService
+    public interface ICountriesService
     {
 
         IEnumerable<SelectListItem> GetAllCountries();

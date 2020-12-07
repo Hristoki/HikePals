@@ -1,10 +1,31 @@
-﻿
-<h1>All trips!</h1>
+﻿@model IEnumerable<HikePals.Web.ViewModels.Trips.BaseTripViewModel>
+    <h1>All trips!</h1>
 
-<ul>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-</ul>
+
+<div class="row">
+    @foreach (var trip in this.Model)
+    {
+
+
+    <div class="card col-md-5" >
+        <div class="embed-responsive embed-responsive-4by3">
+            <img class="card-img-top img-responsive embed-responsive-item" src="@trip.TripImageUrl" alt="@trip.Name">
+        </div>
+        
+        <div class="card-body">
+            <h5 class="card-title md-1" ><a asp-action="ById" asp-route-id="@trip.Id">@trip.Name</a></h5>
+            <p class="card-text">Some quick example text</p>
+            <a asp-action="GetById" asp-route-id="@trip.Id" class="btn btn-primary">Read more</a>
+        </div>
+    </div>
+
+        @*<div class="media col-md-4">
+            <img src="@trip.ImageUrl" width="100" class="mr-3 img-responsive">
+            <div class="media-body">
+                <h5 class="mt-0"><a asp-action="ById" asp-route-id="@trip.Id">@trip.Name</a></h5>
+                @trip.CategoryName
+            </div>
+        </div>*@
+    }
+
+</div>

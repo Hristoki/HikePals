@@ -3,7 +3,7 @@
 <h1 class="offset-md-3">Create a new trip!</h1>
 
 
-<form method="post" class="col-md-6 offset-md-3">
+<form method="post" class="col-md-6 offset-md-3" enctype="multipart/form-data">
 
     <div class="form-group">
         <label asp-for="TripName">Name</label>
@@ -34,10 +34,16 @@
 
     <div class="form-group">
         <label asp-for="CityId">City</label>
-        <select asp-for="CityId" class="form-control" asp-items="Model.CityItems" class="custom-select">
+        <select asp-for="CityId" class="form-control" asp-items="Model.CityItems">
             <option value="">Choose City</option>
         </select>
         <span asp-validation-for="CityId" class="text-danger"></span>
+    </div>
+
+     <div class="form-group">
+        <label asp-for="TripImage"></label>
+        <input asp-for="TripImage" class="form-control"  />
+        <span asp-validation-for="TripImage" class="text-danger"></span>
     </div>
 
     @*<div class="form-group">
@@ -49,17 +55,7 @@
             <span asp-validation-for="CountryId" class="text-danger"></span>
         </div>*@
 
-    @*<div class="form-group">
-        <label asp-for="MaxGroupSize">Group Size</label>
-        <input asp-for="MaxGroupSize" class="form-control" />
-        <span asp-validation-for="MaxGroupSize" class="text-danger"></span>
-    </div>*@
 
-    <div class="form-group">
-        <label asp-for="TripImage">Image</label>
-        <input asp-for="TripImage" class="form-control" />
-        <span asp-validation-for="TripImage" class="text-danger"></span>
-    </div>
 
     <input type="submit" value="Submit" class="btn-block" />
 

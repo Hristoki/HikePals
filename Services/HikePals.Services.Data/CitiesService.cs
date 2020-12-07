@@ -1,6 +1,7 @@
 ﻿using HikePals.Data.Common.Repositories;
 using HikePals.Data.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,14 @@ namespace HikePals.Services.Data
         {
             this.cityRepository = cityRepository;
         }
+
         public IEnumerable<SelectListItem> GetAllCities()
         {
-            return cityRepository.All().Select(x => new {x.Name, x.Id }).Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
+            return this.cityRepository
+                .AllAsNoTracking()
+                .Select(x => new {x.Name, x.Id })
+                .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                .ToList();
         }
     }
 }

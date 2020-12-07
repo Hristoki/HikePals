@@ -14,6 +14,7 @@
         {
             this.CreatedOn = DateTime.UtcNow;
             this.Tags = new HashSet<TripsTags>();
+            this.Events = new HashSet<Event>();
         }
 
         public string TripName { get; set; }
@@ -32,9 +33,9 @@
         // [Required]
         public virtual ApplicationUser CreatedByUser { get; set; }
 
-        public int Length { get; set; }
+        public int Distance { get; set; }
 
-        public TimeSpan ApproximateDuration { get; set; }
+        public TimeSpan Duration { get; set; }
 
         [ForeignKey("TripImage")]
         public string TripImageId { get; set; }
@@ -44,5 +45,7 @@
         public virtual ICollection<TripsTags> Tags { get; set; }
 
         public virtual ICollection<Rating> Rating { get; set; }
+
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

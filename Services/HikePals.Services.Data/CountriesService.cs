@@ -8,7 +8,7 @@ using System.Text;
 
 namespace HikePals.Services.Data
 {
-    public class CountriesService : ICountryService
+    public class CountriesService : ICountriesService
     {
         private readonly IDeletableEntityRepository<Country> countryRepository;
 
@@ -19,7 +19,7 @@ namespace HikePals.Services.Data
 
         public IEnumerable<SelectListItem> GetAllCountries()
         {
-            return countryRepository.AllAsNoTracking()
+            return this.countryRepository.AllAsNoTracking()
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
         }

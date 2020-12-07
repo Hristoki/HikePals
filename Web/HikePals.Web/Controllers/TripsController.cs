@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
+
     using HikePals.Data.Models;
     using HikePals.Services.Data;
     using HikePals.Web.ViewModels.Trips;
@@ -15,14 +16,14 @@
     public class TripsController : Controller
     {
         private readonly ICitiesService citiesService;
-        private readonly ICountryService countryService;
+        private readonly ICountriesService countryService;
         private readonly ILocationCategoriesService categoriesService;
         private readonly ITransportService transportService;
         private readonly ITripsService tripsService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
 
-        public TripsController(ICitiesService citiesService, ICountryService countryService, ILocationCategoriesService categoriesService, ITransportService transportService, ITripsService tripsService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment)
+        public TripsController(ICitiesService citiesService, ICountriesService countryService, ILocationCategoriesService categoriesService, ITransportService transportService, ITripsService tripsService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment)
         {
             this.citiesService = citiesService;
             this.countryService = countryService;
@@ -35,27 +36,31 @@
 
         public IActionResult CreateTrip()
         {
-            var viewModel = new CreateTripInputViewModel()
-            {
-              CityItems = this.citiesService.GetAllCities(),
-              CountryItems = this.countryService.GetAllCountries(),
-              TypeOfDestinationItems = this.categoriesService.GetAllLocationCategories(),
-              TransportItems = this.transportService.GetAllTransportTypes(),
-            };
+           var viewModel = new CreateTripInputViewModel();
 
-            return this.View(viewModel);
+           viewModel.CityItems = this.citiesService.GetAllCities();
+           viewModel.TypeOfDestinationItems = this.categoriesService.GetAllLocationCategories();
+
+           return this.View(viewModel);
         }
+
+            //input.CityItems = this.citiesService.GetAllCities();
+            //input.TypeOfDestinationItems = this.categoriesService.GetAllLocationCategories();
 
         [HttpPost]
         public async Task<IActionResult> CreateTrip(CreateTripInputViewModel input)
         {
+
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                input.TypeOfDestinationItems = this.categoriesService.GetAllLocationCategories();
+                input.CityItems = this.citiesService.GetAllCities();
+                return this.View(input);
             }
 
             //TODO: Add to constants
-            var imagesDirPath = $"{this.environment.WebRootPath}/images";
+
+            var imagesDirPath = $"{this.environment.WebRootPath}\\images";
 
             var user = await this.userManager.GetUserAsync(this.User);
 
@@ -66,7 +71,17 @@
 
         public IActionResult All()
         {
-            return this.View();
+
+            var model = this.tripsService.GetAllTrips();
+            return this.View(model);
         }
+
+        public IActionResult GetById(int id)
+        {
+            var model = this.tripsService.GetById(id);
+            Console.WriteLine();
+            return this.View(model);
+        }
+
     }
 }

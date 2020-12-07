@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Text;
-
+    using HikePals.Common;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -14,11 +14,6 @@
         [MaxLength(50)]
         [MinLength(10)]
         public string TripName { get; set; }
-
-        [Required]
-        public int CountryId { get; set; }
-
-        public IEnumerable<SelectListItem> CountryItems { get; set; }
 
         [Required]
         public int CityId { get; set; }
@@ -35,18 +30,12 @@
         public IEnumerable<SelectListItem> TypeOfDestinationItems { get; set; }
 
         [Required]
-        [MaxLength(500, ErrorMessage = "Description should be between 50 and 500 symbols long")]
-        [MinLength(50, ErrorMessage = "Description should be between 50 and 500 symbols long")]
+        [MaxLength(2000, ErrorMessage = "Description should be between 50 and 500 symbols long")]
+        [MinLength(25, ErrorMessage = "Description should be between 50 and 500 symbols long")]
+
         public string Description { get; set; }
 
-        [Range(2, 20, ErrorMessage = "Group size should be between 2 and 20.")]
-        public int MaxGroupSize { get; set; }
-
-        [Required]
-        public int TransportId { get; set; }
-
-        public IEnumerable<SelectListItem> TransportItems { get; set; }
-
+        [AllowedImageExtensionsAttribute]
         public IFormFile TripImage { get; set; }
     }
 }

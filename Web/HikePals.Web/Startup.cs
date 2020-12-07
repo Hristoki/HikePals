@@ -68,7 +68,7 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IGetHomePageDataService, GetHomePageDataService>();
             services.AddTransient<ICitiesService, CitiesService>();
-            services.AddTransient<ICountryService, CountriesService>();
+            services.AddTransient<ICountriesService, CountriesService>();
             services.AddTransient<ILocationCategoriesService, LocationCategoriesService>();
             services.AddTransient<ITransportService, TransportService>();
             services.AddTransient<ITripsService, TripsService>();

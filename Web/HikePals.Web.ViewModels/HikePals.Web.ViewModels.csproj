@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\HikePals.Data.Models\HikePals.Data.Models.csproj" />
+    <ProjectReference Include="..\..\HikePals.Common\HikePals.Common.csproj" />
     <ProjectReference Include="..\..\Services\HikePals.Services.Mapping\HikePals.Services.Mapping.csproj" />
   </ItemGroup>
 

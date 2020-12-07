@@ -10,5 +10,9 @@ namespace HikePals.Services.Data
     {
         Task AddNewTrip(CreateTripInputViewModel model, string userId, string imageDirectoryPath);
 
+        IEnumerable<BaseTripViewModel> GetAllTrips();
+
+        TripViewModel GetById(int tripId);
+
     }
 }
