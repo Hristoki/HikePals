@@ -8,13 +8,9 @@ namespace HikePals.Web.ViewModels.Trips
 {
     public class TripViewModel : BaseTripViewModel
     {
-        public string Description { get; set; }
+        public int Id { get; set; }
 
-        public string LocationCityName { get; set; }
-
-        public string Duration { get; set; }
-
-        public int Distance { get; set; }
+        public string CityName { get; set; }
 
         public string UserId { get; set; }
     }

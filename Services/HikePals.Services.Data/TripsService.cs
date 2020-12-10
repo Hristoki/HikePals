@@ -37,9 +37,9 @@
             {
                 destination = new Location
                 {
-                    Name = model.Destination,
+                    Name = model.LocationName,
                     CityId = model.CityId,
-                    CategoryId = model.TypeOfDestinationId,
+                    CategoryId = model.CategoryId,
                 };
             }
 
@@ -47,14 +47,18 @@
 
             var trip = new Trip
             {
-                TripName = model.TripName,
+                Title = model.Title,
                 Description = model.Description,
-                Destination = destination,
+                Location = destination,
                 Duration = model.Duration,
                 Distance = model.Distance,
             };
 
-            var imageExtension = Path.GetExtension(model.TripImage.FileName.ToLower());
+            string imageExtension = null;
+            if (model.TripImage != null)
+            {
+             imageExtension = Path.GetExtension(model.TripImage.FileName.ToLower());
+            }
 
             //if (!AllowedImageExtensions.Contains(imageExtension))
             //{
@@ -81,7 +85,7 @@
 
         private void IsTripNameAvailable(CreateTripInputViewModel model)
         {
-            var isNameFree = this.tripRepositry.AllAsNoTracking().FirstOrDefault(x => x.TripName == model.TripName);
+            var isNameFree = this.tripRepositry.AllAsNoTracking().FirstOrDefault(x => x.Title == model.Title);
 
             if (isNameFree != null)
             {
@@ -94,10 +98,10 @@
             return this.tripRepositry.AllAsNoTracking()
                  .Select(x => new TripViewModel
                  {
-                     LocationCategoryId = x.Destination.CategoryId,
-                     LocationCategoryName = x.Destination.Category.Name,
+                     LocationCategoryId = x.Location.CategoryId,
+                     LocationCategoryName = x.Location.Category.Name,
                      Id = x.Id,
-                     Name = x.TripName,
+                     Title = x.Title,
                      TripImageUrl = x.TripImage == null ? "No image available" : "/images/trips/" + x.TripImage.Id + x.TripImage.Extentsion,
                  }).ToList();
         }
@@ -113,8 +117,8 @@
                     Id = x.Id,
                     Description = x.Description,
                     Distance = x.Distance,
-                    Duration = x.Duration.ToString(),
-                    Name = x.TripName,
+                    Duration = x.Duration,
+                    Title = x.Title,
                     UserId = x.CreatedByUser.Id,
                     TripImageUrl = x.TripImage == null ? "No image available" : "/images/trips/" + x.TripImage.Id + x.TripImage.Extentsion,
                 })
@@ -133,11 +137,11 @@
                    Description = x.Description,
                    Distance = x.Distance,
                    Duration = x.Duration,
-                   TripName = x.TripName,
+                   Title = x.Title,
                    TripImageUrl = x.TripImage == null ? "No image available" : "/images/trips/" + x.TripImage.Id + x.TripImage.Extentsion,
-                   CityId = x.Destination.CityId,
-                   TypeOfDestinationId = x.DestinationId,
-                   Destination = x.Destination.Name,
+                   CityId = x.Location.CityId,
+                   TypeOfDestinationId = x.LocationId,
+                   LocationName = x.Location.Name,
 
                })
                .FirstOrDefault();
@@ -145,10 +149,10 @@
 
         public async Task UpdateAsync(EditTripViewModel model)
         {
-            var destination = this.locationRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == model.Destination);
-            if (destination == null)
+            var location = this.locationRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == model.LocationName);
+            if (location == null)
             {
-                destination = new Location
+                location = new Location
                 {
                     Name = model.Description,
                     CityId = model.CityId,
@@ -156,15 +160,15 @@
                 };
             }
 
-            await this.locationRepository.AddAsync(destination);
-            await this.locationRepository.SaveChangesAsync();
+            //await this.locationRepository.AddAsync(location);
+            //await this.locationRepository.SaveChangesAsync();
 
             var trip = this.tripRepositry.All().FirstOrDefault(x => x.Id == model.Id);
-            trip.TripName = model.TripName;
+            trip.Title = model.Title;
             trip.Duration = model.Duration;
             trip.Description = model.Description;
             trip.Distance = model.Distance;
-            trip.Destination.Id = destination.Id;
+            trip.Location = location;
 
             await this.tripRepositry.SaveChangesAsync();
         }

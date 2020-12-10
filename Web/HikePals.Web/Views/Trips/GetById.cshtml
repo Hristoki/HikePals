@@ -1,13 +1,13 @@
 ﻿
 @model HikePals.Web.ViewModels.Trips.TripViewModel
-@{ this.ViewData["Title"] = Model.Name; }
+@{ this.ViewData["Title"] = Model.Title; }
 
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
         <li class="breadcrumb-item"><a asp-controller="Trips" asp-action="All">Hike Routes Gallery</a></li>
-        <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
     </ol>
 </nav>
 
@@ -36,7 +36,7 @@
 
     <div class="card col-10">
         <div class="card-body">
-            <p class="card-text">This image is in the middle</p>
+            <p class="card-text">@Model.LocationName</p>
         </div>
         <img src="@Model.TripImageUrl" alt="" />
         <div class="card-body">

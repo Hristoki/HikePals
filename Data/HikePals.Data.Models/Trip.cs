@@ -17,12 +17,12 @@
             this.Events = new HashSet<Event>();
         }
 
-        public string TripName { get; set; }
+        public string Title { get; set; }
 
         // [Required]
-        public int DestinationId { get; set; }
+        public int LocationId { get; set; }
 
-        public Location Destination { get; set; }
+        public Location Location { get; set; }
 
         // [Required]
         // [MaxLength(500)]

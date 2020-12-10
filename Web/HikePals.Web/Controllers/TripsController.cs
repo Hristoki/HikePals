@@ -39,7 +39,7 @@
            var viewModel = new CreateTripInputViewModel();
 
            viewModel.CityItems = this.citiesService.GetAllCities();
-           viewModel.TypeOfDestinationItems = this.categoriesService.GetAllLocationCategories();
+           viewModel.CategoryItems = this.categoriesService.GetAllLocationCategories();
 
            return this.View(viewModel);
         }
@@ -53,7 +53,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                input.TypeOfDestinationItems = this.categoriesService.GetAllLocationCategories();
+                input.CategoryItems = this.categoriesService.GetAllLocationCategories();
                 input.CityItems = this.citiesService.GetAllCities();
                 return this.View(input);
             }
@@ -71,7 +71,7 @@
             catch (Exception ex)
             {
                 this.ModelState.AddModelError(string.Empty, ex.Message);
-                input.TypeOfDestinationItems = this.categoriesService.GetAllLocationCategories();
+                input.CategoryItems = this.categoriesService.GetAllLocationCategories();
                 input.CityItems = this.citiesService.GetAllCities();
                 return this.View(input);
             }
@@ -105,7 +105,8 @@
         public async Task<IActionResult> Edit(EditTripViewModel input)
         {
             await this.tripsService.UpdateAsync(input);
-            return this.RedirectToAction("GetById", input.Id);
+            var model = this.tripsService.GetById(input.Id);
+            return this.RedirectToAction("GetById", model);
         }
 
         public async Task<IActionResult> Delete(int id)
