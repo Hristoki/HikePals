@@ -34,7 +34,7 @@
 
         public DbSet<Location> Locations { get; set; }
 
-        public DbSet<LocationCategory> LocationCategories { get; set; }
+        public DbSet<Category> LocationCategories { get; set; }
 
         public DbSet<Message> Messages { get; set; }
 

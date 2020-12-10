@@ -1,7 +1,4 @@
-﻿@model HikePals.Web.ViewModels.Trips.CreateTripInputViewModel
-
-<h1 class="offset-md-3">Create a new trip!</h1>
-
+﻿@model HikePals.Web.ViewModels.Trips.EditTripViewModel
 
 <form method="post" class="col-md-6 offset-md-3" enctype="multipart/form-data">
 
@@ -13,51 +10,47 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Description">Description</label>
-        <textarea asp-for="Description" class="form-control" rows="6"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
+        <label asp-for="@Model.Description">Description</label>
+        <textarea asp-for="@Model.Description" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="@Model.Description" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Destination">Destination / Point of Interest</label>
-        <input asp-for="Destination" class="form-control" />
-        <span asp-validation-for="Destination" class="text-danger"></span>
+        <label asp-for="@Model.Destination">Destination / Point of Interest</label>
+        <input asp-for="@Model.Destination" class="form-control" />
+        <span asp-validation-for="@Model.Destination" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="TypeOfDestinationId">Destination Category</label>
-        <select asp-for="TypeOfDestinationId" class="form-control" asp-items="Model.TypeOfDestinationItems" class="custom-select">
+        <select asp-for="TypeOfDestinationId" class="form-control" asp-items="@Model.CategoriesItems" class="custom-select">
             <option value="">Choose Destination Category</option>
         </select>
         <span asp-validation-for="TypeOfDestinationId" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="CityId">City</label>
+        <label asp-for="TypeOfDestinationId">City</label>
         <select asp-for="CityId" class="form-control" asp-items="Model.CityItems">
             <option value="">Choose City</option>
         </select>
-        <span asp-validation-for="CityId" class="text-danger"></span>
+        <span asp-validation-for="TypeOfDestinationId" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Distance">Distance (km)</label>
+        <label asp-for="Distance">Distance</label>
         <input asp-for="Distance" class="form-control" />
         <span asp-validation-for="Distance" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Duration">Approximate duration (hours)</label>
+        <label asp-for="Duration">Duration</label>
         <input asp-for="Duration" class="form-control" />
         <span asp-validation-for="Duration" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="TripImage"></label>
-        <input asp-for="TripImage" class="form-control" />
-        <span asp-validation-for="TripImage" class="text-danger"></span>
-    </div>
-
+    <div > </div>
+    <input type="hidden" asp-for="Id"/>
     <input type="submit" value="Submit" class="btn-block" />
 
 </form>

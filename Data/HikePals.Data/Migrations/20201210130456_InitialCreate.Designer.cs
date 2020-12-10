@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HikePals.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201206090332_AddPropertiesToTripEntity")]
-    partial class AddPropertiesToTripEntity
+    [Migration("20201210130456_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -150,6 +150,35 @@ namespace HikePals.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("HikePals.Data.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("LocationCategories");
                 });
 
             modelBuilder.Entity("HikePals.Data.Models.City", b =>
@@ -338,35 +367,6 @@ namespace HikePals.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("HikePals.Data.Models.LocationCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("LocationCategories");
                 });
 
             modelBuilder.Entity("HikePals.Data.Models.Message", b =>
@@ -794,7 +794,7 @@ namespace HikePals.Data.Migrations
                         .HasForeignKey("EventId1");
 
                     b.HasOne("HikePals.Data.Models.ApplicationUser", "User")
-                        .WithMany("JoinedTrips")
+                        .WithMany("JoinedEvents")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -802,7 +802,7 @@ namespace HikePals.Data.Migrations
 
             modelBuilder.Entity("HikePals.Data.Models.Location", b =>
                 {
-                    b.HasOne("HikePals.Data.Models.LocationCategory", "Category")
+                    b.HasOne("HikePals.Data.Models.Category", "Category")
                         .WithMany("Locations")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)

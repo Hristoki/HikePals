@@ -13,13 +13,13 @@ namespace HikePals.Services.Data
         private readonly IDeletableEntityRepository<Trip> tripRepositry;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IDeletableEntityRepository<Location> locationRepository;
-        private readonly IDeletableEntityRepository<LocationCategory> categoriesRepository;
+        private readonly IDeletableEntityRepository<Category> categoriesRepository;
 
         public GetHomePageDataService 
             (IDeletableEntityRepository<Trip> tripRepositry,
              IDeletableEntityRepository<ApplicationUser> userRepository,
              IDeletableEntityRepository<Location> locationRepository,
-             IDeletableEntityRepository<LocationCategory> categoriesRepository)
+             IDeletableEntityRepository<Category> categoriesRepository)
         {
             this.tripRepositry = tripRepositry;
             this.userRepository = userRepository;

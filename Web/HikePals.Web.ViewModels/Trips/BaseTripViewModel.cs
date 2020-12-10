@@ -9,7 +9,7 @@
     using HikePals.Data.Models;
     using HikePals.Services.Mapping;
 
-   public class BaseTripViewModel: IMapFrom<Trip>
+    public class BaseTripViewModel
     {
         public int Id { get; set; }
 
@@ -20,7 +20,6 @@
         public int LocationCategoryId { get; set; }
 
         public string LocationCategoryName { get; set; }
-
 
         // TO DO: Remove Later
        //public void CreateMappings(IProfileExpression configuration)

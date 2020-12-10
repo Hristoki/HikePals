@@ -19,7 +19,7 @@ namespace HikePals.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Ratings = new HashSet<Rating>();
             this.Messages = new HashSet<Message>();
-            this.JoinedTrips = new HashSet<EventsUsers>();
+            this.JoinedEvents = new HashSet<EventsUsers>();
             this.Events = new HashSet<Event>();
         }
 
@@ -37,7 +37,7 @@ namespace HikePals.Data.Models
 
         public virtual ICollection<Rating> Ratings { get; set; }
 
-        public virtual ICollection<EventsUsers> JoinedTrips { get; set; }
+        public virtual ICollection<EventsUsers> JoinedEvents { get; set; }
 
         public virtual ICollection<Event> Events { get; set; }
 

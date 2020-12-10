@@ -10,9 +10,9 @@ namespace HikePals.Services.Data
 {
     public class LocationCategoriesService : ILocationCategoriesService
     {
-        private readonly IDeletableEntityRepository<LocationCategory> categoriesRepository;
+        private readonly IDeletableEntityRepository<Category> categoriesRepository;
 
-        public LocationCategoriesService(IDeletableEntityRepository<LocationCategory> categoriesRepository)
+        public LocationCategoriesService(IDeletableEntityRepository<Category> categoriesRepository)
         {
             this.categoriesRepository = categoriesRepository;
         }

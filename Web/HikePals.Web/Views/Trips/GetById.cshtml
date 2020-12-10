@@ -11,7 +11,10 @@
     </ol>
 </nav>
 
-
+<div class="btn-group" role="group" aria-label="Basic example">
+    <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+</div>
 
 <div class="row" style="margin-right: 0px;margin-left: 0px;">
     <div class="col-2">

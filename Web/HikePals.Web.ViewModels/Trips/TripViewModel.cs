@@ -1,12 +1,12 @@
-﻿namespace HikePals.Web.ViewModels.Trips
-{
-    using HikePals.Data.Models;
-    using HikePals.Services.Mapping;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+﻿using HikePals.Data.Models;
+using HikePals.Services.Mapping;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-    public class TripViewModel : BaseTripViewModel, IMapFrom<Trip>
+namespace HikePals.Web.ViewModels.Trips
+{
+    public class TripViewModel : BaseTripViewModel
     {
         public string Description { get; set; }
 

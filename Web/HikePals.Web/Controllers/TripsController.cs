@@ -64,7 +64,17 @@
 
             var user = await this.userManager.GetUserAsync(this.User);
 
+            try
+            {
             await this.tripsService.AddNewTrip(input, user.Id, imagesDirPath);
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                input.TypeOfDestinationItems = this.categoriesService.GetAllLocationCategories();
+                input.CityItems = this.citiesService.GetAllCities();
+                return this.View(input);
+            }
 
             return this.RedirectToAction("All");
         }
@@ -81,6 +91,28 @@
             var model = this.tripsService.GetById(id);
             Console.WriteLine();
             return this.View(model);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var model = this.tripsService.GetEditViewModel(id);
+            model.CityItems = this.citiesService.GetAllCities();
+            model.CategoriesItems = this.categoriesService.GetAllLocationCategories();
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditTripViewModel input)
+        {
+            await this.tripsService.UpdateAsync(input);
+            return this.RedirectToAction("GetById", input.Id);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            await this.tripsService.DeleteAsync(id);
+            return this.RedirectToAction("All");
         }
 
     }

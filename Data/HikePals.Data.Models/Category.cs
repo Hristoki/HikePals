@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace HikePals.Data.Models
 {
-    public class LocationCategory: BaseDeletableModel<int>
+    public class Category: BaseDeletableModel<int>
     {
-        public LocationCategory()
+        public Category()
         {
             this.Locations = new HashSet<Location>();
         }

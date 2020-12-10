@@ -7,6 +7,6 @@
     public class AllTripsViewModel
     {
 
-        public ICollection<BaseTripViewModel> Trips { get; set; }
+        public ICollection<TripViewModel> Trips { get; set; }
     }
 }

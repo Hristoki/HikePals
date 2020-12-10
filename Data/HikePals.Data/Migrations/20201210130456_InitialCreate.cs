@@ -351,8 +351,8 @@ namespace HikePals.Data.Migrations
                     DestinationId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     CreatedByUserId = table.Column<string>(nullable: true),
-                    Length = table.Column<int>(nullable: false),
-                    ApproximateDuration = table.Column<TimeSpan>(nullable: false),
+                    Distance = table.Column<int>(nullable: false),
+                    Duration = table.Column<TimeSpan>(nullable: false),
                     TripImageId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

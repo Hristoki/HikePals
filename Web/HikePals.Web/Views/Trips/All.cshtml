@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HikePals.Web.ViewModels.Trips.BaseTripViewModel>
+﻿@model IEnumerable<HikePals.Web.ViewModels.Trips.TripViewModel>
     <h1>All trips!</h1>
 
 
@@ -9,11 +9,13 @@
 
     <div class="card col-md-5" >
         <div class="embed-responsive embed-responsive-4by3">
-            <img class="card-img-top img-responsive embed-responsive-item" src="@trip.TripImageUrl" alt="@trip.Name">
+            <a asp-action="GetById" asp-route-id="@trip.Id">
+                <img class="card-img-top img-responsive embed-responsive-item" src="@trip.TripImageUrl" alt="@trip.Name">
+            </a> 
         </div>
         
         <div class="card-body">
-            <h5 class="card-title md-1" ><a asp-action="ById" asp-route-id="@trip.Id">@trip.Name</a></h5>
+            <a asp-action="ById" asp-route-id="@trip.Id"><h5 class="card-title md-1">@trip.Name</h5></a>
             <p class="card-text">Some quick example text</p>
             <a asp-action="GetById" asp-route-id="@trip.Id" class="btn btn-primary">Read more</a>
         </div>
