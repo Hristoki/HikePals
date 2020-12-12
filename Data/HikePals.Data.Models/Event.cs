@@ -6,14 +6,15 @@
 
     using HikePals.Data.Common.Models;
 
-    public class Event : BaseDeletableModel<string>
+    public class Event : BaseDeletableModel<int>
     {
         public Event()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.Participants = new HashSet<EventsUsers>();
             this.EventChat = new HashSet<Message>();
         }
+
+        public string Details { get; set; }
 
         public string CreatedById { get; set; }
 

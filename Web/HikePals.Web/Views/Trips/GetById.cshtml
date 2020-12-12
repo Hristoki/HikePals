@@ -37,8 +37,21 @@
     <div class="card col-10">
         <div class="card-body">
             <p class="card-text">@Model.LocationName</p>
+            @*<span class="card-text">@Model.Distance km</span>
+        <span class="card-text">@Model.Duration.TotalHours h</span>*@
+            <div class="d-flex flex-row">
+                <div class="p-2">@Model.LocationCityName</div>
+                <div class="p-2">Distance - @Model.Distance km</div>
+                <div class="p-2">Time - @Model.Duration.TotalHours h</div>
+            </div>
+
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
         </div>
-        <img src="@Model.TripImageUrl" alt="" />
+        <img src="@Model.ImageUrl" alt="" />
         <div class="card-body">
             <p class="card-text">@Model.Description</p>
         </div>

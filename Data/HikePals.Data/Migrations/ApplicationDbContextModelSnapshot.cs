@@ -244,8 +244,10 @@ namespace HikePals.Data.Migrations
 
             modelBuilder.Entity("HikePals.Data.Models.Event", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CreatedById")
                         .HasColumnType("nvarchar(450)");
@@ -255,6 +257,9 @@ namespace HikePals.Data.Migrations
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
@@ -304,9 +309,6 @@ namespace HikePals.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EventId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
@@ -318,11 +320,49 @@ namespace HikePals.Data.Migrations
 
                     b.HasKey("UserId", "EventId");
 
-                    b.HasIndex("EventId1");
+                    b.HasIndex("EventId");
 
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("TripsUsers");
+                });
+
+            modelBuilder.Entity("HikePals.Data.Models.Image", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Extentsion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TripId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("HikePals.Data.Models.Location", b =>
@@ -384,8 +424,8 @@ namespace HikePals.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EventId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("EventId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -553,6 +593,9 @@ namespace HikePals.Data.Migrations
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
 
+                    b.Property<string>("ImageId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -565,60 +608,19 @@ namespace HikePals.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TripImageId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("ImageId")
+                        .IsUnique()
+                        .HasFilter("[ImageId] IS NOT NULL");
 
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("LocationId");
 
-                    b.HasIndex("TripImageId")
-                        .IsUnique()
-                        .HasFilter("[TripImageId] IS NOT NULL");
-
                     b.ToTable("Trips");
-                });
-
-            modelBuilder.Entity("HikePals.Data.Models.TripImage", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Extentsion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TripId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("HikePals.Data.Models.TripsTags", b =>
@@ -789,13 +791,22 @@ namespace HikePals.Data.Migrations
                 {
                     b.HasOne("HikePals.Data.Models.Event", "Event")
                         .WithMany("Participants")
-                        .HasForeignKey("EventId1");
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("HikePals.Data.Models.ApplicationUser", "User")
                         .WithMany("JoinedEvents")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("HikePals.Data.Models.Image", b =>
+                {
+                    b.HasOne("HikePals.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("HikePals.Data.Models.Location", b =>
@@ -849,22 +860,15 @@ namespace HikePals.Data.Migrations
                         .WithMany("CreatedTrips")
                         .HasForeignKey("CreatedByUserId");
 
+                    b.HasOne("HikePals.Data.Models.Image", "Image")
+                        .WithOne("Trip")
+                        .HasForeignKey("HikePals.Data.Models.Trip", "ImageId");
+
                     b.HasOne("HikePals.Data.Models.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HikePals.Data.Models.TripImage", "TripImage")
-                        .WithOne("Trip")
-                        .HasForeignKey("HikePals.Data.Models.Trip", "TripImageId");
-                });
-
-            modelBuilder.Entity("HikePals.Data.Models.TripImage", b =>
-                {
-                    b.HasOne("HikePals.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("HikePals.Data.Models.TripsTags", b =>

@@ -13,7 +13,7 @@
 
         IEnumerable<TripViewModel> GetAllTrips();
 
-        TripViewModel GetById(int tripId);
+        T GetById<T>(int tripId);
 
         EditTripViewModel GetEditViewModel(int tripId);
 

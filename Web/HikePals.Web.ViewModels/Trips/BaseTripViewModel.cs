@@ -22,7 +22,7 @@
         [MinLength(3)]
         public string LocationName { get; set; }
 
-        public string TripImageUrl { get; set; }
+        public string ImageUrl { get; set; }
 
         public int LocationCategoryId { get; set; }
 

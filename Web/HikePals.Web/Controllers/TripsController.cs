@@ -88,16 +88,18 @@
 
         public IActionResult GetById(int id)
         {
-            var model = this.tripsService.GetById(id);
-            Console.WriteLine();
+            var model = this.tripsService.GetById<TripViewModel>(id);
+
             return this.View(model);
         }
 
         public IActionResult Edit(int id)
         {
             var model = this.tripsService.GetEditViewModel(id);
+
             model.CityItems = this.citiesService.GetAllCities();
             model.CategoriesItems = this.categoriesService.GetAllLocationCategories();
+
             return this.View(model);
         }
 
@@ -105,7 +107,7 @@
         public async Task<IActionResult> Edit(EditTripViewModel input)
         {
             await this.tripsService.UpdateAsync(input);
-            var model = this.tripsService.GetById(input.Id);
+            var model = this.tripsService.GetById<TripViewModel>(input.Id);
             return this.RedirectToAction("GetById", model);
         }
 

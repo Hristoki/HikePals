@@ -9,8 +9,8 @@
 
     using HikePals.Data.Common.Repositories;
     using HikePals.Data.Models;
-    using HikePals.Web.ViewModels.Trips;
     using HikePals.Services.Mapping;
+    using HikePals.Web.ViewModels.Trips;
 
     public class TripsService : ITripsService
     {
@@ -18,9 +18,9 @@
         private readonly IDeletableEntityRepository<Trip> tripRepositry;
         private readonly IDeletableEntityRepository<City> cityRepository;
         private readonly IDeletableEntityRepository<Location> locationRepository;
-        private readonly IDeletableEntityRepository<TripImage> imageRepository;
+        private readonly IDeletableEntityRepository<Image> imageRepository;
 
-        public TripsService(IDeletableEntityRepository<Trip> tripRepositry, IDeletableEntityRepository<City> cityRepository, IDeletableEntityRepository<Location> locationRepository, IDeletableEntityRepository<TripImage> imageRepository)
+        public TripsService(IDeletableEntityRepository<Trip> tripRepositry, IDeletableEntityRepository<City> cityRepository, IDeletableEntityRepository<Location> locationRepository, IDeletableEntityRepository<Image> imageRepository)
         {
             this.tripRepositry = tripRepositry;
             this.cityRepository = cityRepository;
@@ -33,6 +33,7 @@
             var destination = this.locationRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == model.Description);
 
             // TO DO: Refactor and Reuse
+
             if (destination == null)
             {
                 destination = new Location
@@ -52,7 +53,10 @@
                 Location = destination,
                 Duration = model.Duration,
                 Distance = model.Distance,
+                CreatedByUserId = userId,
             };
+
+            //TO DO: Fix bug with create a trip without image
 
             string imageExtension = null;
             if (model.TripImage != null)
@@ -60,19 +64,14 @@
              imageExtension = Path.GetExtension(model.TripImage.FileName.ToLower());
             }
 
-            //if (!AllowedImageExtensions.Contains(imageExtension))
-            //{
-            //    throw new ArgumentException("Invalid image type!");
-            //}
-
-            var image = new TripImage
+            var image = new Image
             {
                 Trip = trip,
                 UserId = userId,
                 Extentsion = imageExtension,
             };
 
-            trip.TripImage = image;
+            trip.Image = image;
 
             // Add image to File System
             var physicalPath = $"{path}/trips/{image.Id}{imageExtension}";
@@ -102,26 +101,29 @@
                      LocationCategoryName = x.Location.Category.Name,
                      Id = x.Id,
                      Title = x.Title,
-                     TripImageUrl = x.TripImage == null ? "No image available" : "/images/trips/" + x.TripImage.Id + x.TripImage.Extentsion,
+                     ImageUrl = x.Image == null ? "No image available" : "/images/trips/" + x.Image.Id + x.Image.Extentsion,
                  }).ToList();
         }
 
-        public TripViewModel GetById(int tripId)
+        public T GetById<T>(int tripId)
         {
             return this.tripRepositry
                 .AllAsNoTracking()
                 .Where(x => x.Id == tripId)
-                .Select(x =>
-                new TripViewModel
-                {
-                    Id = x.Id,
-                    Description = x.Description,
-                    Distance = x.Distance,
-                    Duration = x.Duration,
-                    Title = x.Title,
-                    UserId = x.CreatedByUser.Id,
-                    TripImageUrl = x.TripImage == null ? "No image available" : "/images/trips/" + x.TripImage.Id + x.TripImage.Extentsion,
-                })
+                .To<T>()
+                //.Select(x =>
+                //new TripViewModel
+                //{
+                //    Id = x.Id,
+                //    Description = x.Description,
+                //    Distance = x.Distance,
+                //    Duration = x.Duration,
+                //    Title = x.Title,
+                //    UserId = x.CreatedByUser.Id,
+                //    ImageUrl = x.Image == null ? "No image available" : "/images/trips/" + x.Image.Id + x.Image.Extentsion,
+                //    LocationName = x.Location.Name,
+                //    LocationCityName = x.Location.City.Name,
+                //})
                 .FirstOrDefault();
         }
 
@@ -138,7 +140,7 @@
                    Distance = x.Distance,
                    Duration = x.Duration,
                    Title = x.Title,
-                   TripImageUrl = x.TripImage == null ? "No image available" : "/images/trips/" + x.TripImage.Id + x.TripImage.Extentsion,
+                   ImageUrl = x.Image == null ? "No image available" : "/images/trips/" + x.Image.Id + x.Image.Extentsion,
                    CityId = x.Location.CityId,
                    TypeOfDestinationId = x.LocationId,
                    LocationName = x.Location.Name,

@@ -40,7 +40,7 @@
 
         public DbSet<Transport> Transports { get; set; }
 
-        public DbSet<TripImage> Images { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
 

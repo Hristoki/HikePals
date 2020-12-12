@@ -37,10 +37,10 @@
 
         public TimeSpan Duration { get; set; }
 
-        [ForeignKey("TripImage")]
-        public string TripImageId { get; set; }
+        [ForeignKey("Image")]
+        public string ImageId { get; set; }
 
-        public virtual TripImage TripImage { get; set; }
+        public virtual Image Image { get; set; }
 
         public virtual ICollection<TripsTags> Tags { get; set; }
 
