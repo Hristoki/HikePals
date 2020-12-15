@@ -347,13 +347,13 @@ namespace HikePals.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    TripName = table.Column<string>(nullable: true),
-                    DestinationId = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    LocationId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     CreatedByUserId = table.Column<string>(nullable: true),
                     Distance = table.Column<int>(nullable: false),
                     Duration = table.Column<TimeSpan>(nullable: false),
-                    TripImageId = table.Column<string>(nullable: true)
+                    ImageId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -365,15 +365,15 @@ namespace HikePals.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Trips_Locations_DestinationId",
-                        column: x => x.DestinationId,
-                        principalTable: "Locations",
+                        name: "FK_Trips_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Trips_Images_TripImageId",
-                        column: x => x.TripImageId,
-                        principalTable: "Images",
+                        name: "FK_Trips_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -382,11 +382,13 @@ namespace HikePals.Data.Migrations
                 name: "Events",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
+                    Details = table.Column<string>(nullable: true),
                     CreatedById = table.Column<string>(nullable: true),
                     StartTime = table.Column<DateTime>(nullable: false),
                     EndTime = table.Column<DateTime>(nullable: false),
@@ -482,7 +484,7 @@ namespace HikePals.Data.Migrations
                     Content = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<string>(nullable: true),
                     TripId = table.Column<int>(nullable: false),
-                    EventId = table.Column<string>(nullable: true)
+                    EventId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -517,15 +519,14 @@ namespace HikePals.Data.Migrations
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    EventId1 = table.Column<string>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TripsUsers", x => new { x.UserId, x.EventId });
                     table.ForeignKey(
-                        name: "FK_TripsUsers_Events_EventId1",
-                        column: x => x.EventId1,
+                        name: "FK_TripsUsers_Events_EventId",
+                        column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -697,9 +698,11 @@ namespace HikePals.Data.Migrations
                 column: "CreatedByUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Trips_DestinationId",
+                name: "IX_Trips_ImageId",
                 table: "Trips",
-                column: "DestinationId");
+                column: "ImageId",
+                unique: true,
+                filter: "[ImageId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trips_IsDeleted",
@@ -707,11 +710,9 @@ namespace HikePals.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Trips_TripImageId",
+                name: "IX_Trips_LocationId",
                 table: "Trips",
-                column: "TripImageId",
-                unique: true,
-                filter: "[TripImageId] IS NOT NULL");
+                column: "LocationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TripsTags_TagId1",
@@ -724,9 +725,9 @@ namespace HikePals.Data.Migrations
                 column: "TripId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TripsUsers_EventId1",
+                name: "IX_TripsUsers_EventId",
                 table: "TripsUsers",
-                column: "EventId1");
+                column: "EventId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TripsUsers_IsDeleted",
@@ -792,16 +793,16 @@ namespace HikePals.Data.Migrations
                 name: "Trips");
 
             migrationBuilder.DropTable(
-                name: "Locations");
-
-            migrationBuilder.DropTable(
                 name: "Images");
 
             migrationBuilder.DropTable(
-                name: "LocationCategories");
+                name: "Locations");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "LocationCategories");
 
             migrationBuilder.DropTable(
                 name: "Cities");

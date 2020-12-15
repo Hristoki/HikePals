@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HikePals.Data.Seeding
 {
-    public class TransportSeeder : ISeeder
+    public class TransportsSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {

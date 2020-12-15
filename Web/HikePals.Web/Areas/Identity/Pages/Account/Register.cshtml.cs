@@ -94,7 +94,7 @@
             this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (this.ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = this.Input.Email, Email = this.Input.Email };
                 user.CityId = this.Input.CityId;
                 user.DateOfBirth = this.Input.DateOfBirth;
 
@@ -118,7 +118,7 @@
 
                     if (this._userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return this.RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        return this.RedirectToPage("RegisterConfirmation", new { email = this.Input.Email, returnUrl = returnUrl });
                     }
                     else
                     {
@@ -136,7 +136,7 @@
             this.CityItems = this.citiesService.GetAllCities();
 
             // If we got this far, something failed, redisplay form
-            return Page();
+            return this.Page();
         }
     }
 }

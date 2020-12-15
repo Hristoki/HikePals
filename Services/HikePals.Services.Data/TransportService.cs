@@ -1,14 +1,15 @@
-﻿using HikePals.Data.Common.Repositories;
-using HikePals.Data.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using HikePals.Data.Common.Models;
-
-namespace HikePals.Services.Data
+﻿namespace HikePals.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using HikePals.Data.Common.Models;
+    using HikePals.Data.Common.Repositories;
+    using HikePals.Data.Models;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
     public class TransportService : ITransportService
     {
         private readonly IDeletableEntityRepository<Transport> transportRepository;

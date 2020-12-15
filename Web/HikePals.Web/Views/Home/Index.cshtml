@@ -5,5 +5,17 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+    <ul>
+        Total Trips:
+        <li class="list-group-item">@Model.TripsCount</li>
+        Total Locations:
+        <li class="list-group-item">@Model.LocationsCount</li>
+        Total Categories:
+        <li class="list-group-item">@Model.CategoriesCount</li>
+        Total Users:
+        <li class="list-group-item">@Model.UsersCount</li>
+    </ul>
+
 </div>

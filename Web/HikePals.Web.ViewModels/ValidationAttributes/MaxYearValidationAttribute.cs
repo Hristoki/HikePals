@@ -1,14 +1,14 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace MyFirstAspNetCoreApplication.ValidationAttributes
+﻿namespace MyFirstAspNetCoreApplication.ValidationAttributes
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class MaxYearValidationAttribute : ValidationAttribute
     {
         public MaxYearValidationAttribute(int minYear)
         {
            this.MinYear = minYear;
-            this.ErrorMessage = $"Value should be between {minYear} and {DateTime.UtcNow.Year}.";
+           this.ErrorMessage = $"Value should be between {minYear} and {DateTime.UtcNow.Year}.";
         }
 
         public int MinYear { get; }
