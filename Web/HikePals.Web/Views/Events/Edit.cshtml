@@ -1,20 +1,16 @@
-﻿@model HikePals.Web.ViewModels.Events.CreateEventInputViewModel
+﻿@model HikePals.Web.ViewModels.Events.EditEventViewModel
+
+@{ this.ViewData["Title"] = Model.Title; }
+
 
 <form method="post" class="col-md-6 offset-md-3" enctype="multipart/form-data">
 
     <div class="flex-wrap">
         <div class="row-md-6">
             <div class="form-group">
-                <label asp-for="@Model.Title">Name</label>
+                <label asp-for="Title">Name</label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
-
-            </div>
-
-            <div class="form-group">
-                <label asp-for="LocationName">Point of Interest / Destination name</label>
-                <input asp-for="LocationName" class="form-control" />
-                <span asp-validation-for="LocationName" class="text-danger"></span>
             </div>
 
             <div class="row-md-6">
@@ -24,34 +20,23 @@
                     <span asp-validation-for="Details" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="Distance">Distance (km)</label>
-                    <input asp-for="Distance" class="form-control" />
-                    <span asp-validation-for="Distance" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Duration">Approximate duration (hours)</label>
-                    <input asp-for="Duration" class="form-control" />
-                    <span asp-validation-for="Duration" class="text-danger"></span>
-                </div>
-
             </div>
+
 
             <div class="form-group">
                 <label asp-for="StartTime">StartTime</label>
-                <input asp-for="StartTime" class="form-control" type="date" value="@DateTime.Now  />
+                <input asp-for="StartTime" class="form-control" type="date" />
                 <span asp-validation-for="StartTime" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="EndTime">EndTime</label>
-                <input asp-for="EndTime" class="form-control" type="date" value="@DateTime.Now" />
+                <input asp-for="EndTime" class="form-control" type="date" />
                 <span asp-validation-for="EndTime" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="MaxGroupSize">Group Size</label>
+                <label asp-for="MaxGroupSize">MaxGroupSize</label>
                 <input asp-for="MaxGroupSize" class="form-control">
                 <span asp-validation-for="MaxGroupSize" class="text-danger"></span>
             </div>

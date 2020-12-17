@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HikePals.Web.ViewModels.Home
+﻿namespace HikePals.Web.ViewModels.Home
 {
-   public class IndexViewModel
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    public class IndexViewModel
     {
         public int TripsCount { get; set; }
 

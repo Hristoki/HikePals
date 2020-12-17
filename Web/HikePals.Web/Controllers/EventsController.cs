@@ -40,14 +40,45 @@
             var user = await this.userManager.GetUserAsync(this.User);
             await this.eventsService.CreateNewEvent(input, user.Id);
 
-            return this.RedirectToAction("GetById");
+            return this.RedirectToAction(nameof(this.GetById));
         }
 
-        public IActionResult GetById(CreateEventInputViewModel input)
+        public IActionResult GetById(int id)
         {
-            var model = this.eventsService.GetById<EventViewModel>(input.TripId);
-            return this.View("GetById");
+            var model = this.eventsService.GetById<EventViewModel>(id);
+            return this.View(model);
         }
 
+        public IActionResult All()
+        {
+            var model = new AllEventAsListViewModel();
+            model.Events = this.eventsService.GetAllEvents();
+
+            return this.View(model);
+        }
+
+        public IActionResult Edit(int id)
+        {
+           var model = this.eventsService.GetById<EditEventViewModel>(id);
+           model.TransportItems = this.transportService.GetAllTransportTypes();
+           return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditEventViewModel input)
+        {
+
+            //TO DO: Create BaseModel that contains Event Id and pass it to Redirection
+            await this.eventsService.UpdateAsync(input);
+            var eventId = input.Id;
+            return this.RedirectToAction("GetbyId", new { id = eventId });
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.eventsService.DeleteAsync(id);
+            var model = this.eventsService.GetAllEvents();
+            return this.RedirectToAction(nameof(this.All));
+        }
     }
 }

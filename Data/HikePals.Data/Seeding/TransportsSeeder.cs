@@ -22,7 +22,7 @@ namespace HikePals.Data.Seeding
             await dbContext.Transports.AddAsync(new Models.Transport { Name = "Taxi" });
             await dbContext.Transports.AddAsync(new Models.Transport { Name = "Boat" });
             await dbContext.Transports.AddAsync(new Models.Transport { Name = "Bycycle" });
-            await dbContext.Transports.AddAsync(new Models.Transport { Name = "Motercycle" });
+            await dbContext.Transports.AddAsync(new Models.Transport { Name = "Motоrcycle" });
             await dbContext.Transports.AddAsync(new Models.Transport { Name = "No transport needed" });
         }
     }

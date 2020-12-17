@@ -31,6 +31,7 @@
                               new CitySeeder(),
                               new LocationCategoriesSeeder(),
                               new TransportsSeeder(),
+                              new UsersSeeder(),
                           };
 
             foreach (var seeder in seeders)

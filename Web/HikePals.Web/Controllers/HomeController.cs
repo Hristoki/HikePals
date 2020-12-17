@@ -1,16 +1,24 @@
 ﻿namespace HikePals.Web.Controllers
 {
     using System.Diagnostics;
-
+    using HikePals.Services.Data;
     using HikePals.Web.ViewModels;
 
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
+        private readonly IGetHomePageDataService getHomePageDataService;
+
+        public HomeController(IGetHomePageDataService getHomePageDataService)
+        {
+            this.getHomePageDataService = getHomePageDataService;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var model = this.getHomePageDataService.GetCounts();
+            return this.View(model);
         }
 
         public IActionResult Privacy()

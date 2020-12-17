@@ -14,6 +14,8 @@
             this.EventChat = new HashSet<Message>();
         }
 
+        public string Title { get; set; }
+
         public string Details { get; set; }
 
         public string CreatedById { get; set; }

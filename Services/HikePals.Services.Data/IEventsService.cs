@@ -15,7 +15,7 @@
 
         Task CreateNewEvent(CreateEventInputViewModel input, string userId);
 
-        IEnumerable<EventViewModel> GetAllTrips();
+        IEnumerable<EventViewModel> GetAllEvents();
 
         T GetById<T>(int tripId);
 

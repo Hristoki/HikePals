@@ -11,6 +11,7 @@
     using HikePals.Services.Mapping;
     using HikePals.Web.ViewModels.Events;
     using HikePals.Web.ViewModels.Trips;
+    using HikePals.Web.ViewModels.Users;
 
     public class EventsService : IEventsService
     {
@@ -33,21 +34,40 @@
                 StartTime = input.StartTime,
                 TransportId = input.TransportId,
                 MaxGroupSize = input.MaxGroupSize,
-                TripId = input.TripId, 
-            }; 
+                TripId = input.TripId,
+            };
 
             await this.eventsRepository.AddAsync(eventEntity);
             await this.eventsRepository.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var eventEntity = this.eventsRepository.All().FirstOrDefault(x => x.Id == id);
+            this.eventsRepository.Delete(eventEntity);
+            await this.eventsRepository.SaveChangesAsync();
+
         }
 
-        public IEnumerable<EventViewModel> GetAllTrips()
+        public IEnumerable<EventViewModel> GetAllEvents()
         {
-            throw new NotImplementedException();
+            return this.eventsRepository.AllAsNoTracking().To<EventViewModel>().ToList();
+            //.Select(x => new EventViewModel
+            //{Details = x.Details,
+            //Id = x.Id,
+            //StartTime = x.StartTime,
+            //EndTime = x.EndTime,
+            //MaxGroupSize = x.MaxGroupSize,
+            //TripDistance = x.Trip.Distance,
+            //TripDuration = x.Trip.Duration,
+            //TripTitle = x.Trip.Title,
+            //Image = $@"/images/trips/{x.Trip.Image.Id + x.Trip.Image.Extentsion}",
+            //Participants = x.Participants.Select(x => new UserViewModel {Name = x.User.Name, CityName = x.User.City.Name, DateOfBirth = x.User.DateOfBirth, }).ToList(),
+            //TransportName = x.Transport.Name,
+            //})
+            //.ToList();
+
+            //
         }
 
         public T GetById<T>(int id)
@@ -65,9 +85,21 @@
            return this.tripsRepository.AllAsNoTracking().Where(x => x.Id == tripId).To<CreateEventInputViewModel>().FirstOrDefault();
         }
 
-        public Task UpdateAsync(EditEventViewModel model)
+        public async Task UpdateAsync(EditEventViewModel input)
         {
-            throw new NotImplementedException();
+            var eventToUpdate = this.eventsRepository
+                .All()
+                .Where(x => x.Id == input.Id)
+                .FirstOrDefault();
+
+            eventToUpdate.Title = input.Title;
+            eventToUpdate.TransportId = input.TransportId;
+            eventToUpdate.StartTime = input.StartTime;
+            eventToUpdate.EndTime = input.EndTime;
+            eventToUpdate.Details = input.Details;
+            eventToUpdate.MaxGroupSize = input.MaxGroupSize;
+
+            await this.eventsRepository.SaveChangesAsync();
         }
     }
 }
