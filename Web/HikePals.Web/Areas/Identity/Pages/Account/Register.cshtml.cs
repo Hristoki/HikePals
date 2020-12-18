@@ -77,6 +77,11 @@
             public DateTime DateOfBirth { get; set; }
 
             [Required]
+            [MinLength(3)]
+            [MaxLength(50)]
+            public string Name { get; set; }
+
+            [Required]
             [BindProperty]
             public int CityId { get; set; }
         }
@@ -97,8 +102,9 @@
                 var user = new ApplicationUser { UserName = this.Input.Email, Email = this.Input.Email };
                 user.CityId = this.Input.CityId;
                 user.DateOfBirth = this.Input.DateOfBirth;
+                user.Name = this.Input.Name;
 
-                var result = await this._userManager.CreateAsync(user, Input.Password);
+                var result = await this._userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {
                     this._logger.LogInformation("User created a new account with password.");

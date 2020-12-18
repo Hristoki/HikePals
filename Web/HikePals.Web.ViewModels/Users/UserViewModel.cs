@@ -16,6 +16,8 @@
 
         public DateTime DateOfBirth { get; set; }
 
+        public string UserId { get; set; }
+
         public int Age => DateTime.UtcNow.Year - this.DateOfBirth.Year;
 
         public void CreateMappings(IProfileExpression configuration)

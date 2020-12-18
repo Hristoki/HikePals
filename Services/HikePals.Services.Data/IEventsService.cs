@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
-
+    using HikePals.Data.Models;
     using HikePals.Web.ViewModels.Events;
     using HikePals.Web.ViewModels.Trips;
 
@@ -19,10 +19,11 @@
 
         T GetById<T>(int tripId);
 
-        EditEventViewModel GetEditViewModel(int eventId);
-
         Task UpdateAsync(EditEventViewModel model);
 
         Task DeleteAsync(int id);
+
+        Task JoinEvent(ApplicationUser user, int id);
+        Task LeaveEvent(ApplicationUser user, int id);
     }
 }

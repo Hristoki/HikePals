@@ -17,11 +17,13 @@
     {
         private readonly IDeletableEntityRepository<Event> eventsRepository;
         private readonly IDeletableEntityRepository<Trip> tripsRepository;
+        private readonly IDeletableEntityRepository<EventsUsers> evenUserRepository;
 
-        public EventsService(IDeletableEntityRepository<Event> eventsRepository, IDeletableEntityRepository<Trip> tripsRepository)
+        public EventsService(IDeletableEntityRepository<Event> eventsRepository, IDeletableEntityRepository<Trip> tripsRepository, IDeletableEntityRepository<EventsUsers> evenUserRepository)
         {
             this.eventsRepository = eventsRepository;
             this.tripsRepository = tripsRepository;
+            this.evenUserRepository = evenUserRepository;
         }
 
         public async Task CreateNewEvent(CreateEventInputViewModel input, string userId)
@@ -37,6 +39,7 @@
                 TripId = input.TripId,
             };
 
+            eventEntity.Participants.Add(new EventsUsers { UserId = userId, EventId = eventEntity.Id });
             await this.eventsRepository.AddAsync(eventEntity);
             await this.eventsRepository.SaveChangesAsync();
         }
@@ -46,28 +49,11 @@
             var eventEntity = this.eventsRepository.All().FirstOrDefault(x => x.Id == id);
             this.eventsRepository.Delete(eventEntity);
             await this.eventsRepository.SaveChangesAsync();
-
         }
 
         public IEnumerable<EventViewModel> GetAllEvents()
         {
             return this.eventsRepository.AllAsNoTracking().To<EventViewModel>().ToList();
-            //.Select(x => new EventViewModel
-            //{Details = x.Details,
-            //Id = x.Id,
-            //StartTime = x.StartTime,
-            //EndTime = x.EndTime,
-            //MaxGroupSize = x.MaxGroupSize,
-            //TripDistance = x.Trip.Distance,
-            //TripDuration = x.Trip.Duration,
-            //TripTitle = x.Trip.Title,
-            //Image = $@"/images/trips/{x.Trip.Image.Id + x.Trip.Image.Extentsion}",
-            //Participants = x.Participants.Select(x => new UserViewModel {Name = x.User.Name, CityName = x.User.City.Name, DateOfBirth = x.User.DateOfBirth, }).ToList(),
-            //TransportName = x.Transport.Name,
-            //})
-            //.ToList();
-
-            //
         }
 
         public T GetById<T>(int id)
@@ -75,9 +61,39 @@
             return this.eventsRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
         }
 
-        public EditEventViewModel GetEditViewModel(int tripId)
+        public async Task JoinEvent(ApplicationUser user, int tripId)
         {
-            throw new NotImplementedException();
+            var eventUser = this.evenUserRepository.All().FirstOrDefault(x => x.UserId == user.Id && x.EventId == tripId);
+
+            if (eventUser != null)
+            {
+                throw new ArgumentException("This user has already joined the event!");
+            }
+
+            var eventEntity = this.eventsRepository.All().FirstOrDefault(x => x.Id == tripId);
+
+            if (eventEntity.MaxGroupSize == eventEntity.Participants.Count())
+            {
+                throw new ArgumentException("This event is full! You can't join this event! ");
+            }
+
+            eventEntity.Participants.Add(new EventsUsers { UserId = user.Id, EventId = tripId });
+            await this.eventsRepository.SaveChangesAsync();
+        }
+
+        public async Task LeaveEvent(ApplicationUser user, int id)
+        {
+            var eventUser = this.evenUserRepository.All().FirstOrDefault(x => x.UserId == user.Id && x.EventId == id);
+
+            if (eventUser == null)
+            {
+                throw new ArgumentException("This user does not take part in the event!");
+            }
+
+            var eventEntity = this.eventsRepository.All().FirstOrDefault(x => x.Id == id);
+            eventEntity.Participants.Remove(eventUser);
+
+            await this.eventsRepository.SaveChangesAsync();
         }
 
         public CreateEventInputViewModel MapTripData(int tripId)

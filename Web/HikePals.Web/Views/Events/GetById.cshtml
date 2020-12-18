@@ -6,7 +6,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
-        <li class="breadcrumb-item"><a asp-controller="Trips" asp-action="All">Hike Routes Gallery</a></li>
+        <li class="breadcrumb-item"><a asp-controller="Events" asp-action="All">Events</a></li>
         <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
     </ol>
 </nav>
@@ -14,7 +14,15 @@
 <div class="btn-group" role="group" aria-label="Basic example">
     <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
     <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+    @if (Model.MaxGroupSize == Model.Participants.Count() || Model.HasJoinedEvent == true)
+    {
+    <a type="button" class="btn btn-secondary disabled" asp-action="Join" asp-route-id="@Model.Id">Join</a>
+
+    }
+    else
+    {
     <a type="button" class="btn btn-success" asp-action="Join" asp-route-id="@Model.Id">Join</a>
+    }
     <a type="button" class="btn btn-danger" asp-action="Leave" asp-route-id="@Model.Id">Leave</a>
 </div>
 
@@ -25,12 +33,6 @@
             <div class="p-2">Distance - @Model.TripDistance km</div>
             <div class="p-2">Time - @Model.TripDuration h</div>
         </div>
-
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
         <div class="col-10"></div>
 
     </div>
@@ -66,29 +68,39 @@
                     <tr>
                         <th scope="col">Name:</th>
                         <th scope="col">Age: </th>
-                        <th scope="col">From: </th>
+                        <th scope="col">From:</th>
                     </tr>
                 </thead>
                 @if (Model.Participants.Count() > 0)
                 {
                     @foreach (var participant in Model.Participants)
                     {
-                        <tr>
-                            <td>@participant.Name</td>
-                            <td>@participant.Age</td>
-                            <td>@participant.CityName</td>
-                        </tr>
+            <tr>
+                <td>@participant.Name</td>
+                <td>@participant.Age</td>
+                <td>@participant.CityName</td>
+                @if (this.User.IsInRole("Administrator") || Model.CreatedBy == Model.UserId)
+                {
+                    <td>
+                        <a type="button" class="close" aria-label="Close" alt="Remove" asp-action="Leave" asp-route-id="@Model.Id">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </td>
+                }
+            </tr>
                     }
                 }
                 else
                 {
                     @for (int i = 0; i < Model.MaxGroupSize; i++)
                     {
-                        <li>
+                       <tr>
+
                             <td></td>
                             <td></td>
                             <td></td>
-                        </li>
+                        
+                       </tr>
                     }
                 }
 

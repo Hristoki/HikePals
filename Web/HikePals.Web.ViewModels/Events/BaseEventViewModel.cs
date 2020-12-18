@@ -14,7 +14,8 @@
 
         public string Details { get; set; }
 
-        public int ApplicationUserId { get; set; }
+        public string UserId { get; set; }
+
 
         public DateTime StartTime { get; set; }
 

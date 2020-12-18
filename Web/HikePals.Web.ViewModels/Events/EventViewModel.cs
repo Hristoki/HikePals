@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
 
     using AutoMapper;
@@ -13,13 +14,15 @@
     {
         public string Image { get; set; }
 
+        public string CreatedBy { get; set; }
+
+        public bool HasJoinedEvent => this.Participants.FirstOrDefault(x => x.UserId == this.UserId) == null ? false : true;
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Event, EventViewModel>()
-                //.ForMember(t => t.TripId, s => s.MapFrom(x => x.Id))
-                .ForMember(t => t.Image, s => s.MapFrom(x => "/images/trips/" + x.Trip.Image.Id + x.Trip.Image.Extentsion));
-                //.ForMember(t => t.TripDuration, s => s.MapFrom(x => x.Trip.Duration))
-                //.ForMember(t => t.TripTitle, s => s.MapFrom(x => x.Trip.Title));
+                .ForMember(t => t.Image, s => s.MapFrom(x => "/images/trips/" + x.Trip.Image.Id + x.Trip.Image.Extentsion))
+                .ForMember(t => t.CreatedBy, s => s.MapFrom(x => x.CreatedById));
         }
     }
 }

@@ -43,9 +43,12 @@
             return this.RedirectToAction(nameof(this.GetById));
         }
 
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var model = this.eventsService.GetById<EventViewModel>(id);
+            var user = await this.userManager.GetUserAsync(this.User);
+            model.UserId = user.Id;
+
             return this.View(model);
         }
 
@@ -67,10 +70,9 @@
         [HttpPost]
         public async Task<IActionResult> Edit(EditEventViewModel input)
         {
-
-            //TO DO: Create BaseModel that contains Event Id and pass it to Redirection
             await this.eventsService.UpdateAsync(input);
             var eventId = input.Id;
+
             return this.RedirectToAction("GetbyId", new { id = eventId });
         }
 
@@ -79,6 +81,40 @@
             await this.eventsService.DeleteAsync(id);
             var model = this.eventsService.GetAllEvents();
             return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> Join(int id)
+        {
+           var user = await this.userManager.GetUserAsync(this.User);
+
+           try
+           {
+              await this.eventsService.JoinEvent(user, id);
+           }
+           catch (Exception ex)
+           {
+               this.ModelState.AddModelError(string.Empty, ex.Message);
+               return this.RedirectToAction("GetbyId", new { id = id });
+            }
+
+           return this.RedirectToAction("GetbyId", new { id });
+        }
+
+        public async Task<IActionResult> Leave(int id)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            try
+            {
+                await this.eventsService.LeaveEvent(user, id);
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.RedirectToAction("GetbyId", new { id = id });
+            }
+
+            return this.RedirectToAction("GetbyId", new { id });
         }
     }
 }
