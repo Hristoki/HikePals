@@ -11,9 +11,9 @@
 
     public class CountriesService : ICountriesService
     {
-        private readonly IDeletableEntityRepository<Country> countryRepository;
+        private readonly IRepository<Country> countryRepository;
 
-        public CountriesService(IDeletableEntityRepository<Country> countryRepository)
+        public CountriesService(IRepository<Country> countryRepository)
         {
             this.countryRepository = countryRepository;
         }

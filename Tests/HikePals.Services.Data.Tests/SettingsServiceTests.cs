@@ -20,7 +20,7 @@
         [Fact]
         public void GetCountShouldReturnCorrectNumber()
         {
-            var repository = new Mock<IDeletableEntityRepository<Setting>>();
+            var repository = new Mock<IRepository<Setting>>();
             repository.Setup(r => r.All()).Returns(new List<Setting>
                                                         {
                                                             new Setting(),

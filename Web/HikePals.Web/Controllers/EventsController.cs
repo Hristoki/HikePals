@@ -55,7 +55,7 @@
         public IActionResult All()
         {
             var model = new AllEventAsListViewModel();
-            model.Events = this.eventsService.GetAllEvents();
+            model.Events = this.eventsService.GetAll();
 
             return this.View(model);
         }
@@ -79,7 +79,7 @@
         public async Task<IActionResult> Delete(int id)
         {
             await this.eventsService.DeleteAsync(id);
-            var model = this.eventsService.GetAllEvents();
+            var model = this.eventsService.GetAll();
             return this.RedirectToAction(nameof(this.All));
         }
 

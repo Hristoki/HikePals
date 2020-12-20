@@ -37,6 +37,7 @@
                 TransportId = input.TransportId,
                 MaxGroupSize = input.MaxGroupSize,
                 TripId = input.TripId,
+                Title = input.Title,
             };
             @event.Participants.Add(new EventsUsers { UserId = userId, EventId = @event.Id });
             await this.eventsRepository.AddAsync(@event);
@@ -52,14 +53,29 @@
             await this.eventsRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<EventViewModel> GetAllEvents()
+        public bool Exists(int id)
+        {
+           return this.eventsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id) == null ? false : true;
+        }
+
+        public IEnumerable<EventViewModel> GetAll()
         {
             return this.eventsRepository.AllAsNoTracking().To<EventViewModel>().ToList();
+        }
+
+        public IEnumerable<AdminEventViewModel> GetAllWithDeleted()
+        {
+            return this.eventsRepository.AllWithDeleted().To<AdminEventViewModel>().ToList();
         }
 
         public T GetById<T>(int id)
         {
             return this.eventsRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
+        }
+
+        public int GetCount()
+        {
+            return this.eventsRepository.AllAsNoTracking().Count();
         }
 
         public async Task JoinEvent(ApplicationUser user, int tripId)
@@ -100,6 +116,13 @@
         public CreateEventInputViewModel MapTripData(int tripId)
         {
            return this.tripsRepository.AllAsNoTracking().Where(x => x.Id == tripId).To<CreateEventInputViewModel>().FirstOrDefault();
+        }
+
+        public async Task RestoreAsync(int id)
+        {
+            var eventEntity = await this.eventsRepository.GetByIdWithDeletedAsync(id);
+            eventEntity.IsDeleted = false;
+            await this.eventsRepository.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(EditEventViewModel input)

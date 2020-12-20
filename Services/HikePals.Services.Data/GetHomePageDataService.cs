@@ -10,16 +10,16 @@ namespace HikePals.Services.Data
 {
     public class GetHomePageDataService : IGetHomePageDataService
     {
-        private readonly IDeletableEntityRepository<Trip> tripRepositry;
-        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
-        private readonly IDeletableEntityRepository<Location> locationRepository;
-        private readonly IDeletableEntityRepository<Category> categoriesRepository;
+        private readonly IRepository<Trip> tripRepositry;
+        private readonly IRepository<ApplicationUser> userRepository;
+        private readonly IRepository<Location> locationRepository;
+        private readonly IRepository<Category> categoriesRepository;
 
         public GetHomePageDataService 
-            (IDeletableEntityRepository<Trip> tripRepositry,
-             IDeletableEntityRepository<ApplicationUser> userRepository,
-             IDeletableEntityRepository<Location> locationRepository,
-             IDeletableEntityRepository<Category> categoriesRepository)
+            (IRepository<Trip> tripRepositry,
+             IRepository<ApplicationUser> userRepository,
+             IRepository<Location> locationRepository,
+             IRepository<Category> categoriesRepository)
         {
             this.tripRepositry = tripRepositry;
             this.userRepository = userRepository;

@@ -15,7 +15,9 @@
 
         Task<int> CreateNewEvent(CreateEventInputViewModel input, string userId);
 
-        IEnumerable<EventViewModel> GetAllEvents();
+        IEnumerable<EventViewModel> GetAll();
+
+        IEnumerable<AdminEventViewModel> GetAllWithDeleted();
 
         T GetById<T>(int tripId);
 
@@ -24,6 +26,12 @@
         Task DeleteAsync(int id);
 
         Task JoinEvent(ApplicationUser user, int id);
+
         Task LeaveEvent(ApplicationUser user, int id);
+
+        bool Exists(int id);
+
+        Task RestoreAsync(int id);
+        int GetCount();
     }
 }

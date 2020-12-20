@@ -15,12 +15,12 @@
     public class TripsService : ITripsService
     {
         private static readonly string[] AllowedImageExtensions = { ".jpeg", ".jpg", ".png", ".tiff", ".gif" };
-        private readonly IDeletableEntityRepository<Trip> tripRepositry;
-        private readonly IDeletableEntityRepository<City> cityRepository;
-        private readonly IDeletableEntityRepository<Location> locationRepository;
-        private readonly IDeletableEntityRepository<Image> imageRepository;
+        private readonly IRepository<Trip> tripRepositry;
+        private readonly IRepository<City> cityRepository;
+        private readonly IRepository<Location> locationRepository;
+        private readonly IRepository<Image> imageRepository;
 
-        public TripsService(IDeletableEntityRepository<Trip> tripRepositry, IDeletableEntityRepository<City> cityRepository, IDeletableEntityRepository<Location> locationRepository, IDeletableEntityRepository<Image> imageRepository)
+        public TripsService(IRepository<Trip> tripRepositry, IRepository<City> cityRepository, IRepository<Location> locationRepository, IRepository<Image> imageRepository)
         {
             this.tripRepositry = tripRepositry;
             this.cityRepository = cityRepository;
@@ -181,6 +181,11 @@
             this.tripRepositry.Delete(trip);
             await this.tripRepositry.SaveChangesAsync();
 
+        }
+
+        public int GetCount()
+        {
+          return this.tripRepositry.AllAsNoTracking().Count();
         }
     }
 }

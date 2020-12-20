@@ -12,9 +12,9 @@
 
     public class TransportService : ITransportService
     {
-        private readonly IDeletableEntityRepository<Transport> transportRepository;
+        private readonly IRepository<Transport> transportRepository;
 
-        public TransportService(IDeletableEntityRepository<Transport> transportRepository)
+        public TransportService(IRepository<Transport> transportRepository)
         {
             this.transportRepository = transportRepository;
         }

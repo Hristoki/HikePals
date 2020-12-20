@@ -9,6 +9,7 @@
     using HikePals.Data.Repositories;
     using HikePals.Data.Seeding;
     using HikePals.Services.Data;
+    using HikePals.Services.Data.UserServices;
     using HikePals.Services.Mapping;
     using HikePals.Services.Messaging;
     using HikePals.Web.ViewModels;
@@ -79,6 +80,7 @@
             services.AddTransient<ITripsService, TripsService>();
             services.AddTransient<IEventsService, EventsService>();
             services.AddTransient<IRatingsService, RatingsService>();
+            services.AddTransient<IUsersService, UsersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

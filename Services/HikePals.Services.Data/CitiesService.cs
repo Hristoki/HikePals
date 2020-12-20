@@ -12,9 +12,9 @@
 
     public class CitiesService : ICitiesService
     {
-        private readonly IDeletableEntityRepository<City> cityRepository;
+        private readonly IRepository<City> cityRepository;
 
-        public CitiesService(IDeletableEntityRepository<City> cityRepository)
+        public CitiesService(IRepository<City> cityRepository)
         {
             this.cityRepository = cityRepository;
         }

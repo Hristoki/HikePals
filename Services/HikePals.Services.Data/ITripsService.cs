@@ -20,6 +20,6 @@
         Task UpdateAsync(EditTripViewModel model);
 
         Task DeleteAsync(int id);
-
+        int GetCount();
     }
 }

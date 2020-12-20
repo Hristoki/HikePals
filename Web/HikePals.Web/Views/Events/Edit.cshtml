@@ -44,7 +44,7 @@
             <div class="form-group">
                 <label asp-for="TransportId">Transport</label>
                 <select asp-for="TransportId" class="form-control" asp-items="Model.TransportItems" class="custom-select">
-                    <option value="">Choose main transport</option>
+                    <option value="">@Model.TransportName</option>
                 </select>
                 <span asp-validation-for="TransportId" class="text-danger"></span>
             </div>

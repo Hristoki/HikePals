@@ -1,0 +1,100 @@
+﻿@model IEnumerable<HikePals.Web.ViewModels.Events.AdminEventViewModel>
+
+@{
+    ViewData["Title"] = "Events Overview";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedOn)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+
+                <td>
+                    @if (item.IsDeleted == false)
+                    {
+                        @Html.DisplayFor(modelItem => item.IsDeleted)
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.DeletedOn)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedOn)
+                </td>
+                <td>
+                    @if (item.IsDeleted)
+                    {
+                        <a type="button" class="btn disabled" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a type = "button" class="btn disabled" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    }
+                    else
+                    {
+                    <a type="button" class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a type="button" class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    }
+
+                    @if (item.IsDeleted)
+                    {
+                        <a type="button" class="btn btn-primary" asp-action="Restore" asp-route-id="@item.Id">Restore</a>
+                    }
+                    else
+                    {
+                        <a type="button" class="btn disabled">Restore</a>
+                    }
+
+                    @if (item.IsDeleted)
+                    {
+                        <a type="button" class="btn disabled" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                    else
+                    {
+                        <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

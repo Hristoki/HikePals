@@ -1,23 +1,35 @@
 ﻿namespace HikePals.Web.Areas.Administration.Controllers
 {
+    using HikePals.Data.Models;
     using HikePals.Services.Data;
+    using HikePals.Services.Data.UserServices;
+    using HikePals.Web.Areas.Administration.Models;
     using HikePals.Web.ViewModels.Administration.Dashboard;
-
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class DashboardController : AdministrationController
     {
-        private readonly ISettingsService settingsService;
+        private readonly ITripsService tripsService;
+        private readonly IEventsService eventsService;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUsersService usersService;
 
-        public DashboardController(ISettingsService settingsService)
+        public DashboardController(ITripsService tripsService, IEventsService eventsService, UserManager<ApplicationUser> userManager, IUsersService usersService)
         {
-            this.settingsService = settingsService;
+            this.tripsService = tripsService;
+            this.eventsService = eventsService;
+            this.userManager = userManager;
+            this.usersService = usersService;
         }
 
         public IActionResult Index()
         {
-            var viewModel = new IndexViewModel { SettingsCount = this.settingsService.GetCount(), };
-            return this.View(viewModel);
+            var model = new DashboardIndexViewModel();
+            model.TripsCount = this.tripsService.GetCount();
+            model.EventsCount = this.eventsService.GetCount();
+            model.UsersCount =  this.usersService.GetCount();
+            return this.View(model);
         }
     }
 }
