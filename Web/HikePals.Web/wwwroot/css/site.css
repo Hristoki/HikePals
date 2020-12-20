@@ -66,3 +66,13 @@ body {
     color: red;
     opacity: 1;
 }
+
+#star :hover {
+    color: orange;
+}
+
+/*.fas {
+    display: inline;
+    list-style-type: none;
+    float: left;
+}*/

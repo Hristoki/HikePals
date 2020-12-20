@@ -39,8 +39,8 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            //configuration.CreateMap<Trip, CreateEventInputViewModel>()
-            //    .ForMember(t => t.TripId, s => s.MapFrom(x => x.Id));
+            configuration.CreateMap<Trip, CreateEventInputViewModel>()
+                .ForMember(t => t.TripId, s => s.MapFrom(x => x.Id));
 
             configuration.CreateMap<CreateEventInputViewModel, Event>()
                 .ForMember(t => t.Title, s => s.MapFrom(x => x.Title));

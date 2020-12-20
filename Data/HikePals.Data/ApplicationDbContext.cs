@@ -44,6 +44,8 @@
 
         public DbSet<Tag> Tags { get; set; }
 
+        public DbSet<Rating> Ratings { get; set; }
+
         public DbSet<Rating> UsersRatings { get; set; }
 
         public DbSet<EventsUsers> TripsUsers { get; set; }

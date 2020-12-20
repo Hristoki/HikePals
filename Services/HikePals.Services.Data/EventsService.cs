@@ -26,9 +26,9 @@
             this.evenUserRepository = evenUserRepository;
         }
 
-        public async Task CreateNewEvent(CreateEventInputViewModel input, string userId)
+        public async Task<int> CreateNewEvent(CreateEventInputViewModel input, string userId)
         {
-            var eventEntity = new Event
+            var @event = new Event
             {
                 CreatedById = userId,
                 Details = input.Details,
@@ -38,10 +38,11 @@
                 MaxGroupSize = input.MaxGroupSize,
                 TripId = input.TripId,
             };
-
-            eventEntity.Participants.Add(new EventsUsers { UserId = userId, EventId = eventEntity.Id });
-            await this.eventsRepository.AddAsync(eventEntity);
+            @event.Participants.Add(new EventsUsers { UserId = userId, EventId = @event.Id });
+            await this.eventsRepository.AddAsync(@event);
             await this.eventsRepository.SaveChangesAsync();
+            return @event.Id;
+
         }
 
         public async Task DeleteAsync(int id)

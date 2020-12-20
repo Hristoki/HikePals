@@ -454,28 +454,37 @@ namespace HikePals.Data.Migrations
 
             modelBuilder.Entity("HikePals.Data.Models.Rating", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("TripId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<byte>("Rate")
-                        .HasColumnType("tinyint");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte>("Value")
+                        .HasColumnType("tinyint");
 
                     b.HasKey("UserId", "TripId");
 
+                    b.HasIndex("IsDeleted");
+
                     b.HasIndex("TripId");
 
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("UsersRatings");
+                    b.ToTable("Rating");
                 });
 
             modelBuilder.Entity("HikePals.Data.Models.Setting", b =>
@@ -854,7 +863,9 @@ namespace HikePals.Data.Migrations
 
                     b.HasOne("HikePals.Data.Models.ApplicationUser", "User")
                         .WithMany("Ratings")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HikePals.Data.Models.Trip", b =>

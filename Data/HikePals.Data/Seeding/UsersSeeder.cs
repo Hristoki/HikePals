@@ -22,42 +22,45 @@
                 return;
             }
 
-            await SeedUserAsync(userManager, "admin@gmail.com");
+            await SeedUserAsync(userManager, "admin");
+
+
             for (int i = 1; i < 20; i++)
             {
                 await SeedUserAsync(userManager, $"testUser{i}");
             }
-            await SeedUserAsync(userManager, "hristo@gmail.com");
+
+            //await SeedUserAsync(userManager, "hristo@gmail.com");
         }
 
         private static async Task SeedUserAsync(UserManager<ApplicationUser> userManager, string username)
         {
-            var user = await userManager.FindByNameAsync(username);
+            ApplicationUser user;
             IdentityResult result = new IdentityResult();
 
-            if (user == null && username == "admin@gmail.com")
+            if (username == "admin")
             {
-                var appUser = new ApplicationUser
+                user = new ApplicationUser
                 {
                     UserName = username,
-                    Email = username,
+                    Email = "admin@gmail.com",
                     DateOfBirth = DateTime.UtcNow,
                     CityId = 2,
                     Name = "admin",
                 };
 
-                var password = "admin";
+                var password = "123456";
 
-                result = userManager.CreateAsync(appUser, password).Result;
+                result = userManager.CreateAsync(user, password).Result;
 
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, GlobalConstants.AdministratorRoleName);
                 }
             }
-            else if (user == null && username.StartsWith("test"))
+            else if (username.StartsWith("test"))
             {
-                var appUser = new ApplicationUser
+                user = new ApplicationUser
                 {
                     UserName = username,
                     Email = username,
@@ -68,7 +71,7 @@
 
                 var password = username;
 
-                result = userManager.CreateAsync(appUser, password).Result;
+                result = userManager.CreateAsync(user, password).Result;
 
                 if (result.Succeeded)
                 {

@@ -23,7 +23,7 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
 
-        public TripsController(ICitiesService citiesService, ICountriesService countryService, ILocationCategoriesService categoriesService, ITransportService transportService, ITripsService tripsService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment)
+        public TripsController(ICitiesService citiesService, ICountriesService countryService, ILocationCategoriesService categoriesService, ITransportService transportService, ITripsService tripsService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment, IRatingsService ratingsService)
         {
             this.citiesService = citiesService;
             this.countryService = countryService;
@@ -43,9 +43,6 @@
 
            return this.View(viewModel);
         }
-
-            //input.CityItems = this.citiesService.GetAllCities();
-            //input.TypeOfDestinationItems = this.categoriesService.GetAllLocationCategories();
 
         [HttpPost]
         public async Task<IActionResult> CreateTrip(CreateTripInputViewModel input)
@@ -117,6 +114,5 @@
             await this.tripsService.DeleteAsync(id);
             return this.RedirectToAction("All");
         }
-
     }
 }

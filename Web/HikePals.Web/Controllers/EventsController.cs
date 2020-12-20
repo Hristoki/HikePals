@@ -38,9 +38,9 @@
         public async Task<IActionResult> Create(CreateEventInputViewModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.eventsService.CreateNewEvent(input, user.Id);
+            var eventId = await this.eventsService.CreateNewEvent(input, user.Id);
 
-            return this.RedirectToAction(nameof(this.GetById));
+            return this.RedirectToAction(nameof(this.GetById), new {id = eventId});
         }
 
         public async Task<IActionResult> GetById(int id)
@@ -73,7 +73,7 @@
             await this.eventsService.UpdateAsync(input);
             var eventId = input.Id;
 
-            return this.RedirectToAction("GetbyId", new { id = eventId });
+            return this.RedirectToAction(nameof(GetById), new { id = eventId });
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -116,5 +116,6 @@
 
             return this.RedirectToAction("GetbyId", new { id });
         }
+
     }
 }

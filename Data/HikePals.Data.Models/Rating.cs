@@ -1,23 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HikePals.Data.Common.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace HikePals.Data.Models
 {
-    public class Rating
+    public class Rating : BaseDeletableModel<int>
     {
-       // [Required]
-        public byte Rate { get; set; }
+        [Required]
+        public byte Value { get; set; }
 
-        public int Id { get; set; }
+        public string UserId { get; set; }
 
-        public int UserId { get; set; }
-
-        //[Required]
-        public ApplicationUser User { get; set; }
+        [Required]
+        public virtual ApplicationUser User { get; set; }
 
         public int TripId { get; set; }
 
-      //  [Required]
-        public Trip Trip { get; set; }
+        [Required]
+        public virtual Trip Trip { get; set; }
 
     }
 }

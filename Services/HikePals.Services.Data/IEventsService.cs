@@ -13,7 +13,7 @@
 
         CreateEventInputViewModel MapTripData(int tripId);
 
-        Task CreateNewEvent(CreateEventInputViewModel input, string userId);
+        Task<int> CreateNewEvent(CreateEventInputViewModel input, string userId);
 
         IEnumerable<EventViewModel> GetAllEvents();
 

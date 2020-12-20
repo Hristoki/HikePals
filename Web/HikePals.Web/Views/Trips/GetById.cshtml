@@ -27,7 +27,7 @@
                 <a class="nav-link" href="#">Cities</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="#">Point Of Interest</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Disabled</a>
@@ -46,11 +46,54 @@
                 <div class="p-2">Time - @Model.Duration.TotalHours h</div>
             </div>
 
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
+            @if (Model.AverageRating != 0 && Model.AverageRating > 0.4)
+            {
+                <span data-vote="1"><i id="star" class="fas fa-star checked"></i></span>
+            }
+            else
+            {
+                <span data-vote="1"><i id="star" class="fas fa-star"></i></span>
+
+            }
+            @if (Model.AverageRating != 0 && Model.AverageRating > 1.4)
+            {
+                <span data-vote="2"><i id="star" class="fas fa-star checked"></i></span>
+            }
+            else
+            {
+                <span data-vote="2"><i class="fas fa-star"></i></span>
+
+            }
+            @if (Model.AverageRating != 0 && Model.AverageRating > 2.4)
+            {
+                <span data-vote="3"><i id="star" class="fas fa-star checked"></i></span>
+            }
+            else
+            {
+                <span data-vote="3"><i class="fas fa-star"></i></span>
+
+            }
+            @if (Model.AverageRating != 0  && Model.AverageRating > 3.4)
+            {
+                <span data-vote="4"><i id="star" class="fas fa-star checked"></i></span>
+            }
+            else
+            {
+                <span data-vote="4"><i class="fas fa-star"></i></span>
+
+            }
+            @if (Model.AverageRating >= 4.5)
+            {
+                <span data-vote="5"><i id="star" class="fas fa-star checked"></i></span>
+            }
+            else
+            {
+                <span data-vote="5"><i class="fas fa-star"></i></span>
+
+            }
+            <span id="averageRating">@Model.AverageRating.ToString("0.0")</span> <span>/ 5</span>
+
+
         </div>
         <img src="@Model.ImageUrl" alt="" />
         <div class="card-body">
@@ -59,7 +102,49 @@
     </div>
 
 </div>
+<form method="post" id="antiForgeryForm"></form>
+@section Scripts{
+    <script>
+    $("span[data-vote]").each(function (el) {
+        $(this).click(function () {
 
 
+            var value = $(this).attr("data-vote");
+            var rating = parseInt(value);
+            var tripId = @Model.Id;
+            var antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
+            var data = { value: rating, tripId: tripId };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/Ratings",
+                data: JSON.stringify(data),
+                dataType: 'json',
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRF-TOKEN': antiForgeryToken
+                },
+                success: function (data) {
+                    $('#averageRating').text(data.averageRating);
+                },
+
+                //success: function (data) {
+                //    $('#averageRating').html($('#averageRating', data.AverageRating).html());
+            });
+        })
+    })
+    </script>
+
+    <script>
+        //$("span i").hover(handlerIn, function () {
+
+        //    $("span i").addClass("far").removeClass("checked");
+        //    $(this).addClass("checked").removeClass("far");
+        //    $(this).prevAll("span i").addClass("checked").removeClass("far");
+
+            
+        //});
+    </script>
+}
 
 

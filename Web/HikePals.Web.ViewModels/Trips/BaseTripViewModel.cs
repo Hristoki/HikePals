@@ -12,6 +12,7 @@
 
     public abstract class BaseTripViewModel
     {
+
         [Required]
         [MaxLength(100)]
         [MinLength(10)]
