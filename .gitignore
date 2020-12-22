@@ -6,6 +6,7 @@
 # Custom
 .zip
 .DS_Store
+.appsettings.json
 
 # User-specific files
 *.suo
