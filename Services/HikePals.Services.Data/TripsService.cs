@@ -10,17 +10,18 @@
     using HikePals.Data.Common.Repositories;
     using HikePals.Data.Models;
     using HikePals.Services.Mapping;
+    using HikePals.Web.ViewModels.Administration.Trips;
     using HikePals.Web.ViewModels.Trips;
 
     public class TripsService : ITripsService
     {
         private static readonly string[] AllowedImageExtensions = { ".jpeg", ".jpg", ".png", ".tiff", ".gif" };
-        private readonly IRepository<Trip> tripRepositry;
+        private readonly IDeletableEntityRepository<Trip> tripRepositry;
         private readonly IRepository<City> cityRepository;
         private readonly IRepository<Location> locationRepository;
         private readonly IRepository<Image> imageRepository;
 
-        public TripsService(IRepository<Trip> tripRepositry, IRepository<City> cityRepository, IRepository<Location> locationRepository, IRepository<Image> imageRepository)
+        public TripsService(IDeletableEntityRepository<Trip> tripRepositry, IRepository<City> cityRepository, IRepository<Location> locationRepository, IRepository<Image> imageRepository)
         {
             this.tripRepositry = tripRepositry;
             this.cityRepository = cityRepository;
@@ -82,16 +83,6 @@
             await this.tripRepositry.SaveChangesAsync();
         }
 
-        private void IsTripNameAvailable(CreateTripInputViewModel model)
-        {
-            var isNameFree = this.tripRepositry.AllAsNoTracking().FirstOrDefault(x => x.Title == model.Title);
-
-            if (isNameFree != null)
-            {
-                throw new ArgumentException("This trip name is already available!");
-            }
-        }
-
         public IEnumerable<TripViewModel> GetAllTrips()
         {
             return this.tripRepositry.AllAsNoTracking()
@@ -111,43 +102,29 @@
                 .AllAsNoTracking()
                 .Where(x => x.Id == tripId)
                 .To<T>()
-                //.Select(x =>
-                //new TripViewModel
-                //{
-                //    Id = x.Id,
-                //    Description = x.Description,
-                //    Distance = x.Distance,
-                //    Duration = x.Duration,
-                //    Title = x.Title,
-                //    UserId = x.CreatedByUser.Id,
-                //    ImageUrl = x.Image == null ? "No image available" : "/images/trips/" + x.Image.Id + x.Image.Extentsion,
-                //    LocationName = x.Location.Name,
-                //    LocationCityName = x.Location.City.Name,
-                //})
                 .FirstOrDefault();
         }
 
-        public EditTripViewModel GetEditViewModel(int tripId)
-        {
-            return this.tripRepositry
-               .AllAsNoTracking()
-               .Where(x => x.Id == tripId)
-               .Select(x =>
-               new EditTripViewModel
-               {
-                   Id = x.Id,
-                   Description = x.Description,
-                   Distance = x.Distance,
-                   Duration = x.Duration,
-                   Title = x.Title,
-                   ImageUrl = x.Image == null ? "No image available" : "/images/trips/" + x.Image.Id + x.Image.Extentsion,
-                   CityId = x.Location.CityId,
-                   TypeOfDestinationId = x.LocationId,
-                   LocationName = x.Location.Name,
-
-               })
-               .FirstOrDefault();
-        }
+        //public EditTripViewModel GetEditViewModel(int tripId)
+        //{
+        //    return this.tripRepositry
+        //       .AllAsNoTracking()
+        //       .Where(x => x.Id == tripId)
+        //       .Select(x =>
+        //       new EditTripViewModel
+        //       {
+        //           Id = x.Id,
+        //           Description = x.Description,
+        //           Distance = x.Distance,
+        //           Duration = x.Duration,
+        //           Title = x.Title,
+        //           ImageUrl = x.Image == null ? "No image available" : "/images/trips/" + x.Image.Id + x.Image.Extentsion,
+        //           CityId = x.Location.CityId,
+        //           TypeOfDestinationId = x.LocationId,
+        //           LocationName = x.Location.Name,
+        //       })
+        //       .FirstOrDefault();
+        //}
 
         public async Task UpdateAsync(EditTripViewModel model)
         {
@@ -156,7 +133,7 @@
             {
                 location = new Location
                 {
-                    Name = model.Description,
+                    Name = model.LocationName,
                     CityId = model.CityId,
                     CategoryId = model.TypeOfDestinationId,
                 };
@@ -165,7 +142,7 @@
             //await this.locationRepository.AddAsync(location);
             //await this.locationRepository.SaveChangesAsync();
 
-            var trip = this.tripRepositry.All().FirstOrDefault(x => x.Id == model.Id);
+            var trip = this.tripRepositry.AllWithDeleted().FirstOrDefault(x => x.Id == model.Id);
             trip.Title = model.Title;
             trip.Duration = model.Duration;
             trip.Description = model.Description;
@@ -180,12 +157,48 @@
             var trip = this.tripRepositry.All().FirstOrDefault(x => x.Id == id);
             this.tripRepositry.Delete(trip);
             await this.tripRepositry.SaveChangesAsync();
-
         }
 
         public int GetCount()
         {
           return this.tripRepositry.AllAsNoTracking().Count();
         }
+
+        public T GetByIdWithDeleted<T>(int tripId)
+        {
+            return this.tripRepositry
+                .AllAsNoTrackingWithDeleted()
+                .Where(x => x.Id == tripId)
+                .To<T>()
+                .FirstOrDefault();
+        }
+
+        public IEnumerable<SingleTripViewModel> GetAllTripsWithDeleted()
+        {
+            return this.tripRepositry.AllWithDeleted().To<SingleTripViewModel>().ToList();
+        }
+
+        public bool Exists(int id)
+        {
+            return this.tripRepositry.AllAsNoTracking().FirstOrDefault(x => x.Id == id) != null;
+        }
+
+        public async Task RestoreAsync(int id)
+        {
+            var eventEntity = await this.tripRepositry.GetByIdWithDeletedAsync(id);
+            eventEntity.IsDeleted = false;
+            await this.tripRepositry.SaveChangesAsync();
+        }
+
+        private void IsTripNameAvailable(CreateTripInputViewModel model)
+        {
+            var isNameFree = this.tripRepositry.AllAsNoTracking().FirstOrDefault(x => x.Title == model.Title);
+
+            if (isNameFree != null)
+            {
+                throw new ArgumentException("This trip name is already available!");
+            }
+        }
+
     }
 }

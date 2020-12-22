@@ -1,0 +1,23 @@
+﻿@model HikePals.Web.ViewModels.Trips.TripViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<h1>@Model.Title</h1>
+
+<div>
+    <h4>@Model.LocationCategoryName</h4>
+    <hr />
+    <div>
+        <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a class="btn btn-dark" asp-action="Index">Back to List</a>
+    </div>
+    <hr />
+
+    <div class="container text-center">
+    @{await Html.RenderPartialAsync("_TripViewPartial", this.Model);}
+    </div>
+
+
+</div>

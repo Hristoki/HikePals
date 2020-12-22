@@ -1,4 +1,4 @@
-﻿namespace HikePals.Web.Areas.Administration.Models
+﻿namespace HikePals.Web.ViewModels.Administration.Events
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,7 @@
 
     public class AllEventsAdminViewModel
     {
-        public IEnumerable<HikePals.Web.ViewModels.Events.AdminEventViewModel> Events { get; set; }
+        public IEnumerable<HikePals.Web.ViewModels.Administration.Users.SingleUserAdminViewModel> Events { get; set; }
 
         public string Title => "Events Overview";
     }

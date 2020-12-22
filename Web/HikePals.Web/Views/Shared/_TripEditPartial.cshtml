@@ -1,0 +1,60 @@
+﻿@model HikePals.Web.ViewModels.Trips.EditTripViewModel
+
+
+<h1>
+    Edit
+</h1>
+    <form method="post" class="col-md-6 offset-md-3" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label asp-for="Title">Name</label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.Description">Description</label>
+            <textarea asp-for="@Model.Description" class="form-control" rows="6"></textarea>
+            <span asp-validation-for="@Model.Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.LocationName">Destination / Point of Interest</label>
+            <input asp-for="@Model.LocationName" class="form-control" />
+            <span asp-validation-for="@Model.LocationName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="TypeOfDestinationId">Destination Category</label>
+            <select asp-for="TypeOfDestinationId" class="form-control" asp-items="@Model.CategoriesItems" class="custom-select">
+                <option value="">Choose Destination Category</option>
+            </select>
+            <span asp-validation-for="TypeOfDestinationId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="TypeOfDestinationId">City</label>
+            <select asp-for="CityId" class="form-control" asp-items="Model.CityItems">
+                <option value="">Choose City</option>
+            </select>
+            <span asp-validation-for="TypeOfDestinationId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Distance">Distance</label>
+            <input asp-for="Distance" class="form-control" />
+            <span asp-validation-for="Distance" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Duration">Duration</label>
+            <input asp-for="Duration" class="form-control" />
+            <span asp-validation-for="Duration" class="text-danger"></span>
+        </div>
+
+        <div> </div>
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Submit" class="btn-block" />
+
+    </form>

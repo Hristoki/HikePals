@@ -16,9 +16,7 @@
     public class TripsController : Controller
     {
         private readonly ICitiesService citiesService;
-        private readonly ICountriesService countryService;
         private readonly ILocationCategoriesService categoriesService;
-        private readonly ITransportService transportService;
         private readonly ITripsService tripsService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
@@ -26,9 +24,7 @@
         public TripsController(ICitiesService citiesService, ICountriesService countryService, ILocationCategoriesService categoriesService, ITransportService transportService, ITripsService tripsService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment, IRatingsService ratingsService)
         {
             this.citiesService = citiesService;
-            this.countryService = countryService;
             this.categoriesService = categoriesService;
-            this.transportService = transportService;
             this.tripsService = tripsService;
             this.userManager = userManager;
             this.environment = environment;
@@ -63,7 +59,7 @@
 
             try
             {
-            await this.tripsService.AddNewTrip(input, user.Id, imagesDirPath);
+                 await this.tripsService.AddNewTrip(input, user.Id, imagesDirPath);
             }
             catch (Exception ex)
             {
@@ -78,7 +74,6 @@
 
         public IActionResult All()
         {
-
             var model = this.tripsService.GetAllTrips();
             return this.View(model);
         }
@@ -92,7 +87,7 @@
 
         public IActionResult Edit(int id)
         {
-            var model = this.tripsService.GetEditViewModel(id);
+            var model = this.tripsService.GetById<EditTripViewModel>(id);
 
             model.CityItems = this.citiesService.GetAllCities();
             model.CategoriesItems = this.categoriesService.GetAllLocationCategories();
@@ -105,12 +100,12 @@
         {
             await this.tripsService.UpdateAsync(input);
             var model = this.tripsService.GetById<TripViewModel>(input.Id);
+
             return this.RedirectToAction("GetById", model);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-
             await this.tripsService.DeleteAsync(id);
             return this.RedirectToAction("All");
         }

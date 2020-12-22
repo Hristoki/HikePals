@@ -9,6 +9,7 @@
     using HikePals.Data.Common.Repositories;
     using HikePals.Data.Models;
     using HikePals.Services.Mapping;
+    using HikePals.Web.ViewModels.Administration.Events;
     using HikePals.Web.ViewModels.Events;
     using HikePals.Web.ViewModels.Trips;
     using HikePals.Web.ViewModels.Users;
@@ -63,14 +64,19 @@
             return this.eventsRepository.AllAsNoTracking().To<EventViewModel>().ToList();
         }
 
-        public IEnumerable<AdminEventViewModel> GetAllWithDeleted()
+        public IEnumerable<SingleEventAdminViewModel> GetAllWithDeleted()
         {
-            return this.eventsRepository.AllWithDeleted().To<AdminEventViewModel>().ToList();
+            return this.eventsRepository.AllWithDeleted().To<SingleEventAdminViewModel>().ToList();
         }
 
         public T GetById<T>(int id)
         {
             return this.eventsRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
+        }
+
+        public T GetByIdWithDeleted<T>(int id)
+        {
+            return this.eventsRepository.AllAsNoTrackingWithDeleted().Where(x => x.Id == id).To<T>().FirstOrDefault();
         }
 
         public int GetCount()

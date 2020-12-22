@@ -1,0 +1,9 @@
+﻿@model HikePals.Web.ViewModels.Trips.EditTripViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@{await Html.RenderPartialAsync("_TripEditPartial", this.Model);}
+
+<a class="btn btn-dark" asp-action="Index">Back to List</a>

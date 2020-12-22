@@ -3,7 +3,6 @@
     using HikePals.Data.Models;
     using HikePals.Services.Data;
     using HikePals.Services.Data.UserServices;
-    using HikePals.Web.Areas.Administration.Models;
     using HikePals.Web.ViewModels.Administration.Dashboard;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;

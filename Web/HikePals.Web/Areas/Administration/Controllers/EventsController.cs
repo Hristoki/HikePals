@@ -30,21 +30,17 @@
         }
 
         // GET: Administration/Events
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var model = this.eventsService.GetAllWithDeleted();
             return this.View(model);
         }
 
         // GET: Administration/Events/Details/5
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return this.NotFound();
-            }
+            var @event = this.eventsService.GetByIdWithDeleted<EventViewModel>(id);
 
-            var @event = this.eventsService.GetById<EventViewModel>(id);
             if (@event == null)
             {
                 return this.NotFound();
@@ -82,21 +78,19 @@
         //    return View(@event);
         //}
 
-        // GET: Administration/Events/Edit/5
-        public async Task<IActionResult> Edit (int id)
-        {
-            if (id == null)
-            {
-                return this.NotFound();
-            }
 
+        // GET: Administration/Events/Edit/5
+
+        public IActionResult Edit(int id)
+        {
             var model = this.eventsService.GetById<EditEventViewModel>(id);
-            var transportItems = this.transportService.GetAllTransportTypes();
+
             if (model == null)
             {
                 return this.NotFound();
             }
 
+            var transportItems = this.transportService.GetAllTransportTypes();
             model.TransportItems = transportItems;
 
             return this.View(model);
@@ -105,6 +99,7 @@
         // POST: Administration/Events/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Title,Details,CreatedById,StartTime,EndTime,MaxGroupSize,TransportId,TripId,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] EditEventViewModel input)
@@ -122,7 +117,7 @@
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!this.EventExists(input.Id))
+                    if (!this.eventsService.Exists(input.Id))
                     {
                         return this.NotFound();
                     }
@@ -134,44 +129,32 @@
 
                 return this.RedirectToAction(nameof(this.Index));
             }
+
             var transportItems = this.transportService.GetAllTransportTypes();
             input.TransportItems = transportItems;
 
             return this.View(input);
         }
 
-        // GET: Administration/Events/Delete/5
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return this.NotFound();
-        //    }
-
-        //    var model = this.eventsService.GetById<EventViewModel>(id);
-
-        //    if (model == null)
-        //    {
-        //        return this.NotFound();
-        //    }
-
-        //    return this.View(model);
-        //}
-
         // POST: Administration/Events/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
+            if (!this.eventsService.Exists(id))
+            {
+                return this.NotFound();
+            }
+
             await this.eventsService.DeleteAsync(id);
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        private bool EventExists(int id)
-        {
-            return this.eventsService.Exists(id);
-        }
-
         public async Task<IActionResult> Restore(int id)
         {
+            //if (!this.eventsService.Exists(id))
+            //{
+            //    return this.NotFound();
+            //}
+
             await this.eventsService.RestoreAsync(id);
             return this.RedirectToAction(nameof(this.Index));
         }

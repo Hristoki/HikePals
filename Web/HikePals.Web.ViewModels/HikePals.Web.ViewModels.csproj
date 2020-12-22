@@ -25,4 +25,8 @@
     <ProjectReference Include="..\..\Services\HikePals.Services.Mapping\HikePals.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Administration\Users\" />
+  </ItemGroup>
+
 </Project>

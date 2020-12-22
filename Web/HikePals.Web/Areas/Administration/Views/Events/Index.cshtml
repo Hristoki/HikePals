@@ -1,10 +1,10 @@
-﻿@model IEnumerable<HikePals.Web.ViewModels.Events.AdminEventViewModel>
+﻿@model IEnumerable<HikePals.Web.ViewModels.Administration.Events.SingleEventAdminViewModel>
 
 @{
     ViewData["Title"] = "Events Overview";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -20,17 +20,14 @@
                 @Html.DisplayNameFor(model => model.CreatedBy)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartTime)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.IsDeleted)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedOn)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedOn)
-            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.ModifiedOn)
+                </th>*@
             <th></th>
         </tr>
     </thead>
@@ -45,14 +42,11 @@
                     @Html.DisplayFor(modelItem => item.CreatedBy)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.StartTime)
-                </td>
-
-                <td>
                     @if (item.IsDeleted == false)
                     {
                         @Html.DisplayFor(modelItem => item.IsDeleted)
                     }
+
                     else
                     {
                         @Html.DisplayFor(modelItem => item.DeletedOn)
@@ -62,18 +56,15 @@
                     @Html.DisplayFor(modelItem => item.CreatedOn)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedOn)
-                </td>
-                <td>
                     @if (item.IsDeleted)
                     {
                         <a type="button" class="btn disabled" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a type = "button" class="btn disabled" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a type="button" class="btn disabled" asp-action="Details" asp-route-id="@item.Id">Details</a>
                     }
                     else
                     {
-                    <a type="button" class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a type="button" class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a type="button" class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a type="button" class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
                     }
 
                     @if (item.IsDeleted)
