@@ -1,12 +1,12 @@
-﻿namespace HikePals.Web.Areas.Administration.Models
-{
-    using HikePals.Web.ViewModels.Events;
-    using HikePals.Web.ViewModels.Trips;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+﻿using HikePals.Web.ViewModels.Events;
+using HikePals.Web.ViewModels.Trips;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
+namespace HikePals.Web.Areas.Administration.Models
+{
     public class DashboardIndexViewModel
     {
         public int TripsCount { get; set; }

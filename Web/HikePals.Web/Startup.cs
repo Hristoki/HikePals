@@ -12,6 +12,7 @@
     using HikePals.Services.Data.UserServices;
     using HikePals.Services.Mapping;
     using HikePals.Services.Messaging;
+    using HikePals.Web.Hub;
     using HikePals.Web.ViewModels;
 
     using Microsoft.AspNetCore.Builder;
@@ -49,6 +50,8 @@
                     options.CheckConsentNeeded = context => true;
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });
+
+            services.AddSignalR();
 
             services.AddControllersWithViews(
                 options =>
@@ -122,6 +125,12 @@
                     endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                     endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                     endpoints.MapRazorPages();
+
+                    endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                    endpoints.MapHub<ChatHub>("/chat");  //Configure ChatHub endpoint
                 });
         }
     }

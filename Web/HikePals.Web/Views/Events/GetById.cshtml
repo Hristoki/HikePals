@@ -11,31 +11,23 @@
     </ol>
 </nav>
 
-<div class="btn-group" role="group" aria-label="Basic example">
+<div class=role aria-label="Basic example" style="vertical-align:middle; text-align: center;">
     <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
     <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
     @if (Model.MaxGroupSize == Model.Participants.Count() || Model.HasJoinedEvent == true)
     {
-    <a type="button" class="btn btn-secondary disabled" asp-action="Join" asp-route-id="@Model.Id">Join</a>
+        <a type="button" class="btn btn-secondary disabled" asp-action="Join" asp-route-id="@Model.Id">Join</a>
 
     }
     else
     {
-    <a type="button" class="btn btn-success" asp-action="Join" asp-route-id="@Model.Id">Joined</a>
+        <a type="button" class="btn btn-success" asp-action="Join" asp-route-id="@Model.Id">Joined</a>
     }
     <a type="button" class="btn btn-danger" asp-action="Leave" asp-route-id="@Model.Id">Leave</a>
 </div>
 
 <div>
 
-    <div>
-        <div class="d-flex flex-row">
-            <div class="p-2">Distance - @Model.TripDistance km</div>
-            <div class="p-2">Time - @Model.TripDuration h</div>
-        </div>
-        <div class="col-10"></div>
-
-    </div>
     <div class="row" style="margin-right: 0px;margin-left: 0px;">
         <div class="col-2">
             <ul class="nav flex-column">
@@ -48,68 +40,120 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
             </ul>
         </div>
 
-        <img src="@Model.Image" class="img-fluid max-width: 75%;  height: auto" alt="" />
+        <div class="row col-md-10">
+            <div class="card col-md-6">
 
-
-        <div class="card col-md-9">
-            <div class="card-body">
-                @Model.Details
+                <div class="flex-column">
+                    <div class="d-flex flex-row">
+                        <div class="p-2"><span>Distance - @Model.TripDistance km</span></div>
+                        <div class="p-2"><span>Duration - @Model.TripDuration h</span></div>
+                        <div class="p-2"><span>Start Time - @Model.StartTime.ToString("t")</span> </div>
+                    </div>
+                    <div class="col-10"></div>
+                </div>
+                <img src="@Model.Image" class="img-fluid max-width: 75%;  height: auto" alt="" />
+                <div class="card-body">
+                    @Model.Details
+                </div>
             </div>
-        </div>
-        <div>
-            <table class="table table-borderless table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Name:</th>
-                        <th scope="col">Age: </th>
-                        <th scope="col">From:</th>
-                    </tr>
-                </thead>
-                @if (Model.Participants.Count() > 0)
-                {
-                    @foreach (var participant in Model.Participants)
+
+            <div class="container col-md-4 border-top">
+                <table class="table table-borderless table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="auto">Joined: </th>
+                            <th scope="col"> @Model.Participants.Count() / @Model.MaxGroupSize</thscope="col">
+
+                        </tr>
+                        <tr>
+                            <th scope="col">Name:</th>
+                            <th scope="col">Age: </th>
+                            <th scope="col">From:</th>
+                            @*<th scope="col"> @Model.Participants.Count() / @Model.MaxGroupSize</th>*@
+                        </tr>
+                    </thead>
+                    @if (Model.Participants.Count() > 0)
                     {
-            <tr>
-                <td>@participant.Name</td>
-                <td>@participant.Age</td>
-                <td>@participant.CityName</td>
-                @if (this.User.IsInRole("Administrator") || Model.CreatedBy == Model.UserId)
-                {
-                    <td>
-                        <a type="button" class="close" aria-label="Close" alt="Remove" asp-action="Leave" asp-route-id="@Model.Id">
-                            <span aria-hidden="true">&times;</span>
-                        </a>
-                    </td>
-                }
-            </tr>
+                        @foreach (var participant in Model.Participants)
+                        {
+                            <tr>
+                                <td>@participant.Name</td>
+                                <td>@participant.Age</td>
+                                <td>@participant.CityName</td>
+                                @if (this.User.IsInRole("Administrator"))
+                                {
+                                    <td>
+                                        <a type="button" class="close" aria-label="Close" alt="Remove" asp-action="Leave" asp-route-id="@Model.Id">
+                                            <span aria-hidden="true">&times;</span>
+                                        </a>
+                                    </td>
+                                }
+                            </tr>
+                        }
                     }
-                }
-                else
-                {
-                    @for (int i = 0; i < Model.MaxGroupSize; i++)
+                    else
                     {
-                       <tr>
+                        @for (int i = 0; i < Model.MaxGroupSize; i++)
+                        {
+                            <tr>
 
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        
-                       </tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+                        }
                     }
-                }
 
-            </table>
+                </table>
+
+                <div class="container">
+                    <div id="message-holder" class="mt-3 d-flex justify-content-start">
+                        <h4>Message</h4>
+                        <input class="w-75 ml-4 pl-3" type="text" id="messageInput" placeholder="Message..." />
+                        <button id="sendButton" class="ml-4 btn btn-dark btn-lg">Send</button>
+                    </div>
+                    <hr style="height: 5px;" class="bg-dark" />
+                    <div id="divChatWindow" style="font-size: 28px;">
+                    </div>
+                </div>
+            </div>
+
         </div>
-
     </div>
-</div>
 
+    @section Scripts {
+        <script>
+            var connection =
+                new signalR.HubConnectionBuilder()
+                    .withUrl("/chat")
+                    .build();
+            connection.on("NewMessage",
+                function (message) {
+                    var chatInfo = `<div>[${message.ApplicationUserName}] ${escapeHtml(message.text)}</div>`;
+                    $("#divChatWindow").append(chatInfo);
+                });
+            $("#sendButton").click(function () {
+                var message = $("#messageInput").val();
+                connection.invoke("Send", message);
+                $("#messageInput").val("");
+            });
+            connection.start().catch(function (err) {
+                return console.error(err.toString());
+            });
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+        </script>
+    }
 
 
 

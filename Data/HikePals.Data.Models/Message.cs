@@ -1,9 +1,10 @@
-﻿using HikePals.Data.Common.Models;
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace HikePals.Data.Models
+﻿namespace HikePals.Data.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using HikePals.Data.Common.Models;
+
     public class Message: BaseDeletableModel<string>
     {
 
