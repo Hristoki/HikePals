@@ -1,5 +1,5 @@
 ﻿using System;
-using HikePals.Data;
+
 using HikePals.Data.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 [assembly: HostingStartup(typeof(HikePals.Web.Areas.Identity.IdentityHostingStartup))]
+
 namespace HikePals.Web.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup

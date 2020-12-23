@@ -22,7 +22,7 @@
                 return;
             }
 
-            await SeedUserAsync(userManager, "admin");
+            await SeedUserAsync(userManager, "admin@gmail.com");
 
 
             for (int i = 1; i < 20; i++)
@@ -38,7 +38,7 @@
             ApplicationUser user;
             IdentityResult result = new IdentityResult();
 
-            if (username == "admin")
+            if (username == "admin@gmail.com")
             {
                 user = new ApplicationUser
                 {
@@ -46,10 +46,10 @@
                     Email = "admin@gmail.com",
                     DateOfBirth = DateTime.UtcNow,
                     CityId = 2,
-                    Name = "admin",
+                    Name = "admin@gmail.com",
                 };
 
-                var password = "123456";
+                var password = "admin@gmail.com";
 
                 result = userManager.CreateAsync(user, password).Result;
 
@@ -62,15 +62,14 @@
             {
                 user = new ApplicationUser
                 {
-                    UserName = username,
-                    Email = username,
+                    UserName = $"{ username }@gmail.com",
+                    Email = $"{ username }@gmail.com",
                     DateOfBirth = DateTime.UtcNow,
                     CityId = 2,
-                    Name = username,
+                    Name = $"{ username }@gmail.com",
                 };
 
                 var password = username;
-
                 result = userManager.CreateAsync(user, password).Result;
 
                 if (result.Succeeded)

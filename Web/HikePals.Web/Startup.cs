@@ -23,6 +23,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
 
     public class Startup
     {
@@ -84,6 +85,8 @@
             services.AddTransient<IEventsService, EventsService>();
             services.AddTransient<IRatingsService, RatingsService>();
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IMailService, MailService>();
+            //services.AddTransient<ILogger, Logger>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
