@@ -99,6 +99,15 @@
         public async Task<IActionResult> Edit(EditTripViewModel input)
         {
             await this.tripsService.UpdateAsync(input);
+
+            if (!this.ModelState.IsValid)
+            {
+
+                input.CategoriesItems = this.categoriesService.GetAllLocationCategories();
+                input.CityItems = this.citiesService.GetAllCities();
+
+                this.View(input);
+            }
             var model = this.tripsService.GetById<TripViewModel>(input.Id);
 
             return this.RedirectToAction("GetById", model);
@@ -106,6 +115,10 @@
 
         public async Task<IActionResult> Delete(int id)
         {
+            if (!this.tripsService.Exists(id))
+            {
+                return this.NotFound();
+            }
             await this.tripsService.DeleteAsync(id);
             return this.RedirectToAction("All");
         }

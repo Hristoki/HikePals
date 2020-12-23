@@ -1,0 +1,31 @@
+﻿@model HikePals.Web.ViewModels.Contacts.ContactFormInputViewModel 
+
+<div class="container contact-form">
+    <div class="contact-image">
+        <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact" />
+    </div>
+    <form method="post">
+        <h3>Drop Us a Message</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text"  class="form-control" asp-for="@Model.Name"  placeholder="Your Name *" value="" />
+                </div>
+                <div class="form-group">
+                    <input type="text"  class="form-control" asp-for="@Model.Email" placeholder="Your Email *" value="" />
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" asp-for="@Model.Subject" placeholder="Your Subject *" value="" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" asp-action="Contact" class="btnContact" value="Send Message" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <textarea class="form-control" asp-for="@Model.Content" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

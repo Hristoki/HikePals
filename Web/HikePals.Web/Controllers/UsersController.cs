@@ -43,9 +43,9 @@
         {
             if (this.ModelState.IsValid)
             {
-                // Find the user by email
+
                 var user = await this.userManager.FindByEmailAsync(model.Email);
-                // If the user is found AND Email is confirmed
+
                 if (user != null)
                 {
                     // Generate the reset password token
@@ -54,19 +54,7 @@
                     // Build the password reset link
                     var passwordResetLink = this.Url.Action("ResetPassword", "Users", new { email = model.Email, token = token }, this.Request.Scheme);
 
-                    // Log the password reset link
-                    //this.logger.Log(LogLevel.Warning, passwordResetLink);
-
-                    string docPath = $"{this.environment.WebRootPath}";
-
-                    // Write the specified text asynchronously to a new file named "WriteTextAsync.txt".
-                    using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "WriteTextAsync.txt")))
-                    {
-                        await outputFile.WriteAsync($"{LogLevel.Warning}, {passwordResetLink}");
-                    }
-                    var content = $"<h1>Reset your password</h1><p> You told us you forgot your password. If you really did, click here to choose a new one:</p><p><a href='{ passwordResetLink}' >Reset</a></p>";
-
-                    //var a = $"<a href='http://localhost:53008/authentication/confirmhire?Cid=‌​{passwordResetLink}'>He‌​re</a>";
+                    var content = $"<h1>Reset your password</h1><p> You told us you forgot your password. If you really did, click here to choose a new one:</p><p><a href='{passwordResetLink}' >Click here to reset</a></p><p>If you didn't request this email message, please ignore it!</p>";
 
                     await this.mailService.SendEmailAsync(model.Email, "HikePals: Reset password requested!", content);
 
