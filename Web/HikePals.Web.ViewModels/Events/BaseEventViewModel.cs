@@ -32,6 +32,5 @@
 
         public int TripDistance { get; set; }
 
-        public IEnumerable<UserViewModel> Participants { get; set; }
     }
 }

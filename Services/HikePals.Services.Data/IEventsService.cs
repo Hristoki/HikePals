@@ -28,13 +28,22 @@
 
         Task DeleteAsync(int id);
 
-        Task JoinEvent(ApplicationUser user, int id);
+        Task RequestJoinEvent(ApplicationUser user, int eventId);
 
-        Task LeaveEvent(ApplicationUser user, int id);
+        Task ApproveJoinRequest(string participantId, int eventId);
+
+        Task LeaveEvent(string user, int id);
 
         bool Exists(int id);
 
         Task RestoreAsync(int id);
-        int GetCount();
+
+        int GetAllEventsCount();
+
+        int GetUserEventsCount(string userId);
+
+        IEnumerable<T> GetAllUserEvents<T>(string userId);
+
+        Task UndoJoinRequest(string userId, int id);
     }
 }

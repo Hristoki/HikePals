@@ -105,27 +105,6 @@
                 .FirstOrDefault();
         }
 
-        //public EditTripViewModel GetEditViewModel(int tripId)
-        //{
-        //    return this.tripRepositry
-        //       .AllAsNoTracking()
-        //       .Where(x => x.Id == tripId)
-        //       .Select(x =>
-        //       new EditTripViewModel
-        //       {
-        //           Id = x.Id,
-        //           Description = x.Description,
-        //           Distance = x.Distance,
-        //           Duration = x.Duration,
-        //           Title = x.Title,
-        //           ImageUrl = x.Image == null ? "No image available" : "/images/trips/" + x.Image.Id + x.Image.Extentsion,
-        //           CityId = x.Location.CityId,
-        //           TypeOfDestinationId = x.LocationId,
-        //           LocationName = x.Location.Name,
-        //       })
-        //       .FirstOrDefault();
-        //}
-
         public async Task UpdateAsync(EditTripViewModel model)
         {
             var location = this.locationRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == model.LocationName);
@@ -159,7 +138,7 @@
             await this.tripRepositry.SaveChangesAsync();
         }
 
-        public int GetCount()
+        public int GetAllTripsCount()
         {
           return this.tripRepositry.AllAsNoTracking().Count();
         }
@@ -190,6 +169,16 @@
             await this.tripRepositry.SaveChangesAsync();
         }
 
+        public int GetUserTripsCount(string id)
+        {
+            return this.tripRepositry.AllAsNoTracking().Where(x => x.CreatedByUserId == id).Count();
+        }
+
+        public IEnumerable<T> GetAllUserTrips<T>(string userId)
+        {
+            return this.tripRepositry.All().Where(x => x.CreatedByUserId == userId).To<T>().ToList();
+        }
+
         private void IsTripNameAvailable(CreateTripInputViewModel model)
         {
             var isNameFree = this.tripRepositry.AllAsNoTracking().FirstOrDefault(x => x.Title == model.Title);
@@ -201,4 +190,6 @@
         }
 
     }
+
+
 }

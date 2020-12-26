@@ -1,0 +1,32 @@
+﻿@model HikePals.Web.ViewModels.Events.AllEventAsListViewModel
+
+
+
+<div class="row">
+
+    @foreach (var hike in Model.Events)
+    {
+
+        <div class="card col-md-4">
+            <div class="embed-responsive embed-responsive-4by3">
+                <a asp-controller="Events" asp-action="GetById" asp-route-id="@hike.Id">
+                    <img class="card-img-top img-responsive embed-responsive-item" src="@hike.Image" alt="@hike.Title">
+                </a>
+            </div>
+
+            <div class="card-body">
+                <a asp-controller="Events" asp-action="GetById" asp-route-id="@hike.Id"><h5 class="card-title md-1">@hike.Title</h5></a>
+                <p class="card-text">Start time: @hike.StartTime.Date.ToString("g", System.Globalization.CultureInfo.InvariantCulture)</p>
+                @*<p class="card-text">Participants: @hike.Participants.Count() / @hike.MaxGroupSize</p>
+                <p class="card-text">Duration: @hike.TripDuration.TotalHours h</p>
+                <p class="card-text">Distance: @hike.TripDistance km</p>*@
+                <a asp-controller="Events" asp-action="GetById" asp-route-id="@hike.Id" class="btn btn-primary">Read more</a>
+                @if (!hike.CurrentUserHasJoinedEvent)
+                {
+                     <a asp-controller="Events" asp-action="Join" asp-route-id="@hike.Id" class="btn btn-primary">Join</a>
+                }
+            </div>
+        </div>
+    }
+
+</div>

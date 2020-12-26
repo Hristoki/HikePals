@@ -3,15 +3,19 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
+    using HikePals.Common;
     using HikePals.Data.Models;
     using HikePals.Services.Data;
     using HikePals.Web.ViewModels.Events;
     using HikePals.Web.ViewModels.Trips;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class EventsController : BaseController
     {
         private readonly ITransportService transportService;
@@ -25,10 +29,8 @@
             this.userManager = userManager;
         }
 
-
         public IActionResult Create(int id)
         {
-
             var model = this.eventsService.MapTripData(id);
             model.TransportItems = this.transportService.GetAllTransportTypes();
             return this.View(model);
@@ -73,7 +75,7 @@
             await this.eventsService.UpdateAsync(input);
             var eventId = input.Id;
 
-            return this.RedirectToAction(nameof(GetById), new { id = eventId });
+            return this.RedirectToAction(nameof(this.GetById), new { id = eventId });
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -83,30 +85,50 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        public async Task<IActionResult> Join(int id)
+        public async Task<IActionResult> RequestJoinEvent(int id)
         {
            var user = await this.userManager.GetUserAsync(this.User);
+           var eventId = id;
 
            try
            {
-              await this.eventsService.JoinEvent(user, id);
+              await this.eventsService.RequestJoinEvent(user, eventId);
            }
            catch (Exception ex)
            {
                this.ModelState.AddModelError(string.Empty, ex.Message);
-               return this.RedirectToAction("GetbyId", new { id = id });
-            }
+               return this.RedirectToAction("GetbyId", new { id = eventId });
+           }
 
-           return this.RedirectToAction("GetbyId", new { id });
+           return this.RedirectToAction("GetbyId", new {id = eventId });
         }
 
-        public async Task<IActionResult> Leave(int id)
+        public async Task<IActionResult> ApproveJoinEvent(int id, string participantId)
         {
-            var user = await this.userManager.GetUserAsync(this.User);
+            var eventId = id;
 
             try
             {
-                await this.eventsService.LeaveEvent(user, id);
+                await this.eventsService.ApproveJoinRequest(participantId, eventId);
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.RedirectToAction("GetbyId", new { id = eventId });
+            }
+
+            //Get previous page Url address
+            var referer = this.Request.Headers["Referer"].ToString();
+
+            return this.Redirect(referer);
+        }
+
+        public async Task<IActionResult> Leave(int id, string participantId)
+        {
+
+            try
+            {
+                await this.eventsService.LeaveEvent(participantId, id);
             }
             catch (Exception ex)
             {
@@ -114,8 +136,24 @@
                 return this.RedirectToAction("GetbyId", new { id = id });
             }
 
-            return this.RedirectToAction("GetbyId", new { id });
+            return this.RedirectToAction("GetbyId", new { id = id });
         }
 
+        public async Task<IActionResult> UndoJoinRequest(int id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            try
+            {
+                await this.eventsService.UndoJoinRequest(userId, id);
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.RedirectToAction("GetbyId", new { id = id });
+            }
+
+            return this.RedirectToAction("GetbyId", new { id = id });
+        }
     }
 }

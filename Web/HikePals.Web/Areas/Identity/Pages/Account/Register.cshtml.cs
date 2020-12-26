@@ -7,7 +7,7 @@
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
-
+    using HikePals.Common;
     using HikePals.Data.Models;
     using HikePals.Services.Data;
     using Microsoft.AspNetCore.Authentication;
@@ -105,8 +105,10 @@
                 user.Name = this.Input.Name;
 
                 var result = await this._userManager.CreateAsync(user, this.Input.Password);
+
                 if (result.Succeeded)
                 {
+                    await this._userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
                     this._logger.LogInformation("User created a new account with password.");
 
                     var code = await this._userManager.GenerateEmailConfirmationTokenAsync(user);

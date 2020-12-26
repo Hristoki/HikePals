@@ -1,8 +1,8 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
-using HikePals.Data.Common.Models;
-
 namespace HikePals.Data.Models
 {
+    using HikePals.Data.Common.Models;
+
     public class EventsUsers : BaseDeletableModel<int>
     {
         public string UserId { get; set; }
@@ -12,5 +12,7 @@ namespace HikePals.Data.Models
         public int EventId { get; set; }
 
         public Event Event { get; set; }
+
+        public bool PendingJoinRequest { get; set; }
     }
 }

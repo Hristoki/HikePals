@@ -2,32 +2,6 @@
     <h1>All trips!</h1>
 
 
-<div class="row">
-    @foreach (var trip in this.Model)
-    {
-
-
-    <div class="card col-md-5" >
-        <div class="embed-responsive embed-responsive-4by3">
-            <a asp-action="GetById" asp-route-id="@trip.Id">
-                <img class="card-img-top img-responsive embed-responsive-item" src="@trip.ImageUrl" alt="@trip.Title">
-            </a> 
-        </div>
-        
-        <div class="card-body">
-            <a asp-action="GetById" asp-route-id="@trip.Id"><h5 class="card-title md-1">@trip.Title</h5></a>
-            <p class="card-text">@trip.Description</p>
-            <a asp-action="GetById" asp-route-id="@trip.Id" class="btn btn-primary">Read more</a>
-        </div>
+    <div class="container text-center">
+        @{await Html.RenderPartialAsync("_AllTripsPartial", this.Model);}
     </div>
-
-        @*<div class="media col-md-4">
-            <img src="@trip.ImageUrl" width="100" class="mr-3 img-responsive">
-            <div class="media-body">
-                <h5 class="mt-0"><a asp-action="ById" asp-route-id="@trip.Id">@trip.Name</a></h5>
-                @trip.CategoryName
-            </div>
-        </div>*@
-    }
-
-</div>

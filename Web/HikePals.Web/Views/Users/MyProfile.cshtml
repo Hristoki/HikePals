@@ -1,0 +1,39 @@
+﻿@model HikePals.Web.ViewModels.Users.ProfileOverViewDataModel
+
+@{ this.ViewData["Title"] = "My Profile"; }
+<h1>Profile Overview</h1>
+
+
+<div class="row d-md-flex">
+    <div class="col-md-4">
+        <span class="row">
+            Events count: @Model.EventsCount
+        </span>
+
+        <span class="row">
+            <a type="button" class="btn btn-success"  asp-action="MyEvents">MyEvents</a>
+        </span>
+    </div>
+
+    <div class="col-md-4 class=" text-center"">
+
+        <span class="row">
+            Trips count: @Model.TripsCount
+        </span>
+
+        <span class="row">
+            <a type="button" class="btn btn-success" asp-action="MyTrips">MyTrips</a>
+        </span>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <span class="row">
+            Inbox Msgs: Not implemented
+        </span>
+
+        <span class="row">
+            <a type="button" class="btn btn-success"  asp-action="Inbox">Inbox</a>
+        </span>
+    </div>

@@ -1,0 +1,6 @@
+﻿@model IEnumerable<HikePals.Web.ViewModels.Trips.TripViewModel>
+
+
+<div class="container text-center">
+    @{await Html.RenderPartialAsync("_AllTripsPartial", this.Model);}
+</div>

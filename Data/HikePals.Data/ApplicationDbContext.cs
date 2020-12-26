@@ -48,7 +48,7 @@
 
         public DbSet<Rating> UsersRatings { get; set; }
 
-        public DbSet<EventsUsers> TripsUsers { get; set; }
+        public DbSet<EventsUsers> EventsUsers { get; set; }
 
         public DbSet<TripsTags> TripsTags { get; set; }
 

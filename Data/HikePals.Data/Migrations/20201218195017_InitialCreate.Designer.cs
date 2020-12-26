@@ -4,14 +4,16 @@ using HikePals.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HikePals.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201218195017_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -321,16 +323,13 @@ namespace HikePals.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("PendingJoinRequest")
-                        .HasColumnType("bit");
-
                     b.HasKey("UserId", "EventId");
 
                     b.HasIndex("EventId");
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("EventsUsers");
+                    b.ToTable("TripsUsers");
                 });
 
             modelBuilder.Entity("HikePals.Data.Models.Image", b =>
@@ -867,7 +866,7 @@ namespace HikePals.Data.Migrations
                     b.HasOne("HikePals.Data.Models.ApplicationUser", "User")
                         .WithMany("Ratings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

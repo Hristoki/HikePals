@@ -25,9 +25,10 @@
         public IActionResult Index()
         {
             var model = new DashboardIndexViewModel();
-            model.TripsCount = this.tripsService.GetCount();
-            model.EventsCount = this.eventsService.GetCount();
-            model.UsersCount =  this.usersService.GetCount();
+            model.TripsCount = this.tripsService.GetAllTripsCount();
+            model.EventsCount = this.eventsService.GetAllEventsCount();
+            model.UsersCount = this.usersService.GetAllUsersCount();
+
             return this.View(model);
         }
     }

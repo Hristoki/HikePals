@@ -1,14 +1,8 @@
 ﻿namespace HikePals.Web.ViewModels.Trips
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
 
-    using AutoMapper;
-    using HikePals.Data.Models;
-    using HikePals.Services.Mapping;
 
     public abstract class BaseTripViewModel
     {
@@ -25,12 +19,18 @@
 
         public string ImageUrl { get; set; }
 
+        [Required]
         public int LocationCategoryId { get; set; }
 
+        [Required]
         public string LocationCategoryName { get; set; }
 
+        [Required]
+        [Range(1, 1000)]
         public int Distance { get; set; }
 
+        [Required]
+        [Range(0, 1000)]
         public TimeSpan Duration { get; set; }
 
         [Required]

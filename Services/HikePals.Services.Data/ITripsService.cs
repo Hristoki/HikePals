@@ -27,8 +27,12 @@
 
         Task DeleteAsync(int id);
 
-        int GetCount();
+        int GetAllTripsCount();
 
         Task RestoreAsync(int id);
+
+        int GetUserTripsCount(string userId);
+
+        IEnumerable<T> GetAllUserTrips<T>(string userId);
     }
 }

@@ -49,38 +49,6 @@
             return this.View(@event);
         }
 
-        // GET: Administration/Events/Create
-        //public IActionResult Create()
-        //{
-        //    ViewData["CreatedById"] = new SelectList(this.EventsService.Users, "Id", "Id");
-        //    ViewData["TransportId"] = new SelectList(this.EventsService.Transports, "Id", "Id");
-        //    ViewData["TripId"] = new SelectList(this.EventsService.Trips, "Id", "Id");
-        //    return View();
-        //}
-
-        // POST: Administration/Events/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Title,Details,CreatedById,StartTime,EndTime,MaxGroupSize,TransportId,TripId,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Event @event)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        this.EventsService.Add(@event);
-        //        await this.EventsService.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["CreatedById"] = new SelectList(this.EventsService.Users, "Id", "Id", @event.CreatedById);
-        //    ViewData["TransportId"] = new SelectList(this.EventsService.Transports, "Id", "Id", @event.TransportId);
-        //    ViewData["TripId"] = new SelectList(this.EventsService.Trips, "Id", "Id", @event.TripId);
-        //    return View(@event);
-        //}
-
-
-        // GET: Administration/Events/Edit/5
-
         public IActionResult Edit(int id)
         {
             var model = this.eventsService.GetById<EditEventViewModel>(id);
@@ -95,10 +63,6 @@
 
             return this.View(model);
         }
-
-        // POST: Administration/Events/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -150,10 +114,6 @@
 
         public async Task<IActionResult> Restore(int id)
         {
-            //if (!this.eventsService.Exists(id))
-            //{
-            //    return this.NotFound();
-            //}
 
             await this.eventsService.RestoreAsync(id);
             return this.RedirectToAction(nameof(this.Index));

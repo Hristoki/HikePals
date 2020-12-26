@@ -12,24 +12,48 @@
 </nav>
 
 <div class=role aria-label="Basic example" style="vertical-align:middle; text-align: center;">
-    <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-    <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
-    @if (Model.MaxGroupSize == Model.Participants.Count() || Model.HasJoinedEvent == true)
-    {
-        <a type="button" class="btn btn-secondary disabled" asp-action="Join" asp-route-id="@Model.Id">Join</a>
 
+    @if (this.User.IsInRole("Administrator") || Model.UserId == Model.CreatedById)
+    {
+        <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    }
+
+    @if (this.User.IsInRole("Administrator"))
+    {
+        <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+    }
+
+    @if (Model.CurrentUserHasRequestPending)
+    {
+        <a type="button" class="btn btn-secondary disabled" asp-action="RequestJoinEvent" asp-route-id="@Model.Id">Request Sent</a>
+        <a type="button" class="btn btn-warning" asp-action="UndoRequest" asp-route-id="@Model.Id">Undo Request</a>
+    }
+    else if (Model.Participants.Count() == Model.MaxGroupSize)
+    {
+        <a class="btn btn-secondary disabled">Join</a>
+    }
+
+    else if (Model.Participants.Count() == Model.MaxGroupSize)
+    {
+        <a class="btn btn-secondary disabled">Join</a>
+    }
+    else if (Model.CurrentUserHasJoinedEvent)
+    {
+        <a type="button" class="btn btn-danger" asp-action="Leave" asp-route-id="@Model.Id">Leave</a>
     }
     else
     {
-        <a type="button" class="btn btn-success" asp-action="Join" asp-route-id="@Model.Id">Joined</a>
+        <a type="button" class="btn btn-success" asp-action="RequestJoinEvent" asp-route-id="@Model.Id">Join</a>
     }
-    <a type="button" class="btn btn-danger" asp-action="Leave" asp-route-id="@Model.Id">Leave</a>
+
+    @*//TO DO: Undo Request*@
+
 </div>
 
 <div>
 
     <div class="row" style="margin-right: 0px;margin-left: 0px;">
-        <div class="col-2">
+        <div class="col-1">
             <ul class="nav flex-column">
                 <li class="nav-item ">
                     <a class="nav-link active" href="#">Categories</a>
@@ -43,20 +67,23 @@
             </ul>
         </div>
 
-        <div class="row col-md-10">
-            <div class="card col-md-6">
+        <div class="row col-md-11" style="margin-left: 10px">
+            <div class="card col-md-7">
 
                 <div class="flex-column">
                     <div class="d-flex flex-row">
-                        <div class="p-2"><span>Distance - @Model.TripDistance km</span></div>
-                        <div class="p-2"><span>Duration - @Model.TripDuration h</span></div>
+                        <div class="p-2"><span>Distance - @Model.TripDistance km  |</span></div>
+                        <div class="p-2"><span>Duration - @Model.TripDuration h  |</span></div>
                         <div class="p-2"><span>Start Time - @Model.StartTime.ToString("t")</span> </div>
                     </div>
                     <div class="col-10"></div>
                 </div>
                 <img src="@Model.Image" class="img-fluid max-width: 75%;  height: auto" alt="" />
                 <div class="card-body">
-                    @Model.Details
+                    <h6>Details:</h6>
+                    <div>
+                        @Model.Details
+                    </div>
                 </div>
             </div>
 
@@ -79,32 +106,32 @@
                     {
                         @foreach (var participant in Model.Participants)
                         {
-                            <tr>
-                                <td>@participant.Name</td>
-                                <td>@participant.Age</td>
-                                <td>@participant.CityName</td>
-                                @if (this.User.IsInRole("Administrator"))
-                                {
-                                    <td>
-                                        <a type="button" class="close" aria-label="Close" alt="Remove" asp-action="Leave" asp-route-id="@Model.Id">
-                                            <span aria-hidden="true">&times;</span>
-                                        </a>
-                                    </td>
-                                }
-                            </tr>
-                        }
-                    }
-                    else
-                    {
-                        @for (int i = 0; i < Model.MaxGroupSize; i++)
-                        {
-                            <tr>
+                            if (Model.CurrentUserHasJoinedEvent || this.User.IsInRole("Administrator") || Model.UserId == Model.CreatedById)
+                            {
+                                <tr>
+                                    <td>@participant.Name</td>
+                                    <td>@participant.Age</td>
+                                    <td>@participant.CityName</td>
+                                    @if (this.User.IsInRole("Administrator") || Model.UserId == Model.CreatedById)
+                                    {
+                                        <td>
+                                            @if (!participant.IsJoinRequestPending)
+                                            {
+                                                <a type="button" class="close" aria-label="Close" alt="Remove" asp-action="Leave" asp-route-id="@Model.Id" asp-route-participantId="@participant.Id">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a type="button" class="close" aria-label="approve" alt="approve" asp-action="ApproveJoinEvent" asp-route-id="@Model.Id" asp-route-participantId="@participant.Id">
+                                                    <i class="fas fa-check" style="color: green"></i>
 
-                                <td></td>
-                                <td></td>
-                                <td></td>
-
-                            </tr>
+                                                </a>
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                            }
                         }
                     }
 
