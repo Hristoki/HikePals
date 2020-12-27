@@ -50,6 +50,12 @@
         public async Task<IActionResult> GetById(int id)
         {
             var model = this.eventsService.GetById<EventViewModel>(id);
+
+            if (model == null)
+            {
+                return this.RedirectToAction("NotFoundError", "Error");
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
             model.UserId = user.Id;
 
@@ -68,6 +74,12 @@
         public IActionResult Edit(int id)
         {
            var model = this.eventsService.GetById<EditEventViewModel>(id);
+
+           if (model == null)
+           {
+                return this.RedirectToAction("NotFoundError", "Error");
+           }
+
            model.TransportItems = this.transportService.GetAllTransportTypes();
            return this.View(model);
         }
@@ -83,7 +95,13 @@
 
         public async Task<IActionResult> Delete(int id)
         {
+            if (!this.eventsService.Exists(id))
+            {
+                return this.RedirectToAction("NotFoundError", "Error");
+            }
+
             await this.eventsService.DeleteAsync(id);
+
             return this.RedirectToAction(nameof(this.All));
         }
 
@@ -127,7 +145,6 @@
 
         public async Task<IActionResult> Leave(int id, string participantId)
         {
-
             try
             {
                 await this.eventsService.LeaveEvent(participantId, id);

@@ -10,30 +10,32 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
+    using HikePals.Common;
+
     public class CreateTripInputViewModel
     {
         [Required]
-        [MaxLength(100)]
-        [MinLength(10)]
+        [MaxLength(GlobalConstants.MaxTripTitleLenght, ErrorMessage = GlobalConstants.TripTitleErrorMessage)]
+        [MinLength(GlobalConstants.MinTripTitleLenght, ErrorMessage = GlobalConstants.TripTitleErrorMessage)]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(300)]
-        [MinLength(3)]
+        [MaxLength(GlobalConstants.MaxLocationNameLenght, ErrorMessage = GlobalConstants.TripLocationNameErrorMessage)]
+        [MinLength(GlobalConstants.MinLocationNameLenght, ErrorMessage = GlobalConstants.TripLocationNameErrorMessage)]
         public string LocationName { get; set; }
 
         public string ImageUrl { get; set; }
 
         [Required]
-        [Range(1, 1000)]
+        [Range(GlobalConstants.MinTripDistance, GlobalConstants.MaxTripDistance, ErrorMessage = GlobalConstants.TripDistanceErrorMessage)]
         public int Distance { get; set; }
 
         [Required]
         public TimeSpan Duration { get; set; }
 
         [Required]
-        [MaxLength(10000, ErrorMessage = "Description should be between 25 and 10000 symbols long")]
-        [MinLength(25, ErrorMessage = "Description should be between 25 and 10000 symbols long")]
+        [MaxLength(GlobalConstants.MaxTripDescriptionLenght, ErrorMessage = GlobalConstants.TripDescriptionErrorMessage)]
+        [MinLength(GlobalConstants.MinTripDescriptionLenght, ErrorMessage = GlobalConstants.TripDescriptionErrorMessage)]
         public string Description { get; set; }
 
         [Required]

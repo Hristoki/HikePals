@@ -11,7 +11,5 @@
     public class EditEventViewModel : CreateEventInputViewModel, IMapFrom<Event>, IHaveCustomMappings
     {
         public string TransportName { get; set; }
-
-        public int Id { get; set; }
     }
 }

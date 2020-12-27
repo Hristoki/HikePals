@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Text;
+
     using AutoMapper;
     using HikePals.Data.Models;
     using HikePals.Services.Mapping;
@@ -11,6 +12,7 @@
 
     public class EditTripViewModel : IMapFrom<Trip>, IHaveCustomMappings
     {
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -21,6 +23,8 @@
         [MaxLength(300)]
         [MinLength(3)]
         public string LocationName { get; set; }
+
+        public string Description { get; set; }
 
         public string ImageUrl { get; set; }
 
@@ -41,10 +45,6 @@
         [MaxLength(10000, ErrorMessage = "Description should be between 50 and 500 symbols long")]
         [MinLength(25, ErrorMessage = "Description should be between 50 and 500 symbols long")]
 
-        public string Description { get; set; }
-        public int Id { get; set; }
-
-        [Required]
         public int CityId { get; set; }
 
         public IEnumerable<SelectListItem> CityItems { get; set; }

@@ -21,18 +21,17 @@
             this.userManager = userManager;
         }
 
-        public IActionResult Contact()
+        public IActionResult Index()
         {
             return this.View();
         }
 
         [HttpPost]
-        public IActionResult Contact(ContactFormInputViewModel input)
+        public IActionResult Index(ContactFormInputViewModel input)
         {
 
             if (!this.ModelState.IsValid)
             {
-
                 return this.View(input);
             }
             this.mailService.SendContactFormEmailAsync(input.Email, input.Subject, input.Content, input.Name);

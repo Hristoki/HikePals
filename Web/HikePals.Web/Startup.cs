@@ -14,7 +14,6 @@
     using HikePals.Services.Messaging;
     using HikePals.Web.Hub;
     using HikePals.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;

@@ -32,12 +32,12 @@
 
         public IActionResult CreateTrip()
         {
-           var viewModel = new CreateTripInputViewModel();
+            var viewModel = new CreateTripInputViewModel();
 
-           viewModel.CityItems = this.citiesService.GetAllCities();
-           viewModel.CategoryItems = this.categoriesService.GetAllLocationCategories();
+            viewModel.CityItems = this.citiesService.GetAllCities();
+            viewModel.CategoryItems = this.categoriesService.GetAllLocationCategories();
 
-           return this.View(viewModel);
+            return this.View(viewModel);
         }
 
         [HttpPost]
@@ -59,7 +59,7 @@
 
             try
             {
-                 await this.tripsService.AddNewTrip(input, user.Id, imagesDirPath);
+                await this.tripsService.AddNewTrip(input, user.Id, imagesDirPath);
             }
             catch (Exception ex)
             {
@@ -83,7 +83,12 @@
         public IActionResult GetById(int id)
         {
             var model = this.tripsService.GetById<TripViewModel>(id);
+            if (this.ModelBinderFactory == null)
+            {
 
+                return this.RedirectToAction("NotFoundError", "Error");
+
+            }
             return this.View(model);
         }
 
@@ -113,6 +118,11 @@
 
             var model = this.tripsService.GetById<TripViewModel>(input.Id);
 
+            if (model == null)
+            {
+                return this.RedirectToAction("NotFoundError", "Error");
+            }
+
             return this.RedirectToAction("GetById", model);
         }
 
@@ -120,8 +130,9 @@
         {
             if (!this.tripsService.Exists(id))
             {
-                return this.NotFound();
+               return this.RedirectToAction("NotFoundError", "Error");
             }
+
             await this.tripsService.DeleteAsync(id);
             return this.RedirectToAction("All");
         }

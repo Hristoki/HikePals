@@ -11,8 +11,8 @@
     <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
 
     @*<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
 
 </head>
 <body>
@@ -30,17 +30,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Contacts" asp-action="Contact">Contacts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Trips" asp-action="CreateTrip">Create a Hike Route</a>
-                        </li>
+                        @if (this.User.IsInRole("User"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Trips" asp-action="CreateTrip">Create a Hike Route</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Events" asp-action="All">Find a Hike Event!</a>
+                            </li>
+
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Trips" asp-action="All">Hike Routes Gallery</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Events" asp-action="All">Find a Hike!</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Contacts" asp-action="Contact">Contacts</a>
                         </li>
                     </ul>
                 </div>
@@ -56,7 +61,8 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+
+        <div class="container"style="text-align:center">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>

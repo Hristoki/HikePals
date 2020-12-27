@@ -15,8 +15,7 @@
         public string Details { get; set; }
 
         public string UserId { get; set; }
-
-
+       
         public bool CurrentUserHasRequestPending => this.Participants.FirstOrDefault(x => x.UserId == this.UserId && x.IsJoinRequestPending) != null ? true : false;
 
         public bool CurrentUserHasJoinedEvent => this.Participants.FirstOrDefault(x => x.UserId == this.UserId && x.IsJoinRequestPending == false) != null ? true : false;

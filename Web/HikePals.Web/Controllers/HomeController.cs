@@ -3,7 +3,7 @@
     using System.Diagnostics;
     using HikePals.Services.Data;
     using HikePals.Web.ViewModels;
-
+    using HikePals.Web.ViewModels;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController

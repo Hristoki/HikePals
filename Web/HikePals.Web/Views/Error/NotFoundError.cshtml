@@ -1,0 +1,49 @@
+﻿<head>
+    <link href="~/css/notfound.css" rel="stylesheet" asp-append-version="true" />
+</head>
+
+@model HikePals.Web.ViewModels.ErrorViewModel
+
+
+
+<div id="notfound" class="container-md ">
+    <div class="mb-2">
+        <h1 id="notfound" style="">404 NOT FOUND</h1>
+        <h2></h2>
+
+        <h3 style="color: white">The page you're looking for doesn't exist!</h3>
+        <br />
+
+        <div class="">
+            <h3>Check out one of these pages:</h3>
+
+            <ul>
+                <li>
+                    <h5><a asp-controller="Home" asp-action="Index">Hike you way back to the Home Page!</a></h5>
+                </li>
+                <li>
+                    <h5><a asp-controller="About" asp-action="Index">About us</a></h5>
+                </li>
+                <li>
+                    <h5><a asp-controller="Contacts" asp-action="Index">Contact us</a></h5>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <br />
+    <div class="mb-2">
+        <strong>Status code:</strong> <code>@this.Model.StatusCode</code>
+        @if (this.Model.ShowRequestId)
+        {
+            <br />
+            <strong>Request ID:</strong> <code>@this.Model.RequestId</code>
+        }
+        @if (this.Model.ShowRequestPath)
+        {
+            <br />
+            <strong>Request Path:</strong> <code>@this.Model.RequestPath</code>
+        }
+    </div>
+</div>
+<div class="margin-top-50"></div>

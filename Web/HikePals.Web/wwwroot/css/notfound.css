@@ -1,0 +1,24 @@
+﻿div#notfound {
+    background: url(../images/mountains.jpg);
+    height: 900px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    padding: 10rem;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin: 0px;
+    margin-top: 0px;
+}
+
+h1, h2 {
+    margin-left: 10px;
+    vertical-align: text-top;
+    font-size: 90px;
+    color: white;
+    font-variant-caps: titling-caps
+}
+h3, h4, h5{
+    margin-left: 10px;
+}
