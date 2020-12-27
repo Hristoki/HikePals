@@ -8,10 +8,10 @@
     using HikePals.Services.Mapping;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
-    public class EditEventViewModel : BaseEventViewModel, IMapFrom<Event>
+    public class EditEventViewModel : CreateEventInputViewModel, IMapFrom<Event>, IHaveCustomMappings
     {
-        public int TransportId { get; set; }
+        public string TransportName { get; set; }
 
-        public IEnumerable<SelectListItem> TransportItems { get; set; }
+        public int Id { get; set; }
     }
 }

@@ -76,7 +76,7 @@
                 return this.NotFound();
             }
 
-            var model = new AllEventAsListViewModel { Events = this.eventsService.GetAllUserEvents<EventViewModel>(userId) };
+            var model = new AllEventAsListViewModel { Events = this.eventsService.GetAllUserEvents<SingleEventListViewModel>(userId) };
 
             return this.View(model);
         }

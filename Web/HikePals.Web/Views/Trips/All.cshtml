@@ -1,7 +1,11 @@
 ﻿@model IEnumerable<HikePals.Web.ViewModels.Trips.TripViewModel>
-    <h1>All trips!</h1>
+<h1>All trips!</h1>
 
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-dismissible alert-success">@this.TempData["Message"]</div>
+}
 
-    <div class="container text-center">
-        @{await Html.RenderPartialAsync("_AllTripsPartial", this.Model);}
-    </div>
+<div class="container text-center">
+    @{await Html.RenderPartialAsync("_AllTripsPartial", this.Model);}
+</div>

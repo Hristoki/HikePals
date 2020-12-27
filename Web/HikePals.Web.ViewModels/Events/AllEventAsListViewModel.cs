@@ -6,6 +6,6 @@
 
     public class AllEventAsListViewModel
     {
-        public IEnumerable<EventViewModel> Events { get; set; }
+        public IEnumerable<SingleEventListViewModel> Events { get; set; }
     }
 }

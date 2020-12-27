@@ -122,11 +122,6 @@ body {
 }
 
 
-
-
-
-/*.fas {
-    display: inline;
-    list-style-type: none;
-    float: left;
-}*/
+#map {
+    height: 10%;
+}

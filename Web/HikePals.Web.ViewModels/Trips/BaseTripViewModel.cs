@@ -1,51 +1,34 @@
 ﻿namespace HikePals.Web.ViewModels.Trips
 {
+    using AutoMapper;
+    using HikePals.Data.Models;
+    using HikePals.Services.Mapping;
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
 
-
-    public abstract class BaseTripViewModel
+    public abstract class BaseTripViewModel : IMapFrom<Trip>, IHaveCustomMappings
     {
 
-        [Required]
-        [MaxLength(100)]
-        [MinLength(10)]
-        public string Title { get; set; }
+        public int Id { get; set; }
 
-        [Required]
-        [MaxLength(300)]
-        [MinLength(3)]
-        public string LocationName { get; set; }
+        public string Title { get; set; }
 
         public string ImageUrl { get; set; }
 
-        [Required]
-        public int LocationCategoryId { get; set; }
-
-        [Required]
         public string LocationCategoryName { get; set; }
 
-        [Required]
-        [Range(1, 1000)]
-        public int Distance { get; set; }
+        public string LocationName { get; set; }
 
-        [Required]
-        [Range(0, 1000)]
-        public TimeSpan Duration { get; set; }
+        public double AverageRating { get; set; }
 
-        [Required]
-        [MaxLength(10000, ErrorMessage = "Description should be between 50 and 500 symbols long")]
-        [MinLength(25, ErrorMessage = "Description should be between 50 and 500 symbols long")]
-
-        public string Description { get; set; }
-
-        // TO DO: Remove Later
-        //public void CreateMappings(IProfileExpression configuration)
-        //{
-        //    configuration.CreateMap<Trip, BaseTripViewModel>()
-        //        .ForMember(x => x.Name, opt =>
-        //            opt.MapFrom(x =>
-        //                x.TripName.Take(100)));
-        //}
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Trip, TripViewModel>()
+             .ForMember(t => t.ImageUrl, s =>
+                 s.MapFrom(x =>
+                     x.Image == null ? "No image available" : "/images/trips/" + x.Image.Id + x.Image.Extentsion))
+             .ForMember(x => x.AverageRating, t => t.MapFrom(y => y.Rating.Count() == 0 ? 0 : y.Rating.Average(z => z.Value)));
+        }
     }
 }

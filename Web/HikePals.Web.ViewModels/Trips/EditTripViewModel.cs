@@ -9,9 +9,39 @@
     using HikePals.Services.Mapping;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
-    public class EditTripViewModel : BaseTripViewModel, IMapFrom<Trip>, IHaveCustomMappings
+    public class EditTripViewModel : IMapFrom<Trip>, IHaveCustomMappings
     {
 
+        [Required]
+        [MaxLength(100)]
+        [MinLength(10)]
+        public string Title { get; set; }
+
+        [Required]
+        [MaxLength(300)]
+        [MinLength(3)]
+        public string LocationName { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        [Required]
+        public int LocationCategoryId { get; set; }
+
+        [Required]
+        public string LocationCategoryName { get; set; }
+
+        [Required]
+        [Range(1, 1000)]
+        public int Distance { get; set; }
+
+        [Required]
+        public TimeSpan Duration { get; set; }
+
+        [Required]
+        [MaxLength(10000, ErrorMessage = "Description should be between 50 and 500 symbols long")]
+        [MinLength(25, ErrorMessage = "Description should be between 50 and 500 symbols long")]
+
+        public string Description { get; set; }
         public int Id { get; set; }
 
         [Required]

@@ -1,6 +1,7 @@
 ﻿@model HikePals.Web.ViewModels.Events.AllEventAsListViewModel
 
+    <div class=role aria-label="Basic example" style=" vertical-align: middle; text-align: center;  margin: 10px;"><a class="btn btn-dark" asp-action="MyProfile">Back to My Profile</a></div>
 
-<div class="container text-center">
-    @{await Html.RenderPartialAsync("_AllEventsPartial", this.Model);}
-</div>
+        <div class="container text-center">
+            @{await Html.RenderPartialAsync("_AllEventsPartial", this.Model);}
+        </div>

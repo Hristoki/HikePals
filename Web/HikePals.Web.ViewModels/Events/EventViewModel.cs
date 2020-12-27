@@ -12,9 +12,10 @@
 
     public class EventViewModel : BaseEventViewModel, IMapFrom<Event>, IHaveCustomMappings
     {
-        public string Image { get; set; }
+        public string Details { get; set; }
 
-        public string CreatedById { get; set; }
+        public string UserId { get; set; }
+
 
         public bool CurrentUserHasRequestPending => this.Participants.FirstOrDefault(x => x.UserId == this.UserId && x.IsJoinRequestPending) != null ? true : false;
 
@@ -25,7 +26,7 @@
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Event, EventViewModel>()
-                .ForMember(t => t.Image, s => s.MapFrom(x => "/images/trips/" + x.Trip.Image.Id + x.Trip.Image.Extentsion))
+                .ForMember(t => t.ImageUrl, s => s.MapFrom(x => "/images/trips/" + x.Trip.Image.Id + x.Trip.Image.Extentsion))
                 .ForMember(t => t.CreatedById, s => s.MapFrom(x => x.CreatedById));
         }
     }

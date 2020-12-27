@@ -67,6 +67,7 @@
             });
 
             services.AddSingleton(this.configuration);
+            services.AddSession();
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
@@ -86,7 +87,6 @@
             services.AddTransient<IRatingsService, RatingsService>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IMailService, MailService>();
-            //services.AddTransient<ILogger, Logger>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

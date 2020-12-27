@@ -61,14 +61,14 @@
             return this.eventsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id) == null ? false : true;
         }
 
-        public IEnumerable<EventViewModel> GetAll()
+        public IEnumerable<T> GetAll<T>()
         {
-            return this.eventsRepository.AllAsNoTracking().To<EventViewModel>().ToList();
+            return this.eventsRepository.AllAsNoTracking().OrderByDescending(x => x.CreatedOn).To<T>().ToList<T>();
         }
 
         public IEnumerable<SingleEventAdminViewModel> GetAllWithDeleted()
         {
-            return this.eventsRepository.AllWithDeleted().To<SingleEventAdminViewModel>().ToList();
+            return this.eventsRepository.AllWithDeleted().OrderByDescending(x => x.CreatedOn).To<SingleEventAdminViewModel>().ToList();
         }
 
         public T GetById<T>(int id)

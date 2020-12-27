@@ -10,7 +10,7 @@
         <div class="card col-md-4">
             <div class="embed-responsive embed-responsive-4by3">
                 <a asp-controller="Events" asp-action="GetById" asp-route-id="@hike.Id">
-                    <img class="card-img-top img-responsive embed-responsive-item" src="@hike.Image" alt="@hike.Title">
+                    <img class="card-img-top img-responsive embed-responsive-item" src="@hike.ImageUrl" alt="@hike.Title" style="margin:10px; margin-left:0">
                 </a>
             </div>
 
@@ -21,10 +21,7 @@
                 <p class="card-text">Duration: @hike.TripDuration.TotalHours h</p>
                 <p class="card-text">Distance: @hike.TripDistance km</p>*@
                 <a asp-controller="Events" asp-action="GetById" asp-route-id="@hike.Id" class="btn btn-primary">Read more</a>
-                @if (!hike.CurrentUserHasJoinedEvent)
-                {
-                     <a asp-controller="Events" asp-action="Join" asp-route-id="@hike.Id" class="btn btn-primary">Join</a>
-                }
+               
             </div>
         </div>
     }

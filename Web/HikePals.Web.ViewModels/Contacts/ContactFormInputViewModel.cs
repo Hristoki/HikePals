@@ -15,9 +15,13 @@
         public string Email { get; set; }
 
         [Required]
+        [MinLength(10)]
+        [MaxLength(200)]
         public string Subject { get; set; }
 
         [Required]
+        [MinLength(10)]
+        [MaxLength(1000)]
         public string Content { get; set; }
     }
 }

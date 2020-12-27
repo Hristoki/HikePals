@@ -16,7 +16,7 @@
 
         Task<int> CreateNewEvent(CreateEventInputViewModel input, string userId);
 
-        IEnumerable<EventViewModel> GetAll();
+        IEnumerable<T> GetAll<T>();
 
         IEnumerable<SingleEventAdminViewModel> GetAllWithDeleted();
 

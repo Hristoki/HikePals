@@ -69,6 +69,8 @@
                 return this.View(input);
             }
 
+            this.TempData["Message"] = "You have sucessully added a hiking route!";
+
             return this.RedirectToAction("All");
         }
 
@@ -108,6 +110,7 @@
 
                 this.View(input);
             }
+
             var model = this.tripsService.GetById<TripViewModel>(input.Id);
 
             return this.RedirectToAction("GetById", model);

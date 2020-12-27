@@ -26,7 +26,7 @@
     @if (Model.CurrentUserHasRequestPending)
     {
         <a type="button" class="btn btn-secondary disabled" asp-action="RequestJoinEvent" asp-route-id="@Model.Id">Request Sent</a>
-        <a type="button" class="btn btn-warning" asp-action="UndoRequest" asp-route-id="@Model.Id">Undo Request</a>
+        <a type="button" class="btn btn-warning" asp-action="UndoJoinRequest" asp-route-id="@Model.Id">Undo Request</a>
     }
     else if (Model.Participants.Count() == Model.MaxGroupSize)
     {
@@ -78,7 +78,7 @@
                     </div>
                     <div class="col-10"></div>
                 </div>
-                <img src="@Model.Image" class="img-fluid max-width: 75%;  height: auto" alt="" />
+                <img src="@Model.ImageUrl" class="img-fluid max-width: 75%;  height: auto" alt="" />
                 <div class="card-body">
                     <h6>Details:</h6>
                     <div>
@@ -92,7 +92,7 @@
                     <thead>
                         <tr>
                             <th scope="auto">Joined: </th>
-                            <th scope="col"> @Model.Participants.Count() / @Model.MaxGroupSize</thscope="col">
+                            <th scope="col"> @Model.Participants.Where(x => !x.IsJoinRequestPending).Count() / @Model.MaxGroupSize</th scope="col">
 
                         </tr>
                         <tr>

@@ -42,6 +42,8 @@
             var user = await this.userManager.GetUserAsync(this.User);
             var eventId = await this.eventsService.CreateNewEvent(input, user.Id);
 
+            this.TempData["Message"] = "You have sucessully added a hiking event!";
+
             return this.RedirectToAction(nameof(this.GetById), new {id = eventId});
         }
 
@@ -54,10 +56,11 @@
             return this.View(model);
         }
 
+        [AllowAnonymous]
         public IActionResult All()
         {
             var model = new AllEventAsListViewModel();
-            model.Events = this.eventsService.GetAll();
+            model.Events = this.eventsService.GetAll<SingleEventListViewModel>();
 
             return this.View(model);
         }
@@ -81,7 +84,6 @@
         public async Task<IActionResult> Delete(int id)
         {
             await this.eventsService.DeleteAsync(id);
-            var model = this.eventsService.GetAll();
             return this.RedirectToAction(nameof(this.All));
         }
 
@@ -117,7 +119,7 @@
                 return this.RedirectToAction("GetbyId", new { id = eventId });
             }
 
-            //Get previous page Url address
+             // Get previous page Url address
             var referer = this.Request.Headers["Referer"].ToString();
 
             return this.Redirect(referer);

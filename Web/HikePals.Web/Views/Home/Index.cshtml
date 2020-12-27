@@ -1,12 +1,19 @@
 ﻿@using HikePals.Common
-@model  HikePals.Web.ViewModels.Home.IndexViewModel
+@model HikePals.Web.ViewModels.Home.IndexViewModel
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
 
+    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+    <div id="989beb3ca417c470c546f29c4cf51204" class="ww-informers-box-854753">
+        <p class="ww-informers-box-854754">
+            <a href="https://world-weather.info/">world-weather.info</a>
+            <br>
+            <a href="https://world-weather.info/forecast/usa/portland_2/">https://world-weather.info/forecast/usa/portland_2/</a>
+        </p>
+    </div>
 
     <ul>
         Total Trips:
@@ -20,3 +27,22 @@
     </ul>
 
 </div>
+<div class="mapouter">
+    <div class="gmap_canvas">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11731.226019603004!2d23.3187061875184!3d42.686640914331036!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa850fb6af8ebb%3A0x87a301b7860955b9!2sNational%20Palace%20of%20Culture!5e0!3m2!1sen!2sus!4v1609025707014!5m2!1sen!2sus" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        let map;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            });
+        }
+
+    </script>
+}

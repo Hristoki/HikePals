@@ -114,7 +114,6 @@
 
         public async Task<IActionResult> Restore(int id)
         {
-
             await this.eventsService.RestoreAsync(id);
             return this.RedirectToAction(nameof(this.Index));
         }

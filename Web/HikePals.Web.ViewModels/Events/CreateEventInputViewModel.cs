@@ -11,10 +11,14 @@
     using HikePals.Web.ViewModels.ValidationAttributes;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
-    public class CreateEventInputViewModel : BaseTripViewModel, IMapTo<Event>, IMapFrom<Trip>, IHaveCustomMappings
+    public class CreateEventInputViewModel : TripViewModel, IMapTo<Event>, IHaveCustomMappings
 
     {
+        public int TripId { get; set; }
 
+        [Required]
+        [MaxLength(10000, ErrorMessage = "Description should be between 25 and 10000 symbols long")]
+        [MinLength(25, ErrorMessage = "Description should be between 25 and 10000 symbols long")]
         public string Details { get; set; }
 
         public int ApplicationUserId { get; set; }
@@ -31,11 +35,10 @@
         [Range(2, 24)]
         public int MaxGroupSize { get; set; }
 
+        [Required]
         public int TransportId { get; set; }
 
         public IEnumerable<SelectListItem> TransportItems { get; set; }
-
-        public int TripId { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
@@ -44,6 +47,12 @@
 
             configuration.CreateMap<CreateEventInputViewModel, Event>()
                 .ForMember(t => t.Title, s => s.MapFrom(x => x.Title));
+
+            configuration.CreateMap<CreateEventInputViewModel, Event>()
+                .ForMember(t => t.Title, s => s.MapFrom(x => x.Title));
+
+            configuration.CreateMap<Event, EditEventViewModel>()
+                .ForMember(x => x.ImageUrl, s => s.MapFrom(x => x.Trip.Image == null ? "No image available" : "/images/trips/" + x.Trip.Image.Id + x.Trip.Image.Extentsion));
         }
     }
 }
