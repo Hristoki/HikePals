@@ -6,6 +6,7 @@
     using System.Text;
 
     using AutoMapper;
+    using HikePals.Common;
     using HikePals.Data.Models;
     using HikePals.Services.Mapping;
     using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,13 +16,13 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(100)]
-        [MinLength(10)]
+        [MaxLength(GlobalConstants.MaxTripTitleLenght, ErrorMessage = GlobalConstants.TripTitleErrorMessage)]
+        [MinLength(GlobalConstants.MinTripTitleLenght, ErrorMessage = GlobalConstants.TripLocationNameErrorMessage)]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(300)]
-        [MinLength(3)]
+        [MaxLength(GlobalConstants.MaxLocationNameLenght, ErrorMessage = GlobalConstants.TripLocationNameErrorMessage)]
+        [MinLength(GlobalConstants.MinLocationNameLenght, ErrorMessage = GlobalConstants.TripLocationNameErrorMessage)]
         public string LocationName { get; set; }
 
         public string Description { get; set; }
@@ -35,15 +36,11 @@
         public string LocationCategoryName { get; set; }
 
         [Required]
-        [Range(1, 1000)]
+        [Range(GlobalConstants.MinTripDistance, GlobalConstants.MaxTripDistance, ErrorMessage = GlobalConstants.TripDistanceErrorMessage)]
         public int Distance { get; set; }
 
         [Required]
         public TimeSpan Duration { get; set; }
-
-        [Required]
-        [MaxLength(10000, ErrorMessage = "Description should be between 50 and 500 symbols long")]
-        [MinLength(25, ErrorMessage = "Description should be between 50 and 500 symbols long")]
 
         public int CityId { get; set; }
 

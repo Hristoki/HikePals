@@ -22,7 +22,7 @@
         {
             configuration.CreateMap<Message, MessageResponseModel>()
                 .ForMember(t => t.ApplicationUserName, s => s.MapFrom(x => x.SentBy.Name == null ? x.SentBy.UserName : x.SentBy.Name))
-                .ForMember(t => t.ApplicationUserId, s => s.MapFrom(x => x.ApplicationUserId))
+                .ForMember(t => t.ApplicationUserId, s => s.MapFrom(x => x.SentById))
                 .ForMember(t => t.Text, s => s.MapFrom(x => x.Content));
         }
     }

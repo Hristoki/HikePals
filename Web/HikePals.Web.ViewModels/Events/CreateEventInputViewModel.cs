@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using AutoMapper;
+    using HikePals.Common;
     using HikePals.Data.Models;
     using HikePals.Services.Mapping;
     using HikePals.Web.ViewModels.Trips;
@@ -17,8 +18,8 @@
         public int TripId { get; set; }
 
         [Required]
-        [MaxLength(10000, ErrorMessage = "Description should be between 25 and 10000 symbols long")]
-        [MinLength(25, ErrorMessage = "Description should be between 25 and 10000 symbols long")]
+        [MaxLength(GlobalConstants.MaxTripDescriptionLenght, ErrorMessage = GlobalConstants.TripDescriptionErrorMessage)]
+        [MinLength(GlobalConstants.MinTripDescriptionLenght, ErrorMessage = GlobalConstants.TripDescriptionErrorMessage)]
         public string Details { get; set; }
 
         public int ApplicationUserId { get; set; }
@@ -32,7 +33,7 @@
         public DateTime EndTime { get; set; }
 
         [Required]
-        [Range(2, 24)]
+        [Range(GlobalConstants.MinGorupSize, GlobalConstants.MaxGroupSize, ErrorMessage = GlobalConstants.GroupsSizeErrorMessage)]
         public int MaxGroupSize { get; set; }
 
         [Required]
