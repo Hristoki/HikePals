@@ -4,20 +4,51 @@
     this.ViewData["Title"] = "Home Page";
 }
 
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Scaffold Bootstrap Template - Index</title>
+    <meta content="" name="descriptison">
+    <meta content="" name="keywords">
+
+
+    <link href="~/css/Home/index.css" rel="stylesheet">
+</head>
+
+<section id="hero" class="d-flex align-items-center">
+    <div class="container" data-aos="zoom-out" data-aos-delay="100">
+        <div class="row">
+            <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
+                <div>
+                    <h1> Welcome to <span>@GlobalConstants.SystemName!</span></h1>
+                    <h2>Make new hiking buddies and explore nature together</h2>
+                    <a class="btn-get-started scrollto" asp-area="Identity" asp-page="/Account/Register">Register now</a>
+                </div>
+            </div>
+            <div class="col-lg-5 order-1 order-lg-2 hero-img">
+                <img src="~/images/Mountain-PNG-Image.png" class="img-fluid" alt="">
+            </div>
+        </div>
+
+        
+    </div>
+</section>
+
 <div class="text-center">
 
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+    <h5 class="display-6">Choose between: @Model.TripsCount trips in @Model.LocationsCount different locations</h5>
 
-    <ul>
+    @*<ul>
         Total Trips:
-        <li class="list-group-item">@Model.TripsCount</li>
+        <li class="list-group-item"></li>
         Total Locations:
-        <li class="list-group-item">@Model.LocationsCount</li>
+        <li class="list-group-item"></li>
         Total Categories:
         <li class="list-group-item">@Model.CategoriesCount</li>
         Total Users:
         <li class="list-group-item">@Model.UsersCount</li>
-    </ul>
+    </ul>*@
 
 </div>
 

@@ -9,6 +9,8 @@
 
     public class SingleEventListViewModel : BaseEventViewModel, IMapFrom<Event>, IHaveCustomMappings
     {
+        public double AverageRating { get; set; }
+
         public int CurrentNumberParticipants { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

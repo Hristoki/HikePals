@@ -10,6 +10,7 @@
     using HikePals.Services.Data;
     using HikePals.Services.Data.Contracts;
     using HikePals.Web.ViewModels.Trips;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,7 @@
             this.environment = environment;
         }
 
+        [Authorize]
         public IActionResult CreateTrip()
         {
             var viewModel = new CreateTripInputViewModel();
@@ -41,6 +43,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateTrip(CreateTripInputViewModel input)
         {
@@ -81,6 +84,7 @@
             return this.View(model);
         }
 
+        [Authorize]
         public IActionResult GetById(int id)
         {
             var model = this.tripsService.GetById<TripViewModel>(id);
@@ -93,6 +97,7 @@
             return this.View(model);
         }
 
+        [Authorize]
         public IActionResult Edit(int id)
         {
             var model = this.tripsService.GetById<EditTripViewModel>(id);
@@ -128,6 +133,7 @@
             return this.RedirectToAction("GetById", model.Id);
         }
 
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             if (!this.tripsService.Exists(id))

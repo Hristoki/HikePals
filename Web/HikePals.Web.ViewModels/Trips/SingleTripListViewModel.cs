@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HikePals.Web.ViewModels.Trips
+﻿namespace HikePals.Web.ViewModels.Trips
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class SingleTripListViewModel : BaseTripViewModel
     {
     }

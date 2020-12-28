@@ -43,4 +43,10 @@
     <ProjectReference Include="..\HikePals.Web.Infrastructure\HikePals.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\HikePals.Web.ViewModels\HikePals.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

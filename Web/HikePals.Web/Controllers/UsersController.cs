@@ -83,7 +83,6 @@
 
         public IActionResult ForgotPassword()
         {
-
             return this.View();
         }
 

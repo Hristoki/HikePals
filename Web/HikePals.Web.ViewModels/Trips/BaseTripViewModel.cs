@@ -1,11 +1,12 @@
 ﻿namespace HikePals.Web.ViewModels.Trips
 {
-    using AutoMapper;
-    using HikePals.Data.Models;
-    using HikePals.Services.Mapping;
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
+
+    using AutoMapper;
+    using HikePals.Data.Models;
+    using HikePals.Services.Mapping;
 
     public abstract class BaseTripViewModel : IMapFrom<Trip>, IHaveCustomMappings
     {
@@ -29,6 +30,8 @@
                  s.MapFrom(x =>
                      x.Image == null ? "No image available" : "/images/trips/" + x.Image.Id + x.Image.Extentsion))
              .ForMember(x => x.AverageRating, t => t.MapFrom(y => y.Rating.Count() == 0 ? 0 : y.Rating.Average(z => z.Value)));
+            configuration.CreateMap<Trip, SingleTripListViewModel>()
+                .ForMember(x => x.AverageRating, t => t.MapFrom(y => y.Rating.Count() == 0 ? 0 : y.Rating.Average(z => z.Value)));
         }
     }
 }

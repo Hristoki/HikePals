@@ -125,3 +125,9 @@ body {
 #map {
     height: 10%;
 }
+
+#logo
+{
+    max-width: 120px;
+    max-height: 100px;
+}

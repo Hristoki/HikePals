@@ -11,22 +11,23 @@
     </ol>
 </nav>
 
-<div class=role aria-label="Basic example" style="vertical-align:middle; text-align: center;">
+<div class=role aria-label="Basic example" style="vertical-align:middle; text-align: center; margin-left:10px; margin-right:10px; margin-bottom:10px">
 
     @if (this.User.IsInRole("Administrator") || Model.UserId == Model.CreatedById)
     {
-        <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        <a type="button" style="vertical-align:middle; text-align: center; margin-left:10px; margin-right:10px;"  class="btn btn-primary" asp-controller="Events" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
     }
 
     @if (this.User.IsInRole("Administrator"))
     {
-        <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+        <a type="button" style="vertical-align:middle; text-align: center; margin-left:10px; margin-right:10px;"  class="btn btn-danger" asp-controller="Events" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
     }
 
     @if (Model.CurrentUserHasRequestPending)
     {
-        <a type="button" class="btn btn-secondary disabled" asp-action="RequestJoinEvent" asp-route-id="@Model.Id">Request Sent</a>
-        <a type="button" class="btn btn-warning" asp-action="UndoJoinRequest" asp-route-id="@Model.Id">Undo Request</a>
+        <a type="button" style="vertical-align:middle; text-align: center; margin-left:10px; margin-right:10px;" class="btn btn-secondary disabled" asp-controller="Events" asp-action="RequestJoinEvent" asp-route-id="@Model.Id">Request Sent</a>
+
+        <a type="button" class="btn btn-warning" style="vertical-align:middle; text-align: center; margin-left:10px; margin-right:10px; " asp-controller="Events" asp-action="UndoJoinRequest" asp-route-id="@Model.Id">Undo Request</a>
     }
     else if (Model.Participants.Count() == Model.MaxGroupSize)
     {
@@ -39,31 +40,16 @@
     }
     else if (Model.CurrentUserHasJoinedEvent)
     {
-        <a type="button" class="btn btn-danger" asp-action="Leave" asp-route-id="@Model.Id">Leave</a>
+        <a type="button" class="btn btn-danger" asp-controller="Events" asp-action="Leave" asp-route-id="@Model.Id">Leave</a>
     }
     else
     {
-        <a type="button" class="btn btn-success" asp-action="RequestJoinEvent" asp-route-id="@Model.Id">Join</a>
+        <a type="button" class="btn btn-success" asp-controller="Events" asp-action="RequestJoinEvent" asp-route-id="@Model.Id">Join</a>
     }
 
 </div>
 
 <div>
-
-    <div class="row" style="margin-right: 0px;margin-left: 0px;">
-        <div class="col-1">
-            <ul class="nav flex-column">
-                <li class="nav-item ">
-                    <a class="nav-link active" href="#">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Cities</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-            </ul>
-        </div>
 
         <div class="row col-md-11" style="margin-left: 10px">
             <div class="card col-md-7">
@@ -110,21 +96,26 @@
                                     <td>@participant.CityName</td>
                                     @if (this.User.IsInRole("Administrator") || Model.UserId == Model.CreatedById)
                                     {
-                                        <td>
-                                            @if (!participant.IsJoinRequestPending)
-                                            {
-                                                <a type="button" class="close" aria-label="Close" alt="Remove" asp-action="Leave" asp-route-id="@Model.Id" asp-route-participantId="@participant.Id">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </a>
-                                            }
-                                            else
-                                            {
-                                                <a type="button" class="close" aria-label="approve" alt="approve" asp-action="ApproveJoinEvent" asp-route-id="@Model.Id" asp-route-participantId="@participant.Id">
-                                                    <i class="fas fa-check" style="color: green"></i>
+                                <td>
+                                    @if (!participant.IsJoinRequestPending)
+                                    {
+                                        <a type="button" class="close" aria-label="Close" alt="Remove" asp-action="Leave" asp-route-id="@Model.Id" asp-route-participantId="@participant.Id">
+                                            <span><i class="fas fa-times" style="color: red"></i></span>
+                                        </a>
+                                    }
 
-                                                </a>
-                                            }
-                                        </td>
+                                    else
+
+                                    {
+                                        <a type="button" class="close" aria-label="approve" alt="approve" asp-action="ApproveJoinEvent" asp-route-id="@Model.Id" asp-route-participantId="@participant.Id">
+                                            <i class="fas fa-check" style="color: green"></i>
+                                        </a>
+
+                                        <a type="button" class="close" aria-label="Close" alt="Remove" asp-action="Leave" asp-route-id="@Model.Id" asp-route-participantId="@participant.Id">
+                                            <span><i class="fas fa-times" style="color: red"></i></span>
+                                        </a>
+                                    }
+                                </td>
                                     }
                                 </tr>
                             }

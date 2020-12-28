@@ -38,15 +38,15 @@
             ApplicationUser user;
             IdentityResult result = new IdentityResult();
 
-            if (username == "admin@abv.com")
+            if (username == "admin@abv.bg")
             {
                 user = new ApplicationUser
                 {
                     UserName = username,
-                    Email = "admin@abv.com",
+                    Email = "admin@abv.bg",
                     DateOfBirth = DateTime.UtcNow,
                     CityId = 2,
-                    Name = "admin@abv.com",
+                    Name = "admin@abv.bg",
                 };
 
                 var password = "admin@abv.com";

@@ -13,8 +13,60 @@
 
             <div class="card-body">
                 <a asp-controller="Trips" asp-action="GetById" asp-route-id="@trip.Id"><h5 class="card-title md-1">@trip.Title</h5></a>
-                @*<p class="card-text">@trip.Description</p>*@
-                <a asp-controller="Trips" asp-action="GetById" asp-route-id="@trip.Id" class="btn btn-primary">Read more</a>
+                <div class="container" style="margin-bottom: 15px">
+
+                    @if (trip.AverageRating != 0 && trip.AverageRating > 0.4)
+                    {
+                        <span data-vote="1"><i id="star" class="fas fa-star checked"></i></span>
+                    }
+                    else
+                    {
+                        <span data-vote="1"><i id="star" class="fas fa-star"></i></span>
+                    }
+                    @if (trip.AverageRating != 0 && trip.AverageRating > 1.4)
+                    {
+                        <span data-vote="2"><i id="star" class="fas fa-star checked"></i></span>
+                    }
+                    else
+                    {
+                        <span data-vote="2"><i class="fas fa-star"></i></span>
+                    }
+                    @if (trip.AverageRating != 0 && trip.AverageRating > 2.4)
+                    {
+                        <span data-vote="3"><i id="star" class="fas fa-star checked"></i></span>
+                    }
+                    else
+                    {
+                        <span data-vote="3"><i class="fas fa-star"></i></span>
+                    }
+                    @if (trip.AverageRating != 0 && trip.AverageRating > 3.4)
+                    {
+                        <span data-vote="4"><i id="star" class="fas fa-star checked"></i></span>
+                    }
+                    else
+                    {
+                        <span data-vote="4"><i class="fas fa-star"></i></span>
+                    }
+                    @if (trip.AverageRating >= 4.5)
+                    {
+                        <span data-vote="5"><i id="star" class="fas fa-star checked"></i></span>
+                    }
+                    else
+                    {
+                        <span data-vote="5"><i class="fas fa-star"></i></span>
+                    }
+                    <span id="averageRating">@trip.AverageRating.ToString("0.0")</span> <span>/ 5</span>
+
+                </div>
+                @if (this.User.IsInRole("User") || this.User.IsInRole("Administrator"))
+                {
+                    <a asp-controller="Trips" asp-action="GetById" asp-route-id="@trip.Id" class="btn btn-primary">Read more</a>
+                }
+                else
+                {
+                    <a class="btn btn-dark  btn-pill" asp-area="Identity" asp-page="/Account/Register">Read more</a>
+
+                }
             </div>
         </div>
     }
