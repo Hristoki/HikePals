@@ -1,0 +1,33 @@
+﻿@model HikePals.Web.ViewModels.Categories.AllCategoriesViewModel
+
+
+    <h2>Select a category to see all trip routes from this category type:</h2>
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                   Category:
+                </th>
+
+                <th>
+                  № Hike Routes:
+                </th>
+            </tr>
+        </thead>
+        <tbody class="text-left">
+            @foreach (var category in @Model.Categories)
+            {
+                <tr>
+                    <td>
+                       @category.Name
+                    </td>
+                    <td>
+                        @category.TripsCount
+                    </td>
+                   
+                </tr>
+            }
+        </tbody>
+    </table>

@@ -10,14 +10,23 @@
 
     public class ChatHub : Hub
     {
+        public ChatHub()
+        {
+
+        }
+
         public async Task Send(string message)
         {
+
             var username = this.Context.User.Identity.Name;
-            var msgLogTime = DateTime.UtcNow.ToString();
+            var contextItems = this.Context.Items;
+            var timeInUtc = DateTime.UtcNow;
+            var msgLogTime = DateTime.UtcNow.ToString("g");
 
             await this.Clients.All.SendAsync(
                 "NewMessage",
-                new MessageResponseModel { ApplicationUserName = username, Text = message, Time = msgLogTime});
+                new MessageResponseModel { SendByName = username, Text = message, Time = msgLogTime });
+
         }
     }
 }

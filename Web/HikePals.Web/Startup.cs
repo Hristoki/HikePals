@@ -9,6 +9,7 @@
     using HikePals.Data.Repositories;
     using HikePals.Data.Seeding;
     using HikePals.Services.Data;
+    using HikePals.Services.Data.Contracts;
     using HikePals.Services.Data.UserServices;
     using HikePals.Services.Mapping;
     using HikePals.Services.Messaging;
@@ -75,11 +76,10 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IGetHomePageDataService, GetHomePageDataService>();
             services.AddTransient<ICitiesService, CitiesService>();
             services.AddTransient<ICountriesService, CountriesService>();
-            services.AddTransient<ILocationCategoriesService, LocationCategoriesService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<ITransportService, TransportService>();
             services.AddTransient<ITripsService, TripsService>();
             services.AddTransient<IEventsService, EventsService>();

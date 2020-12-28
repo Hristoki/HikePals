@@ -28,6 +28,14 @@ namespace HikePals.Data.Seeding
             await dbContext.Cities.AddAsync(new Models.City { CountryId = 1, Name = "Vidin" });
             await dbContext.Cities.AddAsync(new Models.City { CountryId = 1, Name = "Razgrad" });
             await dbContext.Cities.AddAsync(new Models.City { CountryId = 1, Name = "Pernik" });
+            await dbContext.Cities.AddAsync(new Models.City { CountryId = 1, Name = "Borovets" });
+            await dbContext.Cities.AddAsync(new Models.City { CountryId = 1, Name = "Karlovo" });
+            await dbContext.Cities.AddAsync(new Models.City { CountryId = 1, Name = "Samokov" });
+            await dbContext.Cities.AddAsync(new Models.City { CountryId = 1, Name = "Asenovgrad" });
+            await dbContext.Cities.AddAsync(new Models.City { CountryId = 1, Name = "Berkovitsa" });
+            await dbContext.Cities.AddAsync(new Models.City { CountryId = 1, Name = "Kalofer" });
+            await dbContext.Cities.AddAsync(new Models.City { CountryId = 1, Name = "Svoge" });
+            await dbContext.Cities.AddAsync(new Models.City { CountryId = 1, Name = "Troyan" });
         }
     }
 }

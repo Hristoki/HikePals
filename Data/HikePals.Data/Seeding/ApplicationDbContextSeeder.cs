@@ -26,12 +26,13 @@
             var seeders = new List<ISeeder>
                           {
                               new RolesSeeder(),
-                              new SettingsSeeder(),
                               new CountriesSeeder(),
                               new CitySeeder(),
-                              new LocationCategoriesSeeder(),
+                              new CategoriesSeeder(),
                               new TransportsSeeder(),
                               new UsersSeeder(),
+                              new LocationsSeeder(),
+                              new TripsSeeder(),
                           };
 
             foreach (var seeder in seeders)

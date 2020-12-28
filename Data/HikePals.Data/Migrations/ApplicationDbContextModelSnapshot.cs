@@ -104,7 +104,9 @@ namespace HikePals.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(256)")
@@ -176,7 +178,7 @@ namespace HikePals.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("LocationCategories");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("HikePals.Data.Models.City", b =>
@@ -868,7 +870,7 @@ namespace HikePals.Data.Migrations
             modelBuilder.Entity("HikePals.Data.Models.Trip", b =>
                 {
                     b.HasOne("HikePals.Data.Models.ApplicationUser", "CreatedByUser")
-                        .WithMany("CreatedTrips")
+                        .WithMany("Favourites")
                         .HasForeignKey("CreatedByUserId");
 
                     b.HasOne("HikePals.Data.Models.Image", "Image")
@@ -876,7 +878,7 @@ namespace HikePals.Data.Migrations
                         .HasForeignKey("HikePals.Data.Models.Trip", "ImageId");
 
                     b.HasOne("HikePals.Data.Models.Location", "Location")
-                        .WithMany()
+                        .WithMany("Trips")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

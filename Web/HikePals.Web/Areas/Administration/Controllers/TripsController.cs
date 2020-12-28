@@ -5,12 +5,11 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using HikePals.Data;
-    using HikePals.Data.Models;
+
     using HikePals.Services.Data;
+    using HikePals.Services.Data.Contracts;
     using HikePals.Web.ViewModels.Trips;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
     [Area("Administration")]
@@ -18,9 +17,9 @@
     {
         private readonly ITripsService tripsService;
         private readonly ICitiesService citiesService;
-        private readonly ILocationCategoriesService categoriesService;
+        private readonly ICategoriesService categoriesService;
 
-        public TripsController(ITripsService tripsService, ICitiesService citiesService, ILocationCategoriesService categoriesService)
+        public TripsController(ITripsService tripsService, ICitiesService citiesService, ICategoriesService categoriesService)
         {
             this.tripsService = tripsService;
             this.citiesService = citiesService;
@@ -63,7 +62,7 @@
             }
 
             model.CityItems = this.citiesService.GetAllCities();
-            model.CategoriesItems = this.categoriesService.GetAllLocationCategories();
+            model.CategoriesItems = this.categoriesService.GetAllCategoriesListItems();
 
             return this.View(model);
         }
@@ -103,7 +102,7 @@
             }
 
             trip.CityItems = this.citiesService.GetAllCities();
-            trip.CategoriesItems = this.categoriesService.GetAllLocationCategories();
+            trip.CategoriesItems = this.categoriesService.GetAllCategoriesListItems();
 
             return this.View(trip);
         }

@@ -11,6 +11,8 @@
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
+
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -34,7 +36,7 @@
 
         public DbSet<Location> Locations { get; set; }
 
-        public DbSet<Category> LocationCategories { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         public DbSet<Message> Messages { get; set; }
 

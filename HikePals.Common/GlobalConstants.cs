@@ -15,16 +15,16 @@
         public const int NotFound = 404;
 
         public const int MaxLocationNameLenght = 300;
-        public const int MinLocationNameLenght = 25;
-        public const string TripLocationNameErrorMessage = "Location name should be between 25 and 300 symbols long";
+        public const int MinLocationNameLenght = 5;
+        public const string TripLocationNameErrorMessage = "Location name should be between 5 and 300 symbols long";
 
         public const int MaxTripDescriptionLenght = 10000;
         public const int MinTripDescriptionLenght = 25;
         public const string TripDescriptionErrorMessage = "Description should be between 25 and 10000 symbols long";
 
         public const int MaxTripTitleLenght = 100;
-        public const int MinTripTitleLenght = 10;
-        public const string TripTitleErrorMessage = "Trip title should be between 10 and 100 symbols long";
+        public const int MinTripTitleLenght = 5;
+        public const string TripTitleErrorMessage = "Trip title should be between 5 and 100 symbols long";
 
         public const int MaxTripDistance = 1000;
         public const int MinTripDistance = 1;

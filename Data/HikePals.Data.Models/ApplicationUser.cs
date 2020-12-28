@@ -3,6 +3,7 @@ namespace HikePals.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     using HikePals.Data.Common.Models;
@@ -21,17 +22,20 @@ namespace HikePals.Data.Models
             this.Messages = new HashSet<Message>();
             this.JoinedEvents = new HashSet<EventsUsers>();
             this.Events = new HashSet<Event>();
+            this.Favourites = new HashSet<Trip>();
         }
+
+        [Required]
+        [MaxLength(50)]
 
         public string Name { get; set; }
 
+        [Required]
         public int CityId { get; set; }
 
         public virtual City City { get; set; }
-
+ 
         public DateTime DateOfBirth { get; set; }
-
-        public virtual ICollection<Trip> CreatedTrips { get; set; }
 
         public virtual ICollection<Message> Messages { get; set; }
 
@@ -56,6 +60,8 @@ namespace HikePals.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        public virtual ICollection<Trip> Favourites { get; set; }
 
     }
 }

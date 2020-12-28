@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<HikePals.Web.ViewModels.Trips.TripViewModel>
-    <h1>Decide where you want to go by choosing a hike hike route!</h1>
-    <h2>Or create own!</h2>
+<h1>Decide where you want to go by choosing a hike hike route!</h1>
+<h2>Or create own! => </h2> <span><a class="btn btn-outline-primary" asp-area="" asp-controller="Trips" asp-action="CreateTrip">Create a Hike Route</a>
+</span>
 
-    @if (this.TempData.ContainsKey("Message"))
-    {
-        <div class="alert alert-dismissible alert-success">@this.TempData["Message"]</div>
-    }
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-dismissible alert-success">@this.TempData["Message"]</div>
+}
 
-    <div class="container text-center">
-        @{await Html.RenderPartialAsync("_AllTripsPartial", this.Model);}
-    </div>
+<div class="container text-center">
+    @{await Html.RenderPartialAsync("_AllTripsPartial", this.Model);}
+</div>

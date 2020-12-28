@@ -8,6 +8,7 @@
 
     using HikePals.Data.Models;
     using HikePals.Services.Data;
+    using HikePals.Services.Data.Contracts;
     using HikePals.Web.ViewModels.Trips;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -16,12 +17,12 @@
     public class TripsController : Controller
     {
         private readonly ICitiesService citiesService;
-        private readonly ILocationCategoriesService categoriesService;
+        private readonly ICategoriesService categoriesService;
         private readonly ITripsService tripsService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
 
-        public TripsController(ICitiesService citiesService, ICountriesService countryService, ILocationCategoriesService categoriesService, ITransportService transportService, ITripsService tripsService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment, IRatingsService ratingsService)
+        public TripsController(ICitiesService citiesService, ICountriesService countryService, ICategoriesService categoriesService, ITransportService transportService, ITripsService tripsService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment, IRatingsService ratingsService)
         {
             this.citiesService = citiesService;
             this.categoriesService = categoriesService;
@@ -35,7 +36,7 @@
             var viewModel = new CreateTripInputViewModel();
 
             viewModel.CityItems = this.citiesService.GetAllCities();
-            viewModel.CategoryItems = this.categoriesService.GetAllLocationCategories();
+            viewModel.CategoryItems = this.categoriesService.GetAllCategoriesListItems();
 
             return this.View(viewModel);
         }
@@ -46,7 +47,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                input.CategoryItems = this.categoriesService.GetAllLocationCategories();
+                input.CategoryItems = this.categoriesService.GetAllCategoriesListItems();
                 input.CityItems = this.citiesService.GetAllCities();
                 return this.View(input);
             }
@@ -64,7 +65,7 @@
             catch (Exception ex)
             {
                 this.ModelState.AddModelError(string.Empty, ex.Message);
-                input.CategoryItems = this.categoriesService.GetAllLocationCategories();
+                input.CategoryItems = this.categoriesService.GetAllCategoriesListItems();
                 input.CityItems = this.citiesService.GetAllCities();
                 return this.View(input);
             }
@@ -97,7 +98,7 @@
             var model = this.tripsService.GetById<EditTripViewModel>(id);
 
             model.CityItems = this.citiesService.GetAllCities();
-            model.CategoriesItems = this.categoriesService.GetAllLocationCategories();
+            model.CategoriesItems = this.categoriesService.GetAllCategoriesListItems();
 
             return this.View(model);
         }
@@ -110,7 +111,7 @@
             if (!this.ModelState.IsValid)
             {
 
-                input.CategoriesItems = this.categoriesService.GetAllLocationCategories();
+                input.CategoriesItems = this.categoriesService.GetAllCategoriesListItems();
                 input.CityItems = this.citiesService.GetAllCities();
 
                 this.View(input);

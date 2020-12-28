@@ -31,13 +31,13 @@
 
         public async Task AddNewTrip(CreateTripInputViewModel model, string userId, string path)
         {
-            var destination = this.locationRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == model.Description);
+            var location = this.locationRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == model.Description);
 
             // TO DO: Refactor and Reuse
 
-            if (destination == null)
+            if (location == null)
             {
-                destination = new Location
+                location = new Location
                 {
                     Name = model.LocationName,
                     CityId = model.CityId,
@@ -51,7 +51,7 @@
             {
                 Title = model.Title,
                 Description = model.Description,
-                Location = destination,
+                Location = location,
                 Duration = model.Duration,
                 Distance = model.Distance,
                 CreatedByUserId = userId,

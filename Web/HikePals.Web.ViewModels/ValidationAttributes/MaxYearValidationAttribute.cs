@@ -18,7 +18,7 @@
             if (value is int intValue)
             {
                 if (intValue <= DateTime.UtcNow.Year
-                    && intValue >= MinYear)
+                    && intValue >= this.MinYear)
                 {
                     return true;
                 }
@@ -27,7 +27,7 @@
             if (value is DateTime dtValue)
             {
                 if (dtValue.Year <= DateTime.UtcNow.Year
-                    && dtValue.Year >= MinYear)
+                    && dtValue.Year >= this.MinYear)
                 {
                     return true;
                 }
