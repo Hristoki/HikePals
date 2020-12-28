@@ -5,9 +5,9 @@
 
         <div class="card-text"><h5>@Model.LocationName</h5></div>
         <div class="d-flex flex-row align-items-md-start">
-            <div class="p-2">@Model.LocationCityName |</div>
-            <div class="p-2">Distance - @Model.Distance km |</div>
-            <div class="p-2">Duration - @Model.Duration.TotalHours.ToString("0.00") h</div>
+            <div class="p-2">@Model.LocationCityName <i class="fas fa-city"></i> |</div>
+            <div class="p-2">Distance - @Model.Distance km <i class="fas fa-road"></i> |</div>
+            <div class="p-2">Duration - @Model.Duration.TotalHours.ToString("0.00") h <i class="far fa-clock"></i></div>
         </div>
 
         @*Rating*@

@@ -106,7 +106,6 @@
         [HttpPost]
         public async Task<IActionResult> Edit(EditTripViewModel input)
         {
-            await this.tripsService.UpdateAsync(input);
 
             if (!this.ModelState.IsValid)
             {
@@ -117,6 +116,8 @@
                 this.View(input);
             }
 
+            await this.tripsService.UpdateAsync(input);
+
             var model = this.tripsService.GetById<TripViewModel>(input.Id);
 
             if (model == null)
@@ -124,7 +125,7 @@
                 return this.RedirectToAction("NotFoundError", "Error");
             }
 
-            return this.RedirectToAction("GetById", model);
+            return this.RedirectToAction("GetById", model.Id);
         }
 
         public async Task<IActionResult> Delete(int id)

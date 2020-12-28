@@ -46,8 +46,6 @@
         <a type="button" class="btn btn-success" asp-action="RequestJoinEvent" asp-route-id="@Model.Id">Join</a>
     }
 
-    @*//TO DO: Undo Request*@
-
 </div>
 
 <div>
@@ -71,11 +69,9 @@
             <div class="card col-md-7">
 
                 <div class="flex-column">
-                    <div class="d-flex flex-row">
-                        <div class="p-2"><span>Distance - @Model.TripDistance km  |</span></div>
-                        <div class="p-2"><span>Duration - @Model.TripDuration.TotalHours.ToString("0.00")h  |</span></div>
-                        <div class="p-2"><span>Start Time - @Model.StartTime.ToString("t")</span> </div>
-                    </div>
+                    <span class="card-text">Start: @Model.StartTime.Date.ToString("g", System.Globalization.CultureInfo.InvariantCulture) | </span>
+                    <span class="card-text"><i class="far fa-clock"></i> @Model.TripDuration.TotalHours.ToString("0.0") h |</span>
+                    <span class="card-text"><i class="fas fa-road"></i> @Model.TripDistance km |</span>
                     <div class="col-10"></div>
                 </div>
                 <img src="@Model.ImageUrl" class="img-fluid max-width: 75%;  height: auto" alt="" />
@@ -163,7 +159,7 @@
                     .build();
             connection.on("NewMessage",
                 function (message) {
-                    var chatInfo = `<div>[${message.SendByName}][${message.Time}] ${escapeHtml(message.text)}</div>`;
+                    var chatInfo = `<div>[${message.SendByName}] ${escapeHtml(message.text)}</div>`;
                     $("#divChatWindow").append(chatInfo);
                 });
             $("#sendButton").click(function () {

@@ -25,6 +25,9 @@
         [MinLength(GlobalConstants.MinLocationNameLenght, ErrorMessage = GlobalConstants.TripLocationNameErrorMessage)]
         public string LocationName { get; set; }
 
+        [Required]
+        [MaxLength(GlobalConstants.MaxTripDescriptionLenght, ErrorMessage = GlobalConstants.TripDescriptionErrorMessage)]
+        [MinLength(GlobalConstants.MinTripDescriptionLenght, ErrorMessage = GlobalConstants.TripDescriptionErrorMessage)]
         public string Description { get; set; }
 
         public string ImageUrl { get; set; }
@@ -33,6 +36,8 @@
         public int LocationCategoryId { get; set; }
 
         [Required]
+        [MaxLength(GlobalConstants.MaxLocationNameLenght, ErrorMessage = GlobalConstants.TripLocationNameErrorMessage)]
+        [MinLength(GlobalConstants.MinLocationNameLenght, ErrorMessage = GlobalConstants.TripLocationNameErrorMessage)]
         public string LocationCategoryName { get; set; }
 
         [Required]
