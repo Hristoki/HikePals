@@ -58,31 +58,31 @@
                 <td>
                     @if (item.IsDeleted)
                     {
-                        <a type="button" class="btn disabled" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a type="button" class="btn disabled" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a type="button" class="btn btn-sm disabled" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a type="button" class="btn btn-sm disabled" asp-action="Details" asp-route-id="@item.Id">Details</a>
                     }
                     else
                     {
-                        <a type="button" class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a type="button" class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a type="button" class="btn  btn-sm btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a type="button" class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
                     }
 
                     @if (item.IsDeleted)
                     {
-                        <a type="button" class="btn btn-primary" asp-action="Restore" asp-route-id="@item.Id">Restore</a>
+                        <a type="button" class="btn btn-sm btn-primary" asp-action="Restore" asp-route-id="@item.Id">Restore</a>
                     }
                     else
                     {
-                        <a type="button" class="btn disabled">Restore</a>
+                        <a type="button" class="btn btn-sm disabled">Restore</a>
                     }
 
                     @if (item.IsDeleted)
                     {
-                        <a type="button" class="btn disabled" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a type="button" class="btn btn-sm disabled" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     }
                     else
                     {
-                        <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a type="button" class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     }
                 </td>
             </tr>

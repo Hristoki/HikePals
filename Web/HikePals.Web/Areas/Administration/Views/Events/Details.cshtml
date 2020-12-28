@@ -3,23 +3,12 @@
 @{ this.ViewData["Title"] = Model.Title; }
 
 
-<div class=role  aria-label="Basic example" style="vertical-align:middle; text-align: center;">
-    <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+<div class=role  aria-label="Basic example" style="vertical-align:middle; text-align: center; margin:10px">
+    <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id" style="margin:10px">Edit</a>
     @*<div style="vertical-align:middle; text-align: center;">
     </div>*@
-        <a type="button" class="btn btn-dark" asp-action="Index" asp-route-id="@Model.Id">Back to List</a>
-    <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
-
-    @*@if (Model.MaxGroupSize == Model.Participants.Count() || Model.HasJoinedEvent == true)
-        {
-            <a type="button" class="btn btn-secondary disabled" asp-action="Join" asp-route-id="@Model.Id">Join</a>
-        }
-        else
-        {
-            <a type="button" class="btn btn-success" asp-action="Join" asp-route-id="@Model.Id">Joined</a>
-        }
-        <a type="button" class="btn btn-danger" asp-action="Leave" asp-route-id="@Model.Id">Leave</a>*@
-</div>
+        <a type="button" class="btn btn-dark" asp-action="Index" asp-route-id="@Model.Id" style="margin:10px">Back to List</a>
+    <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id" style="margin:10px">Delete</a>
 
 <div>
 
@@ -62,8 +51,8 @@
                             @if (this.User.IsInRole("Administrator"))
                             {
                                 <td>
-                                    <a type="button" class="close" aria-label="Close" alt="Remove" asp-action="Leave" asp-route-id="@Model.Id">
-                                        <span aria-hidden="true">&times;</span>
+                                    <a type="button" class="close" aria-label="Close" alt="Remove" asp-action="Leave" asp-route-id="@Model.Id" style="color:red">
+                                        <span aria-hidden="true"><i class="far fa-window-close"></i></span>
                                     </a>
                                 </td>
                             }
