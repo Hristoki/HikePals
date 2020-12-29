@@ -24,13 +24,11 @@
 
             await SeedUserAsync(userManager, "admin@abv.com");
 
-
             for (int i = 1; i < 20; i++)
             {
                 await SeedUserAsync(userManager, $"testUser{i}");
             }
 
-            //await SeedUserAsync(userManager, "hristo@gmail.com");
         }
 
         private static async Task SeedUserAsync(UserManager<ApplicationUser> userManager, string username)
@@ -62,11 +60,11 @@
             {
                 user = new ApplicationUser
                 {
-                    UserName = $"{ username }@gmail.com",
-                    Email = $"{ username }@gmail.com",
+                    UserName = $"{ username}@gmail.com",
+                    Email = $"{ username}@gmail.com",
                     DateOfBirth = DateTime.UtcNow,
                     CityId = 2,
-                    Name = $"{ username }@gmail.com",
+                    Name = $"{username}@gmail.com",
                 };
 
                 var password = "123456";

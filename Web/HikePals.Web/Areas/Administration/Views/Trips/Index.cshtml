@@ -4,20 +4,16 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Trips List Overview</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<a class="btn btn-dark" style ="margin:10px" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Back to Dashboard</a>
+
 <table class="table">
     <thead>
         <tr>
             <th style="word-wrap: break-word; max-width: 150px;">
                 @Html.DisplayNameFor(model => model.Title)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.IsDeleted)
             </th>
@@ -32,63 +28,61 @@
     </thead>
     <tbody>
 
-@foreach (var item in Model) {
-        <tr>
-            @*<td style="word-wrap: break-word; max-width: 150px;">
-                <img src="@item.Image" class="img-fluid max-width: 10%;  height: auto" alt="" />
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
 
-            <td>
-                @if (item.IsDeleted == false)
-                {
-                    @Html.DisplayFor(modelItem => item.IsDeleted)
-                }
+                <td>
+                    @if (item.IsDeleted == false)
+                    {
+                        @Html.DisplayFor(modelItem => item.IsDeleted)
+                    }
 
-                else
-                {
-                    @Html.DisplayFor(modelItem => item.DeletedOn)
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedOn)
-            </td>
-            <td class="text-center">
-                <a type="button" class="btn btn-sm btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                @if (item.IsDeleted)
-                {
-                    @*<a type="button" class="btn disabled" asp-action="Edit" asp-route-id="@item.Id">Edit</a>*@
-                    <a type="button" class="btn btn-sm disabled" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.DeletedOn)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td class="text-center">
+                    <a type="button" class="btn btn-sm btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    @if (item.IsDeleted)
+                    {
+                        @*<a type="button" class="btn disabled" asp-action="Edit" asp-route-id="@item.Id">Edit</a>*@
+                        <a type="button" class="btn btn-sm disabled" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    }
 
-                else
-                {
-                    <a type="button" class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                }
+                    else
+                    {
+                        <a type="button" class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    }
 
-                @if (item.IsDeleted)
-                {
-                    <a type="button" class="btn btn-sm btn-primary" asp-action="Restore" asp-route-id="@item.Id">Restore</a>
-                }
-                else
-                {
-                    <a type="button" class="btn btn-sm disabled">Restore</a>
-                }
-                <customErrors defaultRedirect=""></customErrors>
+                    @if (item.IsDeleted)
+                    {
+                        <a type="button" class="btn btn-sm btn-primary" asp-action="Restore" asp-route-id="@item.Id">Restore</a>
+                    }
+                    else
+                    {
+                        <a type="button" class="btn btn-sm disabled">Restore</a>
+                    }
+                    <customErrors defaultRedirect=""></customErrors>
 
-                @if (item.IsDeleted)
-                {
-                    <a type="button" class="btn btn-sm disabled" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                }
-                else
-                {
-                    <a type="button" class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                }
-            </td>
-        </tr>
-}
+                    @if (item.IsDeleted)
+                    {
+                        <a type="button" class="btn btn-sm disabled" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                    else
+                    {
+                        <a type="button" class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

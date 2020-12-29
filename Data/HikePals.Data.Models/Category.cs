@@ -1,9 +1,10 @@
-﻿using HikePals.Data.Common.Models;
-using System.Collections.Generic;
-
-namespace HikePals.Data.Models
+﻿namespace HikePals.Data.Models
 {
-    public class Category: BaseDeletableModel<int>
+    using System.Collections.Generic;
+
+    using HikePals.Data.Common.Models;
+
+    public class Category : BaseDeletableModel<int>
     {
         public Category()
         {

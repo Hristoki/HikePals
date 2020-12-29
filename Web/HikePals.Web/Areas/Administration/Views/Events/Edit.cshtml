@@ -6,8 +6,10 @@
 
 <h1>Edit</h1>
 
-<h4>Event</h4>
+<h4>@Model.Title</h4>
+
 <hr />
+<a class="btn btn-dark" asp-area="Administration" asp-controller="Events" asp-action="Index">Back to List</a>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -56,7 +58,9 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <p>
+        <a class="btn btn-dark" asp-area="Administration" asp-controller="Events" asp-action="Index">Back to List</a>
+    </p>
 </div>
 
 @section Scripts {

@@ -11,7 +11,7 @@
     {
         Task AddNewTrip(CreateTripInputViewModel model, string userId, string imageDirectoryPath);
 
-        IEnumerable<TripViewModel> GetAllTrips();
+        IEnumerable<T> GetAllTrips<T>();
 
         IEnumerable<SingleTripViewModel> GetAllTripsWithDeleted();
 
@@ -20,8 +20,6 @@
         T GetById<T>(int tripId);
 
         T GetByIdWithDeleted<T>(int tripId);
-
-        //EditTripViewModel GetEditViewModel(int tripId);
 
         Task UpdateAsync(EditTripViewModel model);
 

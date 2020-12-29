@@ -34,9 +34,16 @@
         public const int MinGorupSize = 2;
         public const string GroupsSizeErrorMessage = "Group size should be between 2 and 25 members";
 
-        public static readonly string[] AllowedImageExtensions = { ".jpeg", ".jpg", ".png", ".tiff", ".gif" };
+        public const int MaxContactsSubjectLenght = 200;
+        public const int MinContactsSubjectLenght = 5;
+        public const string SubjectLengthErrorMessage = "Subject should be between 5 and 200 symbols long";
+
+        public const int MaxContactsContentLenght = 1000;
+        public const int MinContactsContentLenght = 10;
+        public const string ContactsContentLengthErrorMessage = "Text Message should be between 10 and 1000 symbols long";
 
         public const string ResetPasswordMessage = "<h1>Reset your password</h1><p> You told us you forgot your password. If you really did, click here to choose a new one:</p><p><a href='..URL..' >Click here to reset</a></p><p>If you didn't request this email message, please ignore it!</p>";
 
+        public static readonly string[] AllowedImageExtensions = { ".jpeg", ".jpg", ".png", ".tiff", ".gif" };
     }
 }

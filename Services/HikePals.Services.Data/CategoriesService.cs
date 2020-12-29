@@ -28,12 +28,14 @@
 
         public IEnumerable<SelectListItem> GetAllCategoriesListItems()
         {
-          return this.categoriesRepository
+          var result = this.categoriesRepository
                 .AllAsNoTracking()
                 .Select(x => new { x.Id, x.Name })
                 .ToList()
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
+
+            return result.OrderBy(x => x.Text);
         }
     }
 }

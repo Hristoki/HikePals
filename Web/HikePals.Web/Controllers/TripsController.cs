@@ -80,7 +80,7 @@
 
         public IActionResult All()
         {
-            var model = this.tripsService.GetAllTrips();
+            var model = this.tripsService.GetAllTrips<SingleTripListViewModel>();
             return this.View(model);
         }
 

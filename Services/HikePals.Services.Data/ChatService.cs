@@ -18,6 +18,7 @@
         {
             this.messageRepository = messageRepository;
         }
+
         public IEnumerable<MessageResponseModel> GetChatHistory()
         {
             throw new NotImplementedException();

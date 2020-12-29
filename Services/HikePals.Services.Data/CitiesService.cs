@@ -21,11 +21,13 @@
 
         public IEnumerable<SelectListItem> GetAllCities()
         {
-            return this.cityRepository
+            var result = this.cityRepository
                 .AllAsNoTracking()
                 .Select(x => new {x.Name, x.Id })
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
+
+            return result.OrderBy(x => x.Text);
         }
     }
 }

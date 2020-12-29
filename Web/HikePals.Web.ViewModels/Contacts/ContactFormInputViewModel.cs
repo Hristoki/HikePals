@@ -5,6 +5,8 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text;
 
+    using HikePals.Common;
+
     public class ContactFormInputViewModel
     {
         [Required]
@@ -15,13 +17,13 @@
         public string Email { get; set; }
 
         [Required]
-        [MinLength(10)]
-        [MaxLength(200)]
+        [MinLength(GlobalConstants.MinContactsSubjectLenght, ErrorMessage = GlobalConstants.SubjectLengthErrorMessage)]
+        [MaxLength(GlobalConstants.MaxContactsSubjectLenght, ErrorMessage = GlobalConstants.SubjectLengthErrorMessage)]
         public string Subject { get; set; }
 
         [Required]
-        [MinLength(10)]
-        [MaxLength(1000)]
+        [MinLength(GlobalConstants.MinContactsContentLenght, ErrorMessage = GlobalConstants.ContactsContentLengthErrorMessage)]
+        [MaxLength(GlobalConstants.MaxContactsContentLenght, ErrorMessage = GlobalConstants.ContactsContentLengthErrorMessage)]
         public string Content { get; set; }
     }
 }

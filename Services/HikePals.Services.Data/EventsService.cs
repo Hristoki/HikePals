@@ -42,6 +42,7 @@
                 TripId = input.TripId,
                 Title = input.Title,
             };
+
             @event.Participants.Add(new EventsUsers { UserId = userId, EventId = @event.Id });
             await this.eventsRepository.AddAsync(@event);
             await this.eventsRepository.SaveChangesAsync();
@@ -188,8 +189,6 @@
 
         public async Task ApproveJoinRequest(string participantId, int eventId)
         {
-            //TO DO : Check if necessary
-
             var user = this.userRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == participantId);
             if (user == null)
             {

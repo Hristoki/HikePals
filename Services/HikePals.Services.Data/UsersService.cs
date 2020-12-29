@@ -1,12 +1,13 @@
-﻿using HikePals.Data.Common.Repositories;
-using HikePals.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace HikePals.Services.Data.UserServices
+﻿namespace HikePals.Services.Data.UserServices
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using HikePals.Data.Common.Repositories;
+    using HikePals.Data.Models;
+
     public class UsersService : IUsersService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;

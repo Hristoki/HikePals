@@ -1,11 +1,12 @@
-﻿using HikePals.Data.Common.Repositories;
-using HikePals.Data.Models;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HikePals.Services.Data
+﻿namespace HikePals.Services.Data
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using HikePals.Data.Common.Repositories;
+    using HikePals.Data.Models;
+
     public class RatingsService : IRatingsService
     {
         private readonly IRepository<Rating> ratingRepository;

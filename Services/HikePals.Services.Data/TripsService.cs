@@ -57,8 +57,6 @@
                 CreatedByUserId = userId,
             };
 
-            //TO DO: Fix bug with create a trip without image
-
             string imageExtension = null;
             if (model.TripImage != null)
             {
@@ -83,17 +81,9 @@
             await this.tripRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<TripViewModel> GetAllTrips()
+        public IEnumerable<T> GetAllTrips<T>()
         {
-            return this.tripRepository.AllAsNoTracking()
-                 .Select(x => new TripViewModel
-                 {
-                     LocationCategoryId = x.Location.CategoryId,
-                     LocationCategoryName = x.Location.Category.Name,
-                     Id = x.Id,
-                     Title = x.Title,
-                     ImageUrl = x.Image == null ? "No image available" : "/images/trips/" + x.Image.Id + x.Image.Extentsion,
-                 }).ToList();
+            return this.tripRepository.AllAsNoTracking().To<T>().ToList();
         }
 
         public T GetById<T>(int tripId)

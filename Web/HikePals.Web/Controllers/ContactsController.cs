@@ -34,6 +34,7 @@
             {
                 return this.View(input);
             }
+
             this.mailService.SendContactFormEmailAsync(input.Email, input.Subject, input.Content, input.Name);
             return this.View("ThankYou");
         }

@@ -27,11 +27,11 @@
         {
             configuration.CreateMap<Trip, TripViewModel>()
              .ForMember(t => t.ImageUrl, s =>
-                 s.MapFrom(x =>
-                     x.Image == null ? "No image available" : "/images/trips/" + x.Image.Id + x.Image.Extentsion))
+                 s.MapFrom(x => x.Image == null ? "No image available" : "/images/trips/" + x.Image.Id + x.Image.Extentsion))
              .ForMember(x => x.AverageRating, t => t.MapFrom(y => y.Rating.Count() == 0 ? 0 : y.Rating.Average(z => z.Value)));
             configuration.CreateMap<Trip, SingleTripListViewModel>()
-                .ForMember(x => x.AverageRating, t => t.MapFrom(y => y.Rating.Count() == 0 ? 0 : y.Rating.Average(z => z.Value)));
+                .ForMember(x => x.AverageRating, t => t.MapFrom(y => y.Rating.Count() == 0 ? 0 : y.Rating.Average(z => z.Value)))
+                 .ForMember(t => t.ImageUrl, s =>  s.MapFrom(x => x.Image == null ? "No image available" : "/images/trips/" + x.Image.Id + x.Image.Extentsion));
         }
     }
 }
