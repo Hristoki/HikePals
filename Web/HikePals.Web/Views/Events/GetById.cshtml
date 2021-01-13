@@ -81,7 +81,6 @@
                             <th scope="col">Name:</th>
                             <th scope="col">Age: </th>
                             <th scope="col">From:</th>
-                            @*<th scope="col"> @Model.Participants.Count() / @Model.MaxGroupSize</th>*@
                         </tr>
                     </thead>
                     @if (Model.Participants.Count() > 0)
@@ -150,7 +149,9 @@
                     .build();
             connection.on("NewMessage",
                 function (message) {
-                    var chatInfo = `<div>[${message.SendByName}] ${escapeHtml(message.text)}</div>`;
+                    let sameMessage = message;
+                    var chatInfo = `<div>[${message.sendByName}][${(message.time)}] ${escapeHtml(message.text)}</div>`;
+                    console.log(message);
                     $("#divChatWindow").append(chatInfo);
                 });
             $("#sendButton").click(function () {

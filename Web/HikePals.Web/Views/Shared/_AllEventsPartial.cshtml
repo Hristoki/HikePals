@@ -20,7 +20,6 @@
                 <span class="card-text"><i class="far fa-clock"></i> @hike.TripDuration.TotalHours.ToString("0.0") h |</span>
                 <span class="card-text"><i class="fas fa-road"></i> @hike.TripDistance km |</span>
                 <span class="card-text"><i class="fas fa-user-friends"></i> @hike.CurrentNumberParticipants/@hike.MaxGroupSize </span>
-                @*<span class="card-text">Distance: @hike.StartTime.to km</span>*@
                 <p>
 
                     <a asp-controller="Events" asp-action="GetById" asp-route-id="@hike.Id" class="btn btn-primary">Read more</a>
