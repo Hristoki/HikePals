@@ -15,7 +15,7 @@
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "Password and Confirm Password must match")]
+        [Compare("Password", ErrorMessage = HikePals.Common.GlobalConstants.ConfirmPassErrorMessage)]
         public string ConfirmPassword { get; set; }
 
         public string Token { get; set; }

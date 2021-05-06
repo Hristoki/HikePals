@@ -55,8 +55,6 @@
                 return this.View(input);
             }
 
-            //TODO: Add to constants
-
             var imagesDirPath = $"{this.environment.WebRootPath}\\images";
 
             var user = await this.userManager.GetUserAsync(this.User);
@@ -80,20 +78,25 @@
 
         public IActionResult All()
         {
-            var model = this.tripsService.GetAllTrips<SingleTripListViewModel>();
+            var model = this.tripsService.GetAllTrips<TripViewModel>();
             return this.View(model);
         }
 
         [Authorize]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var model = this.tripsService.GetById<TripViewModel>(id);
+
             if (this.ModelBinderFactory == null)
             {
 
                 return this.RedirectToAction("NotFoundError", "Error");
 
             }
+
+            var user = await this.userManager.GetUserAsync(this.User);
+            model.UserId = user.Id;
+
             return this.View(model);
         }
 

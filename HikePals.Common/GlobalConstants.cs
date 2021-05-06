@@ -41,6 +41,8 @@
         public const int MaxContactsContentLenght = 1000;
         public const int MinContactsContentLenght = 10;
         public const string ContactsContentLengthErrorMessage = "Text Message should be between 10 and 1000 symbols long";
+       
+        public const string ConfirmPassErrorMessage = "Password and Confirm Password must match";
 
         public const string ResetPasswordMessage = "<h1>Reset your password</h1><p> You told us you forgot your password. If you really did, click here to choose a new one:</p><p><a href='..URL..' >Click here to reset</a></p><p>If you didn't request this email message, please ignore it!</p>";
 

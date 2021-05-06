@@ -21,7 +21,6 @@
         }
 
         [HttpPost]
-        [IgnoreAntiforgeryToken]
         public async Task<ActionResult<RatingResponseModel>> Vote(RatingInputModel input)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
