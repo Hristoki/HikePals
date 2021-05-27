@@ -21,16 +21,16 @@
 
         public IEnumerable<MessageResponseModel> GetChatHistory()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
-        public async Task SaveMessageAsync(MessageResponseModel message)
+        public async Task SaveMessageAsync(ChatMessageInputModel message)
         {
             var msg = new Message
             {
                 Content = message.Text,
                 SentById = message.SendById,
-                CreatedOn = message.TimeInUtc,
+                TimeStamp = message.TimeInUtc,
                 EventId = message.EventId,
             };
 

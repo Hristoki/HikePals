@@ -9,7 +9,7 @@
 
     public interface IChatService
     {
-        Task SaveMessageAsync(MessageResponseModel message);
+        Task SaveMessageAsync(ChatMessageInputModel message);
 
         IEnumerable<MessageResponseModel> GetChatHistory();
     }

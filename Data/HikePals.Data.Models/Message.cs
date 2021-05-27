@@ -5,7 +5,7 @@
 
     using HikePals.Data.Common.Models;
 
-    public class Message: BaseDeletableModel<string>
+    public class Message : BaseDeletableModel<string>
     {
 
         public Message()
