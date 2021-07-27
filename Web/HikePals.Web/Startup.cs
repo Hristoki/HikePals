@@ -14,6 +14,7 @@
     using HikePals.Services.Mapping;
     using HikePals.Services.Messaging;
     using HikePals.Web.Hub;
+    using HikePals.Web.Infrastructure.Profiles;
     using HikePals.Web.ViewModels;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -42,6 +43,7 @@
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
+
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -52,7 +54,7 @@
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });
 
-            services.AddSignalR();
+            services.AddSignalR(options => { options.EnableDetailedErrors = true; });
 
             services.AddControllersWithViews(
                 options =>
@@ -67,6 +69,7 @@
             });
 
             services.AddSingleton(this.configuration);
+            services.AddAutoMapper(typeof(MessageProfile));
             services.AddSession();
 
             // Data repositories
@@ -88,6 +91,8 @@
             services.AddTransient<IMailService, MailService>();
             services.AddTransient<IChatService, ChatService>();
 
+
+            //services.AddAutoMapper(AutoMapperConfig.MapperInstance);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,17 @@
+﻿@model HikePals.Web.ViewModels.Chat.ChatMessageInputModel
+
+
+
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Content">Text</label>
+        <input asp-for="Content" class="form-control" />
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" value="1" asp-for="EventId"/>
+    <input type="submit" value="Submit" class="btn btn-success"/>
+</form>
+
+<textarea>dasdasd adasdasdasd</textarea>

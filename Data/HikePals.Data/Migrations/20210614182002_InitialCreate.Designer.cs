@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HikePals.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201228092204_InitialCreate")]
+    [Migration("20210614182002_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -206,6 +206,7 @@ namespace HikePals.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -850,7 +851,7 @@ namespace HikePals.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("HikePals.Data.Models.ApplicationUser", "SentBy")
-                        .WithMany("Messages")
+                        .WithMany()
                         .HasForeignKey("SentById");
                 });
 

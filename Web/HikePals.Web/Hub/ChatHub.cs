@@ -5,41 +5,42 @@
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using HikePals.Data.Models;
     using HikePals.Services.Data.Contracts;
     using HikePals.Web.ViewModels.Chat;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.SignalR;
     using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
     public class ChatHub : Hub
     {
         private readonly IChatService chatService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public ChatHub(IChatService chatService)
+        public ChatHub(IChatService chatService, UserManager<ApplicationUser> userManager)
         {
             this.chatService = chatService;
+            this.userManager = userManager;
         }
 
         public async Task Send(ChatMessageInputModel input)
         {
-            //var contextItems = this.Context.Items;
+            //var username = this.Context.User.Identity.Name;
 
-            var username = this.Context.User.Identity.Name;
-            var userId = this.Context.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var timeInUtc = DateTime.UtcNow;
-            var msgLogTime = timeInUtc.ToString("g");
+            //var userId = this.Context.User.FindFirst(ClaimTypes.NameIdentifier).Type;
+            //var input = new ChatMessageInputModel() { Content = content, EventId = eventId, SentById = userId };
 
-            var message = new ChatMessageInputModel() { SendById = userId, Text = input.Text, EventId = input.EventId };
+            var user = this.userManager.GetUserAsync(this.Context.User).Result;
+            input.SentById = user.Id;
+            var msgLogTime = DateTime.UtcNow;
+            var localTime = msgLogTime.ToLocalTime().ToShortTimeString();
+            var username = user.Name;
 
-            await this.chatService.SaveMessageAsync(message);
-
-            //var users = new string[] { "asd", "asd1" };
-
-            var a = 5;
+            await this.chatService.SaveMessageAsync(input);
 
             await this.Clients.All.SendAsync(
-                "NewMessage",
-                new MessageResponseModel { SendByName = username, Text = input.Text, Time = msgLogTime });
-
+                    "NewMessage",
+                    new MessageResponseModel { SendByName = username, Text = input.Content, Time = localTime });
         }
     }
 }

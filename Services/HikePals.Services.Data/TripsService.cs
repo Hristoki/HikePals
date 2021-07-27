@@ -150,7 +150,7 @@
             return this.tripRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id) != null;
         }
 
-        public async Task RestoreAsync(int id)
+        public async Task RestoreTripAsync(int id)
         {
             var eventEntity = await this.tripRepository.GetByIdWithDeletedAsync(id);
             eventEntity.IsDeleted = false;

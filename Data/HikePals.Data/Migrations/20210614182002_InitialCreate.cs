@@ -143,7 +143,7 @@ namespace HikePals.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     CountryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

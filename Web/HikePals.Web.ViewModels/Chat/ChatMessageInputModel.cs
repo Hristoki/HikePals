@@ -4,17 +4,16 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class ChatMessageInputModel
-    {
-        public DateTime TimeInUtc { get; set; }
+    using HikePals.Data.Models;
+    using HikePals.Services.Mapping;
 
+    public class ChatMessageInputModel : IMapTo<Message>
+    {
         public int EventId { get; set; }
 
-        public string SendById { get; set; }
+        public string SentById { get; set; }
 
-        public string SendByName { get; set; }
-
-        public string Text { get; set; }
+        public string Content { get; set; }
 
     }
 }

@@ -27,7 +27,7 @@
 
         int GetAllTripsCount();
 
-        Task RestoreAsync(int id);
+        Task RestoreTripAsync(int id);
 
         int GetUserTripsCount(string userId);
 

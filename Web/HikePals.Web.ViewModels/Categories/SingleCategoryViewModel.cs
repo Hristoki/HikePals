@@ -13,6 +13,8 @@
     {
         public string Name { get; set; }
 
+        public int LocationsCount { get; set; }
+
         public int TripsCount { get; set; }
 
         public int Id { get; set; }
@@ -20,7 +22,7 @@
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Category, SingleCategoryViewModel>()
-                .ForMember(x => x.TripsCount, s => s.MapFrom(x => x.Locations.Count));
+                .ForMember(x => x.LocationsCount, s => s.MapFrom(x => x.Locations.Count));
         }
     }
 }

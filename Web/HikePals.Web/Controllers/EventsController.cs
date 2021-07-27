@@ -9,6 +9,8 @@
     using HikePals.Common;
     using HikePals.Data.Models;
     using HikePals.Services.Data;
+    using HikePals.Services.Data.Contracts;
+    using HikePals.Web.ViewModels.Chat;
     using HikePals.Web.ViewModels.Events;
     using HikePals.Web.ViewModels.Trips;
     using Microsoft.AspNetCore.Authorization;
@@ -21,12 +23,14 @@
         private readonly ITransportService transportService;
         private readonly IEventsService eventsService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IChatService chatService;
 
-        public EventsController(ITransportService transportService, IEventsService eventsService, UserManager<ApplicationUser> userManager)
+        public EventsController(ITransportService transportService, IEventsService eventsService, UserManager<ApplicationUser> userManager, IChatService chatService)
         {
             this.transportService = transportService;
             this.eventsService = eventsService;
             this.userManager = userManager;
+            this.chatService = chatService;
         }
 
         public IActionResult Create(int id)
@@ -173,6 +177,26 @@
             }
 
             return this.RedirectToAction("GetbyId", new { id = id });
+        }
+
+
+        public IActionResult SendMessage()
+        {
+
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendMessage(ChatMessageInputModel input)
+        {
+
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            input.SentById = userId;
+            await this.chatService.SaveMessageAsync(input);
+
+            var newUser = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            return this.View();
         }
     }
 }

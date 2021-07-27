@@ -65,11 +65,11 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse text-center" id="navbarNavDropdown-1">
-                    <ul class="navbar-nav ml-auto" >
+                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (this.User.IsInRole("User") || this.User.IsInRole("Administrator"))
+                        @if (this.User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Events" asp-action="All">Join Live Event</a>
@@ -77,11 +77,11 @@
                         }
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#a" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false"> Hike Routes Gallery</a>
+                               aria-haspopup="true" aria-expanded="false"> Hike Routes Gallery</a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" asp-area="" asp-controller="Trips" asp-action="All">All</a>
-                                @if (this.User.IsInRole("User") || this.User.IsInRole("Administrator"))
+                                @if (this.User.Identity.IsAuthenticated)
                                 {
                                     <a class="dropdown-item" asp-controller="Trips" asp-action="CreateTrip">Create</a>
                                     <a class="dropdown-item" asp-controller="Categories" asp-action="Index">By Category</a>
@@ -93,6 +93,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="About" asp-action="Index">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Events" asp-action="SendMessage">Send Message</a>
                         </li>
                         <partial name="_LoginPartial" />
                     </ul>
@@ -117,10 +120,10 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
-    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

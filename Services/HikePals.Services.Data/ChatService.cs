@@ -5,6 +5,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using AutoMapper;
     using HikePals.Data.Common.Repositories;
     using HikePals.Data.Models;
     using HikePals.Services.Data.Contracts;
@@ -13,10 +14,12 @@
     public class ChatService : IChatService
     {
         private readonly IDeletableEntityRepository<Message> messageRepository;
+        private readonly IMapper mapper;
 
-        public ChatService(IDeletableEntityRepository<Message> messageRepository)
+        public ChatService(IDeletableEntityRepository<Message> messageRepository, IMapper mapper)
         {
             this.messageRepository = messageRepository;
+            this.mapper = mapper;
         }
 
         public IEnumerable<MessageResponseModel> GetChatHistory()
@@ -24,17 +27,11 @@
             return null;
         }
 
-        public async Task SaveMessageAsync(ChatMessageInputModel message)
+        public async Task SaveMessageAsync(ChatMessageInputModel input)
         {
-            var msg = new Message
-            {
-                Content = message.Text,
-                SentById = message.SendById,
-                TimeStamp = message.TimeInUtc,
-                EventId = message.EventId,
-            };
+            var message = this.mapper.Map<Message>(input);
 
-            await this.messageRepository.AddAsync(msg);
+            await this.messageRepository.AddAsync(message);
             await this.messageRepository.SaveChangesAsync();
         }
     }

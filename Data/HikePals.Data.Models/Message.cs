@@ -15,17 +15,13 @@
 
         public string Content { get; set; }
 
-        public DateTime TimeStamp { get; set; }
-
-        [ForeignKey("ApplicationUser")]
-
         public string SentById { get; set; }
 
-        public virtual ApplicationUser SentBy { get; set; }
+        public ApplicationUser SentBy { get; set; }
 
         public int EventId { get; set; }
 
-        public virtual Event Event { get; set; }
+        public Event Event { get; set; }
 
     }
 }

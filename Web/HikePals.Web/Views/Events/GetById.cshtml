@@ -74,7 +74,7 @@
                     <thead>
                         <tr>
                             <th scope="auto">Joined: </th>
-                            <th scope="col"> @Model.Participants.Where(x => !x.IsJoinRequestPending).Count() / @Model.MaxGroupSize</th>
+                            <td scope="col"> @Model.Participants.Where(x => !x.IsJoinRequestPending).Count() / @Model.MaxGroupSize</td>
 
                         </tr>
                         <tr>
@@ -153,21 +153,32 @@
                     //let sameMessage = message;
                     var chatInfo = `<div>[${message.sendByName}][${(message.time)}] ${escapeHtml(message.text)}</div>`;
 
-                    //console.log('Response:')
-                    //console.log(message);
+                    console.log('Response:')
+                    console.log(message);
 
                     $("#divChatWindow").append(chatInfo);
                 });
 
             $("#sendButton").click(function () {
-                var message = $("#messageInput").val();
-                var eventId = $("#messageInput").attr("data-eventId").val;
+                InvokeSendMessage();
+            });
 
-                data = { text: message, eventId: eventId };
-                //data = JSON.stringify(data);
+            $("#messageInput").on('keypress', function (e) {
+                if (e.which == 13) {
+                    InvokeSendMessage();
+                }
+            })
+
+            function InvokeSendMessage() {
+                var content = $("#messageInput").val();
+                var eventId = $("#messageInput").attr("data-eventId");
+                eventId = parseInt(eventId);
+
+                data = { content: content, eventId: eventId };
+
                 connection.invoke("Send", data);
                 $("#messageInput").val("");
-            });
+            };
 
             connection.start().catch(function (err) {
                 return console.error(err.toString());

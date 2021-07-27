@@ -23,7 +23,10 @@
                 <div>
                     <h1> Welcome to <span>@GlobalConstants.SystemName!</span></h1>
                     <h2>Make new hiking buddies and explore nature together</h2>
-                    <a class="btn-get-started scrollto" asp-area="Identity" asp-page="/Account/Register">Register now</a>
+                    @if (this.User.Identity.IsAuthenticated == false)
+                    {
+                        <a class="btn-get-started scrollto" asp-area="Identity" asp-page="/Account/Register">Register now</a>
+                    }
                 </div>
             </div>
             <div class="col-lg-5 order-1 order-lg-2 hero-img">
@@ -31,7 +34,7 @@
             </div>
         </div>
 
-        
+
     </div>
 </section>
 
@@ -40,15 +43,15 @@
     <h5 class="display-6">Choose between: @Model.TripsCount trips in @Model.LocationsCount different locations</h5>
 
     @*<ul>
-        Total Trips:
-        <li class="list-group-item"></li>
-        Total Locations:
-        <li class="list-group-item"></li>
-        Total Categories:
-        <li class="list-group-item">@Model.CategoriesCount</li>
-        Total Users:
-        <li class="list-group-item">@Model.UsersCount</li>
-    </ul>*@
+            Total Trips:
+            <li class="list-group-item"></li>
+            Total Locations:
+            <li class="list-group-item"></li>
+            Total Categories:
+            <li class="list-group-item">@Model.CategoriesCount</li>
+            Total Users:
+            <li class="list-group-item">@Model.UsersCount</li>
+        </ul>*@
 
 </div>
 

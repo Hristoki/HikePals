@@ -121,7 +121,7 @@
 
         public async Task<IActionResult> Restore(int id)
         {
-            await this.tripsService.RestoreAsync(id);
+            await this.tripsService.RestoreTripAsync(id);
             return this.RedirectToAction(nameof(this.Index));
         }
     }
