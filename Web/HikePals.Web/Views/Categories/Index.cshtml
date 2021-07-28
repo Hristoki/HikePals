@@ -1,39 +1,48 @@
 ﻿@model HikePals.Web.ViewModels.Categories.AllCategoriesViewModel
 
+    <h1 class="justify-content-center">CATEGORIES</h1 class="justify-content-center">
 
-    <h2>Select a category to see all trip routes from this category type:</h2>
+    <h2 class="justify-content-center">Select a category to see all trip routes from this category type:</h2>
+<ul class="list-group">
+
+@foreach (var category in Model.Categories)
+{
+    <li><a asp-controller="Trips" asp-action="ByCategory" asp-route-id="@category.Id">@category.Name</a></li>
+}
+</ul>
 
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>
-                   Category:
-                </th>
 
-                <th>
-                    Locations:
-                </th>
-                <th>
-                  № Hike Routes:
-                </th>
-            </tr>
-        </thead>
-        <tbody class="text-left">
-            @foreach (var category in @Model.Categories)
-            {
+    @*<table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>
-                       @category.Name
-                    </td>
-                    <td>
-                        @category.LocationsCount
-                    </td>
-                    <td>
-                        @category.TripsCount
-                    </td>
-                   
+                    <th>
+                       Category:
+                    </th>
+
+                    <th>
+                        Locations:
+                    </th>
+                    <th>
+                      № Hike Routes:
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody class="text-left">
+                @foreach (var category in @Model.Categories)
+                {
+                    <tr>
+                        <td>
+                           @category.Name
+                        </td>
+                        <td>
+                            @category.LocationsCount
+                        </td>
+                        <td>
+                            @category.TripsCount
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>*@

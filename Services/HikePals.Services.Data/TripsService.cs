@@ -86,6 +86,11 @@
             return this.tripRepository.AllAsNoTracking().To<T>().ToList();
         }
 
+        public IEnumerable<T> GetAllTripsByCategory<T>(int categoryId)
+        {
+            return this.tripRepository.AllAsNoTracking().Where(x => x.Location.CategoryId == categoryId).To<T>().ToList();
+        }
+
         public T GetById<T>(int tripId)
         {
             return this.tripRepository

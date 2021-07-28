@@ -82,6 +82,12 @@
             return this.View(model);
         }
 
+        public IActionResult ByCategory(int id)
+        {
+            var model = this.tripsService.GetAllTripsByCategory<TripViewModel>(id);
+            return this.View("All", model);
+        }
+
         [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
