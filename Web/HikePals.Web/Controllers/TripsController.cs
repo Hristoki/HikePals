@@ -89,9 +89,7 @@
 
             if (this.ModelBinderFactory == null)
             {
-
                 return this.RedirectToAction("NotFoundError", "Error");
-
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
@@ -117,7 +115,6 @@
 
             if (!this.ModelState.IsValid)
             {
-
                 input.CategoriesItems = this.categoriesService.GetAllCategoriesListItems();
                 input.CityItems = this.citiesService.GetAllCities();
 
@@ -133,7 +130,7 @@
                 return this.RedirectToAction("NotFoundError", "Error");
             }
 
-            return this.RedirectToAction("GetById", model.Id);
+            return this.RedirectToAction(nameof(this.GetById), new { id = input.Id });
         }
 
         [Authorize]

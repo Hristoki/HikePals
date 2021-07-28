@@ -150,7 +150,6 @@
 
             connection.on("NewMessage",
                 function (message) {
-                    //let sameMessage = message;
                     var chatInfo = `<div>[${message.sendByName}][${(message.time)}] ${escapeHtml(message.text)}</div>`;
 
                     console.log('Response:')
