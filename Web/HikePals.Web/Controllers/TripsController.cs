@@ -38,7 +38,7 @@
             var viewModel = new CreateTripInputViewModel();
 
             viewModel.CityItems = this.citiesService.GetAllCities();
-            viewModel.CategoryItems = this.categoriesService.GetAllCategoriesListItems();
+            viewModel.CategoryItems = this.categoriesService.GetAllCategoriesAsListItems();
 
             return this.View(viewModel);
         }
@@ -50,7 +50,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                input.CategoryItems = this.categoriesService.GetAllCategoriesListItems();
+                input.CategoryItems = this.categoriesService.GetAllCategoriesAsListItems();
                 input.CityItems = this.citiesService.GetAllCities();
                 return this.View(input);
             }
@@ -66,7 +66,7 @@
             catch (Exception ex)
             {
                 this.ModelState.AddModelError(string.Empty, ex.Message);
-                input.CategoryItems = this.categoriesService.GetAllCategoriesListItems();
+                input.CategoryItems = this.categoriesService.GetAllCategoriesAsListItems();
                 input.CityItems = this.citiesService.GetAllCities();
                 return this.View(input);
             }
@@ -78,7 +78,10 @@
 
         public IActionResult All([FromQuery] AllTripsViewModel query)
         {
-            var model = this.tripsService.GetAllTrips(query.CurrentPage, AllTripsViewModel.TripPerPage);
+            var model = this.tripsService.GetAllTrips(query.SearchTerm, query.Category, query.CurrentPage, AllTripsViewModel.TripPerPage);
+            var categories = this.categoriesService.All();
+            model.Categories = categories;
+
             return this.View(model);
         }
 
@@ -110,7 +113,7 @@
             var model = this.tripsService.GetById<EditTripViewModel>(id);
 
             model.CityItems = this.citiesService.GetAllCities();
-            model.CategoriesItems = this.categoriesService.GetAllCategoriesListItems();
+            model.CategoriesItems = this.categoriesService.GetAllCategoriesAsListItems();
 
             return this.View(model);
         }
@@ -121,7 +124,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                input.CategoriesItems = this.categoriesService.GetAllCategoriesListItems();
+                input.CategoriesItems = this.categoriesService.GetAllCategoriesAsListItems();
                 input.CityItems = this.citiesService.GetAllCities();
 
                 this.View(input);

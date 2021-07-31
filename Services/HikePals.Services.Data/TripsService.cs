@@ -77,18 +77,30 @@
             using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
             await model.TripImage.CopyToAsync(fileStream);
 
-            await this.tripRepository.AddAsync(trip);
+            await this.tripRepository.AddAsync(trip); 
             await this.tripRepository.SaveChangesAsync();
         }
 
-        public AllTripsViewModel GetAllTrips(int currentPage, int tripsPerPage)
+        public AllTripsViewModel GetAllTrips(string searchTerm, string category, int currentPage, int tripsPerPage)
         {
-            var tripsQuery = this.tripRepository.All().AsQueryable();
+            var tripsQuery = this.tripRepository.All();
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                tripsQuery = tripsQuery.Where(x =>
+                x.Title.ToLower() == searchTerm.ToLower() ||
+                x.Location.Name.ToLower().Contains(searchTerm.ToLower()) ||
+                x.Description.ToLower().Contains(searchTerm.ToLower()) ||
+                x.Title.Contains(searchTerm.ToLower()) ||
+                x.Location.Description.ToLower().Contains(searchTerm.ToLower()) ||
+                x.Location.Category.Name.ToLower() == searchTerm.ToLower() ||
+                x.Location.City.Name.ToLower().Contains(searchTerm.ToLower()));
+            }
+
             var allTrips = tripsQuery.Count();
             var trips = tripsQuery.To<TripViewModel>().Skip((currentPage - 1) * tripsPerPage)
                 .Take(tripsPerPage).ToList();
 
-            return new AllTripsViewModel()  { Trips = trips, TotalTripsCount = allTrips, CurrentPage = currentPage };
+            return new AllTripsViewModel()  { Trips = trips, TotalTripsCount = allTrips, CurrentPage = currentPage, SearchTerm = string.Empty };
         }
 
         public IEnumerable<T> GetAllTripsByCategory<T>(int categoryId)

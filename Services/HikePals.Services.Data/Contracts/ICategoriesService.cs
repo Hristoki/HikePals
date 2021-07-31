@@ -9,8 +9,10 @@
 
     public interface ICategoriesService
     {
-        IEnumerable<SelectListItem> GetAllCategoriesListItems();
+        IEnumerable<SelectListItem> GetAllCategoriesAsListItems();
 
         IEnumerable<SingleCategoryViewModel> GetAllCategories();
+
+        List<string> All();
     }
 }

@@ -11,7 +11,7 @@
     {
         Task AddNewTrip(CreateTripInputViewModel model, string userId, string imageDirectoryPath);
 
-        AllTripsViewModel GetAllTrips (int currentPage, int tripsPerPage);
+        AllTripsViewModel GetAllTrips (string searchTerm, string categoy, int currentPage, int tripsPerPage);
 
         IEnumerable<SingleTripViewModel> GetAllTripsWithDeleted();
 

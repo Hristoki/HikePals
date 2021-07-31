@@ -62,7 +62,7 @@
             }
 
             model.CityItems = this.citiesService.GetAllCities();
-            model.CategoriesItems = this.categoriesService.GetAllCategoriesListItems();
+            model.CategoriesItems = this.categoriesService.GetAllCategoriesAsListItems();
 
             return this.View(model);
         }
@@ -102,7 +102,7 @@
             }
 
             trip.CityItems = this.citiesService.GetAllCities();
-            trip.CategoriesItems = this.categoriesService.GetAllCategoriesListItems();
+            trip.CategoriesItems = this.categoriesService.GetAllCategoriesAsListItems();
 
             return this.View(trip);
         }

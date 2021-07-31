@@ -23,31 +23,43 @@
             this.tripRepo = tripRepo;
         }
 
+        public List<string> All()
+        {
+            return this.categoriesRepository
+                .AllAsNoTracking()
+                .Select(x => x.Name)
+                .ToList();
+        }
+
         public IEnumerable<SingleCategoryViewModel> GetAllCategories()
         {
-            var categories = this.categoriesRepository.All().To<SingleCategoryViewModel>().OrderBy(x => x.Name).ToList();
+            var categories = this.categoriesRepository
+                .All()
+                .To<SingleCategoryViewModel>()
+                .OrderBy(x => x.Name)
+                .ToList();
+
             foreach (var category in categories)
             {
-                //this.locationsRepo.All().Where(x => x.CategoryId == category.Id).Select(x => x.Trips.Count).FirstOrDefault();
-                var tripCount = this.tripRepo.All().Where(x => x.Location.CategoryId == category.Id).Count();
+                var tripCount = this.tripRepo
+                    .All()
+                    .Where(x => x.Location.CategoryId == category.Id)
+                    .Count();
                 category.TripsCount = tripCount;
-
             }
 
             return categories;
-
         }
 
-        public IEnumerable<SelectListItem> GetAllCategoriesListItems()
+        public IEnumerable<SelectListItem> GetAllCategoriesAsListItems()
         {
-          var result = this.categoriesRepository
+          return this.categoriesRepository
                 .AllAsNoTracking()
                 .Select(x => new { x.Id, x.Name })
                 .ToList()
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
-                .ToList();
-
-          return result.OrderBy(x => x.Text);
+                .ToList()
+                .OrderBy(x => x.Text);
         }
 
     }
