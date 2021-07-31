@@ -96,6 +96,11 @@
                 x.Location.City.Name.ToLower().Contains(searchTerm.ToLower()));
             }
 
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                tripsQuery = tripsQuery.Where(x => x.Location.Category.Name == category);
+            }
+
             var allTrips = tripsQuery.Count();
             var trips = tripsQuery.To<TripViewModel>().Skip((currentPage - 1) * tripsPerPage)
                 .Take(tripsPerPage).ToList();
