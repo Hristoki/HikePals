@@ -76,9 +76,9 @@
             return this.RedirectToAction("All");
         }
 
-        public IActionResult All()
+        public IActionResult All([FromQuery] AllTripsViewModel query)
         {
-            var model = this.tripsService.GetAllTrips<TripViewModel>();
+            var model = this.tripsService.GetAllTrips(query.CurrentPage, AllTripsViewModel.TripPerPage);
             return this.View(model);
         }
 

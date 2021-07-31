@@ -81,9 +81,14 @@
             await this.tripRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllTrips<T>()
+        public AllTripsViewModel GetAllTrips(int currentPage, int tripsPerPage)
         {
-            return this.tripRepository.AllAsNoTracking().To<T>().ToList();
+            var tripsQuery = this.tripRepository.All().AsQueryable();
+            var allTrips = tripsQuery.Count();
+            var trips = tripsQuery.To<TripViewModel>().Skip((currentPage - 1) * tripsPerPage)
+                .Take(tripsPerPage).ToList();
+
+            return new AllTripsViewModel()  { Trips = trips, TotalTripsCount = allTrips, CurrentPage = currentPage };
         }
 
         public IEnumerable<T> GetAllTripsByCategory<T>(int categoryId)

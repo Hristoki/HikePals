@@ -1,8 +1,8 @@
-﻿@model IEnumerable<HikePals.Web.ViewModels.Trips.TripViewModel>
+﻿@model HikePals.Web.ViewModels.Trips.AllTripsViewModel
 
 
 <div class="row">
-    @foreach (var trip in this.Model)
+    @foreach (var trip in this.Model.Trips)
     {
         <div class="card col-md-4">
             <div class="embed-responsive embed-responsive-4by3">

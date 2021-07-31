@@ -6,7 +6,12 @@
 
     public class AllTripsViewModel
     {
+        public const int TripPerPage = 2;
 
-        public ICollection<TripViewModel> Trips { get; set; }
+        public int TotalTripsCount { get; set; }
+
+        public int CurrentPage { get; set; } = 1;
+
+        public List<TripViewModel> Trips { get; set; }
     }
 }
