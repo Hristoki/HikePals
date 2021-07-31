@@ -34,16 +34,17 @@
             <input asp-for="SearchTerm" class="form-control" placeholder="Vitosha, Svoge, Kom, etc...">
         </div>
 
-        @*<div class="form-group col-md-4">
-            <div class="form-group">
-                <label asp-for="Sorting"></label>
-                <select asp-for="Sorting" class="form-control">
-                    <option value="0" selected>Date Created</option>
-                    <option value="1">Year</option>
-                    <option value="2">Brand And Model</option>
-                </select>
-            </div>
-        </div>*@
+        <div class="form-group col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Sorting"></label>
+                        <select asp-for="Sorting" class="form-control">
+                            <option value="0" selected>Category</option>
+                            <option value="1">Location</option>
+                            <option value="2">Date added</option>
+                            <option value="3">Rating</option>
+                        </select>
+                    </div>
+                </div>
     </div>
 </form>
 
@@ -63,12 +64,24 @@
 }
 <div class="row mb-6 d-flex  justify-content-center">
     <div class="col-md-6 ">
-        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)" asp-controller="Trips" asp-action="All" asp-route-currentPage="@previousPage">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)" 
+           asp-controller="Trips" 
+           asp-action="All" 
+           asp-route-currentPage="@previousPage"
+           asp-route-sorting="@Model.Sorting"
+           asp-route-category="@Model.Category"
+           asp-route-searchTerm="@Model.SearchTerm">
             <<
 
         </a>
         <p class="d-inline mb-6">... @Model.CurrentPage ...</p>
-        <a class="btn btn-primary @(Model.CurrentPage == maxPage ? "disabled" : string.Empty) " data-maxpage="@maxPage" asp-controller="Trips" asp-action="All" asp-route-currentPage="@(Model.CurrentPage + 1)">
+        <a class="btn btn-primary @(Model.CurrentPage == maxPage ? "disabled" : string.Empty) " data-maxpage="@maxPage"
+           asp-controller="Trips"
+           asp-action="All"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-sorting="@Model.Sorting"
+           asp-route-category="@Model.Category"
+           asp-route-searchTerm="@Model.SearchTerm">
             >>
 
         </a>

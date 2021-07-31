@@ -81,7 +81,7 @@
             await this.tripRepository.SaveChangesAsync();
         }
 
-        public AllTripsViewModel GetAllTrips(string searchTerm, string category, int currentPage, int tripsPerPage)
+        public AllTripsViewModel GetAllTrips(string searchTerm, string category, TripSort sorting, int currentPage, int tripsPerPage)
         {
             var tripsQuery = this.tripRepository.All();
             if (!string.IsNullOrWhiteSpace(searchTerm))
@@ -101,11 +101,19 @@
                 tripsQuery = tripsQuery.Where(x => x.Location.Category.Name == category);
             }
 
+            tripsQuery = sorting switch
+            {
+            TripSort.Category => tripsQuery.OrderBy(x => x.Location.Category.Name),
+            TripSort.Location => tripsQuery.OrderBy(x => x.Location.Name),
+            TripSort.Rating => tripsQuery.OrderByDescending(x => x.Rating.Average(x => x.Value)),
+            TripSort.Date or _ => tripsQuery.OrderByDescending(x => x.Id),
+        };
+
             var allTrips = tripsQuery.Count();
             var trips = tripsQuery.To<TripViewModel>().Skip((currentPage - 1) * tripsPerPage)
                 .Take(tripsPerPage).ToList();
 
-            return new AllTripsViewModel()  { Trips = trips, TotalTripsCount = allTrips, CurrentPage = currentPage, SearchTerm = string.Empty };
+            return new AllTripsViewModel()  { Trips = trips, TotalTripsCount = allTrips, CurrentPage = currentPage, SearchTerm = string.Empty, Sorting = sorting, Category = category };
         }
 
         public IEnumerable<T> GetAllTripsByCategory<T>(int categoryId)

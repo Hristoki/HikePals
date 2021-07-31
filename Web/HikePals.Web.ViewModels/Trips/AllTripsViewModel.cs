@@ -23,5 +23,7 @@
         public List<string> Categories { get; set; }
 
         public List<TripViewModel> Trips { get; set; }
+
+        public TripSort Sorting { get; set; }
     }
 }
