@@ -9,7 +9,7 @@
 
     public class AllTripsViewModel
     {
-        public const int TripPerPage = 2;
+        public const int TripPerPage = 3;
 
         public int TotalTripsCount { get; set; }
 
@@ -23,6 +23,8 @@
         public List<string> Categories { get; set; }
 
         public List<TripViewModel> Trips { get; set; }
+
+        [Display(Name = "Order by")]
 
         public TripSort Sorting { get; set; }
     }

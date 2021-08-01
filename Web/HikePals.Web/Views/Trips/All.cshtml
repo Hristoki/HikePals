@@ -13,12 +13,12 @@
     <a class="btn btn-outline-primary mb-2" style="text-align: center" asp-area="" asp-controller="Trips" asp-action="CreateTrip">Create you own Hike Route</a>
 </div>
 
-<form method="get">
+<form id="form" method="get">
     <div class="row">
         <div class="form-group col-md-4">
             <div class="form-group">
                 <label asp-for="Category"></label>
-                <select asp-for="Category" class="form-control">
+                <select id="category" asp-for="Category" class="form-control">
                     <option value="">All</option>
 
                     @foreach (var category in Model.Categories)
@@ -159,3 +159,21 @@
     }
 
 </div>
+
+@section Scripts{ 
+<script>
+    $("#category").change(function () {
+
+        let formData = $('#form').serialize();
+        let currentUrl = 'https://localhost:44319/Trips/All?';
+
+        if (currentUrl.includes("?")) {
+            console.log('ok');
+        }
+        let redirectTo = currentUrl + formData;
+        console.log(redirectTo);
+
+        window.location.href = redirectTo;
+    });
+</script>
+} 
