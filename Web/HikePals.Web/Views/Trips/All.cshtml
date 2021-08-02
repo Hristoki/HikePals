@@ -8,9 +8,12 @@
     <div class="alert alert-dismissible alert-success" role="alert">@this.TempData["Message"] <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button></div>
 }
 
-<h1>Find a hike route that suits you best!</h1>
-<div>
-    <a class="btn btn-outline-primary mb-2" style="text-align: center" asp-area="" asp-controller="Trips" asp-action="CreateTrip">Create you own Hike Route</a>
+<h1 class="text-center mt-2">Find a hike route that suits you best!</h1>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4 mb-4 text-center">
+    <a class="btn btn-outline-primary justify-content-center d-flex my-auto"  asp-area="" asp-controller="Trips" asp-action="CreateTrip">Create you own Hike Route</a>
+    </div>
 </div>
 
 <form id="form" method="get">
@@ -62,8 +65,8 @@
 
     var maxPage = Math.Ceiling((double)Model.TotalTripsCount / HikePals.Web.ViewModels.Trips.AllTripsViewModel.TripPerPage);
 }
-<div class="row mb-6 d-flex  justify-content-center">
-    <div class="col-md-6 ">
+<div class="row mb-8 d-flex justify-content-center">
+    <div class="col-md-4 mb-4 text-center">
         <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)" 
            asp-controller="Trips" 
            asp-action="All" 
@@ -166,12 +169,7 @@
 
         let formData = $('#form').serialize();
         let currentUrl = 'https://localhost:44319/Trips/All?';
-
-        if (currentUrl.includes("?")) {
-            console.log('ok');
-        }
         let redirectTo = currentUrl + formData;
-        console.log(redirectTo);
 
         window.location.href = redirectTo;
     });
