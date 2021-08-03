@@ -31,7 +31,7 @@
 
         int GetUserTripsCount(string userId);
 
-        IEnumerable<T> GetAllUserTrips<T>(string userId);
+        List<T> GetAllUserTrips<T>(string userId);
 
         IEnumerable<T> GetAllTripsByCategory<T>(int categoryId);
 

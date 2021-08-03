@@ -79,6 +79,7 @@
         public IActionResult All([FromQuery] AllTripsViewModel query)
         {
             var model = this.tripsService.GetAllTrips(query.SearchTerm, query.Category, query.Sorting, query.CurrentPage, AllTripsViewModel.TripPerPage);
+
             var categories = this.categoriesService.All();
             model.Categories = categories;
 

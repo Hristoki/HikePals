@@ -143,7 +143,6 @@
                 };
             }
 
-
             var trip = this.tripRepository.AllWithDeleted().FirstOrDefault(x => x.Id == model.Id);
             trip.Title = model.Title;
             trip.Duration = model.Duration;
@@ -197,7 +196,7 @@
             return this.tripRepository.AllAsNoTracking().Where(x => x.CreatedByUserId == id).Count();
         }
 
-        public IEnumerable<T> GetAllUserTrips<T>(string userId)
+        public List<T> GetAllUserTrips<T>(string userId)
         {
             return this.tripRepository.All().Where(x => x.CreatedByUserId == userId).To<T>().ToList();
         }
@@ -211,8 +210,5 @@
                 throw new ArgumentException("This trip name is already available!");
             }
         }
-
     }
-
-
 }

@@ -58,7 +58,7 @@
                     <span id="averageRating">@trip.AverageRating.ToString("0.0")</span> <span>/ 5</span>
 
                 </div>
-                @if (this.User.IsInRole("User") || this.User.IsInRole("Administrator"))
+                @if (this.User.Identity.IsAuthenticated)
                 {
                     <a asp-controller="Trips" asp-action="GetById" asp-route-id="@trip.Id" class="btn btn-primary">Read more</a>
                 }
