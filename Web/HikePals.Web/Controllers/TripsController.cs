@@ -47,7 +47,6 @@
         [HttpPost]
         public async Task<IActionResult> CreateTrip(CreateTripInputViewModel input)
         {
-
             if (!this.ModelState.IsValid)
             {
                 input.CategoryItems = this.categoriesService.GetAllCategoriesAsListItems();
@@ -122,7 +121,6 @@
         [HttpPost]
         public async Task<IActionResult> Edit(EditTripViewModel input)
         {
-
             if (!this.ModelState.IsValid)
             {
                 input.CategoriesItems = this.categoriesService.GetAllCategoriesAsListItems();

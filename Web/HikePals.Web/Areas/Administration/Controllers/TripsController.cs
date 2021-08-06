@@ -1,10 +1,6 @@
 ﻿namespace HikePals.Web.Areas.Administration.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
-
 
     using HikePals.Services.Data;
     using HikePals.Services.Data.Contracts;
@@ -12,7 +8,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
-    [Area("Administration")]
     public class TripsController : Controller
     {
         private readonly ITripsService tripsService;
@@ -37,12 +32,12 @@
         // GET: Administration/Trips/Details/5
         public IActionResult Details(int id)
         {
-
             var trip = this.tripsService.GetByIdWithDeleted<TripViewModel>(id);
             if (trip == null)
             {
                 return this.NotFound();
             }
+
             return this.View(trip);
         }
 
@@ -66,10 +61,6 @@
 
             return this.View(model);
         }
-
-        // POST: Administration/Trips/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 
         [HttpPost]
         [ValidateAntiForgeryToken]

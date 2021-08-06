@@ -69,7 +69,7 @@
             });
 
             services.AddSingleton(this.configuration);
-            services.AddAutoMapper(typeof(MessageProfile));
+            services.AddAutoMapper(typeof(MapperConfiguration));
             services.AddSession();
 
             // Data repositories

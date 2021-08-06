@@ -34,7 +34,6 @@
             var location = this.locationRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == model.Description);
 
             // TO DO: Refactor and Reuse
-
             if (location == null)
             {
                 location = new Location
@@ -77,7 +76,7 @@
             using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
             await model.TripImage.CopyToAsync(fileStream);
 
-            await this.tripRepository.AddAsync(trip); 
+            await this.tripRepository.AddAsync(trip);
             await this.tripRepository.SaveChangesAsync();
         }
 
@@ -113,7 +112,15 @@
             var trips = tripsQuery.To<TripViewModel>().Skip((currentPage - 1) * tripsPerPage)
                 .Take(tripsPerPage).ToList();
 
-            return new AllTripsViewModel()  { Trips = trips, TotalTripsCount = allTrips, CurrentPage = currentPage, SearchTerm = string.Empty, Sorting = sorting, Category = category };
+            return new AllTripsViewModel()
+            {
+             Trips = trips,
+             TotalTripsCount = allTrips,
+             CurrentPage = currentPage,
+             SearchTerm = string.Empty,
+             Sorting = sorting,
+             Category = category,
+            };
         }
 
         public IEnumerable<T> GetAllTripsByCategory<T>(int categoryId)

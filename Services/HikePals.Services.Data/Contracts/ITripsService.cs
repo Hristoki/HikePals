@@ -1,9 +1,8 @@
 ﻿namespace HikePals.Services.Data
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
     using System.Threading.Tasks;
+
     using HikePals.Web.ViewModels.Administration.Trips;
     using HikePals.Web.ViewModels.Trips;
 
@@ -34,6 +33,5 @@
         List<T> GetAllUserTrips<T>(string userId);
 
         IEnumerable<T> GetAllTripsByCategory<T>(int categoryId);
-
     }
 }

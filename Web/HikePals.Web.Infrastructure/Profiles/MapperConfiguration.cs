@@ -4,9 +4,9 @@
     using HikePals.Data.Models;
     using HikePals.Web.ViewModels.Chat;
 
-    public class MessageProfile : Profile
+    public class MapperConfiguration : Profile
     {
-        public MessageProfile()
+        public MapperConfiguration()
         {
         this.CreateMap<Message, ChatMessageInputModel>().ReverseMap();
         this.CreateMap<Message, MessageResponseModel>().ReverseMap();

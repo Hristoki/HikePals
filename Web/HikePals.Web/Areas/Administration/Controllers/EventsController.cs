@@ -14,10 +14,8 @@
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
-    [Area("Administration")]
     public class EventsController : AdministrationController
     {
-
         private readonly ITransportService transportService;
         private readonly IEventsService eventsService;
         private readonly UserManager<ApplicationUser> userManager;

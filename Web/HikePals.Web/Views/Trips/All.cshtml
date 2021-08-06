@@ -77,7 +77,7 @@
             <<
 
         </a>
-        <p class="d-inline mb-6">... @Model.CurrentPage ...</p>
+        <p class="d-inline mb-6 margin-bottom: auto">... @Model.CurrentPage ...</p>
         <a class="btn btn-primary @(Model.CurrentPage == maxPage ? "disabled" : string.Empty) " data-maxpage="@maxPage"
            asp-controller="Trips"
            asp-action="All"

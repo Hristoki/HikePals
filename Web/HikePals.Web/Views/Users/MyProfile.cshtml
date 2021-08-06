@@ -1,17 +1,17 @@
 ﻿@model HikePals.Web.ViewModels.Users.ProfileOverViewDataModel
 
 @{ this.ViewData["Title"] = "My Profile"; }
-<h1>Profile Overview</h1>
+<h1 class="text-center m-lg-4">Profile Overview</h1>
 
 
-<div class="row d-md-flex">
+<div class="row d-md-flex mt-5">
     <div class="col-md-4">
         <span class="row">
             Events count: @Model.EventsCount
         </span>
 
         <span class="row">
-            <a type="button" class="btn btn-success"  asp-action="MyEvents">MyEvents</a>
+            <a type="button" class="btn btn-success" asp-action="MyEvents">MyEvents</a>
         </span>
     </div>
 
@@ -34,6 +34,7 @@
         </span>
 
         <span class="row">
-            <a type="button" class="btn btn-success"  asp-action="Inbox">Inbox</a>
+            <a type="button" class="btn btn-success" asp-action="Inbox">Inbox</a>
         </span>
     </div>
+</div>
