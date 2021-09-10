@@ -12,6 +12,5 @@
         Task SendEmailAsync(string toEmail, string subject, string content);
 
         Task SendContactFormEmailAsync(string sentBy, string subject, string content, string name);
-
     }
 }

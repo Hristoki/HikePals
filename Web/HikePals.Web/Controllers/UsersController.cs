@@ -47,7 +47,7 @@
 
             var model = new ProfileOverViewDataModel();
             model.EventsCount = this.eventsService.GetUserEventsCount(userId);
-            model.TripsCount = this.tripsService.GetUserTripsCount(userId);
+            model.TripsCount = this.tripsService.GetUserCount(userId);
 
             return this.View(model);
         }

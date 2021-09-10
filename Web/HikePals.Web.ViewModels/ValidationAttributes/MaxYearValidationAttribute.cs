@@ -24,10 +24,10 @@
                 }
             }
 
-            if (value is DateTime dtValue)
+            if (value is DateTime dateTimeValue)
             {
-                if (dtValue.Year <= DateTime.UtcNow.Year
-                    && dtValue.Year >= this.MinYear)
+                if (dateTimeValue.Year <= DateTime.UtcNow.Year
+                    && dateTimeValue.Year >= this.MinYear)
                 {
                     return true;
                 }

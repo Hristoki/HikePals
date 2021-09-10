@@ -11,7 +11,7 @@
     public class EventParticipantViewModel : IMapFrom<EventsUsers>, IHaveCustomMappings
     {
         public string Id { get; set; }
-        
+
         public string Name { get; set; }
 
         public string CityName { get; set; }
@@ -25,7 +25,6 @@
         public bool IsJoinRequestPending { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
-
         {
             configuration.CreateMap<EventsUsers, EventParticipantViewModel>()
                 .ForMember(t => t.Name, s => s.MapFrom(x => x.User.UserName))
@@ -33,7 +32,6 @@
                 .ForMember(t => t.DateOfBirth, s => s.MapFrom(x => x.User.DateOfBirth))
                 .ForMember(t => t.IsJoinRequestPending, s => s.MapFrom(x => x.PendingJoinRequest))
                 .ForMember(t => t.Id, s => s.MapFrom(x => x.UserId));
-
         }
     }
 }

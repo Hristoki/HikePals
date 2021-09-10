@@ -19,7 +19,6 @@
             this.transportRepository = transportRepository;
         }
 
-
         public IEnumerable<SelectListItem> GetAllTransportTypes()
         {
             return this.transportRepository

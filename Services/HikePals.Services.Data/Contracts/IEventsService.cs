@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
+
     using HikePals.Data.Models;
     using HikePals.Web.ViewModels.Administration.Events;
     using HikePals.Web.ViewModels.Events;
@@ -11,7 +12,6 @@
 
     public interface IEventsService
     {
-
         CreateEventInputViewModel MapTripData(int tripId);
 
         Task<int> CreateNewEvent(CreateEventInputViewModel input, string userId);
@@ -28,7 +28,7 @@
 
         Task DeleteAsync(int id);
 
-        Task RequestJoinEvent(ApplicationUser user, int eventId);
+        Task RequestJoinEvent(int eventId, string userId, bool isAdmin);
 
         Task ApproveJoinRequest(string participantId, int eventId);
 
@@ -45,5 +45,7 @@
         IEnumerable<T> GetAllUserEvents<T>(string userId);
 
         Task UndoJoinRequest(string userId, int id);
+
+        bool HasJoinedEvent(int id, string userId);
     }
 }

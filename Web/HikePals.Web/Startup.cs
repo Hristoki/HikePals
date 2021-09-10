@@ -43,7 +43,6 @@
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
-
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -91,8 +90,7 @@
             services.AddTransient<IMailService, MailService>();
             services.AddTransient<IChatService, ChatService>();
 
-
-            //services.AddAutoMapper(AutoMapperConfig.MapperInstance);
+            // services.AddAutoMapper(AutoMapperConfig.MapperInstance);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -135,11 +133,11 @@
                     endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                     endpoints.MapRazorPages();
 
-                    endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    //endpoints.MapControllerRoute(
+                    //name: "default",
+                    //pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                    endpoints.MapHub<ChatHub>("/chat");  //Configure ChatHub endpoint
+                    endpoints.MapHub<ChatHub>("/chat");
                 });
         }
     }

@@ -25,7 +25,7 @@
         public IActionResult Index()
         {
             var model = new DashboardIndexViewModel();
-            model.TripsCount = this.tripsService.GetAllTripsCount();
+            model.TripsCount = this.tripsService.GetCount();
             model.EventsCount = this.eventsService.GetAllEventsCount();
             model.UsersCount = this.usersService.GetAllUsersCount();
 

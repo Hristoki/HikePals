@@ -48,7 +48,7 @@
 
             this.TempData["Message"] = "You have sucessully added a hiking event!";
 
-            return this.RedirectToAction(nameof(this.GetById), new {id = eventId});
+            return this.RedirectToAction(nameof(this.GetById), new { id = eventId });
         }
 
         public async Task<IActionResult> GetById(int id)
@@ -111,12 +111,14 @@
 
         public async Task<IActionResult> RequestJoinEvent(int id)
         {
-           var user = await this.userManager.GetUserAsync(this.User);
+           var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
            var eventId = id;
+           var isAdmin = this.User.IsInRole("Administrator");
 
            try
            {
-              await this.eventsService.RequestJoinEvent(user, eventId);
+              await this.eventsService.RequestJoinEvent(eventId, userId, isAdmin);
+
            }
            catch (Exception ex)
            {
@@ -124,7 +126,7 @@
                return this.RedirectToAction("GetbyId", new { id = eventId });
            }
 
-           return this.RedirectToAction("GetbyId", new {id = eventId });
+           return this.RedirectToAction("GetbyId", new { id = eventId });
         }
 
         public async Task<IActionResult> ApproveJoinEvent(int id, string participantId)
@@ -177,26 +179,6 @@
             }
 
             return this.RedirectToAction("GetbyId", new { id = id });
-        }
-
-
-        public IActionResult SendMessage()
-        {
-
-            return this.View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> SendMessage(ChatMessageInputModel input)
-        {
-
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            input.SentById = userId;
-            await this.chatService.SaveMessageAsync(input);
-
-            var newUser = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            return this.View();
         }
     }
 }

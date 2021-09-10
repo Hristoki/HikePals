@@ -51,10 +51,9 @@
                     @Html.DisplayFor(modelItem => item.CreatedOn)
                 </td>
                 <td class="text-center">
-                    <a type="button" class="btn btn-sm btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a type="button" class="btn btn-sm btn-success" asp-area="" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     @if (item.IsDeleted)
                     {
-                        @*<a type="button" class="btn disabled" asp-action="Edit" asp-route-id="@item.Id">Edit</a>*@
                         <a type="button" class="btn btn-sm disabled" asp-action="Details" asp-route-id="@item.Id">Details</a>
                     }
 

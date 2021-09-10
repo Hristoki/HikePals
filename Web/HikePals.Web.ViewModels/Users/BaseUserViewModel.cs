@@ -29,7 +29,6 @@
                 .ForMember(t => t.CityName, s => s.MapFrom(x => x.User.City.Name))
                 .ForMember(t => t.DateOfBirth, s => s.MapFrom(x => x.User.DateOfBirth))
                 .ForMember(t => t.IsJoinRequestPending, s => s.MapFrom(x => x.PendingJoinRequest));
-
         }
     }
 }

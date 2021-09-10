@@ -34,7 +34,7 @@
 
             if (rating == null)
             {
-                rating = new Rating() { TripId = tripId, UserId = userId};
+                rating = new Rating() { TripId = tripId, UserId = userId };
                 await this.ratingRepository.AddAsync(rating);
             }
 

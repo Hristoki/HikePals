@@ -35,5 +35,4 @@
                        .ForMember(t => t.IsDeleted, s => s.MapFrom(x => x.IsDeleted));
         }
     }
-
 }

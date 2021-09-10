@@ -13,7 +13,7 @@
     [Authorize]
     public class CategoriesController : BaseController
     {
-        public  ICategoriesService categoriesService;
+        private ICategoriesService categoriesService;
 
         public CategoriesController(ICategoriesService categoriesService)
         {

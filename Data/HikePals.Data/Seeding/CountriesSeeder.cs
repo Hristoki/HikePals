@@ -10,7 +10,6 @@
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-
             if (dbContext.Countries.Any())
             {
                 return;

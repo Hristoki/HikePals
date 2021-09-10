@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace HikePals.Data.Migrations
+﻿namespace HikePals.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +19,7 @@ namespace HikePals.Data.Migrations
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -35,7 +36,7 @@ namespace HikePals.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -52,7 +53,7 @@ namespace HikePals.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -70,7 +71,7 @@ namespace HikePals.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Value = table.Column<string>(nullable: true)
+                    Value = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -88,7 +89,7 @@ namespace HikePals.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -105,7 +106,7 @@ namespace HikePals.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -120,7 +121,7 @@ namespace HikePals.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    ClaimValue = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -144,7 +145,7 @@ namespace HikePals.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: false),
-                    CountryId = table.Column<int>(nullable: false)
+                    CountryId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -182,7 +183,7 @@ namespace HikePals.Data.Migrations
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -208,7 +209,7 @@ namespace HikePals.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false),
                     CityId = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -235,7 +236,7 @@ namespace HikePals.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    ClaimValue = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -255,7 +256,7 @@ namespace HikePals.Data.Migrations
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -273,7 +274,7 @@ namespace HikePals.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    RoleId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -299,7 +300,7 @@ namespace HikePals.Data.Migrations
                     UserId = table.Column<string>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Value = table.Column<string>(nullable: true)
+                    Value = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -324,7 +325,7 @@ namespace HikePals.Data.Migrations
                     TripId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
-                    Extentsion = table.Column<string>(nullable: true)
+                    Extentsion = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -353,7 +354,7 @@ namespace HikePals.Data.Migrations
                     CreatedByUserId = table.Column<string>(nullable: true),
                     Distance = table.Column<int>(nullable: false),
                     Duration = table.Column<TimeSpan>(nullable: false),
-                    ImageId = table.Column<string>(nullable: true)
+                    ImageId = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -395,7 +396,7 @@ namespace HikePals.Data.Migrations
                     EndTime = table.Column<DateTime>(nullable: false),
                     MaxGroupSize = table.Column<int>(nullable: false),
                     TransportId = table.Column<int>(nullable: false),
-                    TripId = table.Column<int>(nullable: false)
+                    TripId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -431,7 +432,7 @@ namespace HikePals.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Value = table.Column<byte>(nullable: false)
+                    Value = table.Column<byte>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -457,7 +458,7 @@ namespace HikePals.Data.Migrations
                     TripId = table.Column<string>(nullable: false),
                     TagId = table.Column<string>(nullable: false),
                     TripId1 = table.Column<int>(nullable: true),
-                    TagId1 = table.Column<int>(nullable: true)
+                    TagId1 = table.Column<int>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -487,7 +488,7 @@ namespace HikePals.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    PendingJoinRequest = table.Column<bool>(nullable: false)
+                    PendingJoinRequest = table.Column<bool>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -518,7 +519,7 @@ namespace HikePals.Data.Migrations
                     Content = table.Column<string>(nullable: true),
                     TimeStamp = table.Column<DateTime>(nullable: false),
                     SentById = table.Column<string>(nullable: true),
-                    EventId = table.Column<int>(nullable: false)
+                    EventId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {

@@ -1,10 +1,8 @@
 ﻿namespace HikePals.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
+
     using HikePals.Services.Data;
     using HikePals.Web.ViewModels.Rating;
     using Microsoft.AspNetCore.Mvc;
@@ -28,7 +26,7 @@
             await this.ratingsService.VoteAsync(userId, input.TripId, input.Value);
             var averageRating = this.ratingsService.GetAverageRating(input.TripId);
 
-            return new RatingResponseModel {AverageRating = averageRating, UserVoteValue = input.Value };
+            return new RatingResponseModel { AverageRating = averageRating, UserVoteValue = input.Value };
         }
     }
 }

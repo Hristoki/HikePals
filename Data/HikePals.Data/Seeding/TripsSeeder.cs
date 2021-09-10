@@ -3,14 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
-    using HikePals.Data.Common.Repositories;
+
     using HikePals.Data.Models;
 
     public class TripsSeeder : ISeeder
     {
-
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             if (dbContext.Trips.Any())
@@ -40,6 +38,7 @@
         {
             return db.Locations.FirstOrDefault(x => x.Name == name).Id;
         }
+
         private ApplicationUser GetUser(ApplicationDbContext db, string userName)
         {
             return db.Users.FirstOrDefault(x => x.Name == userName);

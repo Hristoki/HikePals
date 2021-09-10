@@ -3,7 +3,7 @@ namespace HikePals.Data.Models
 {
     using HikePals.Data.Common.Models;
 
-    public class EventsUsers : BaseDeletableModel<int>
+    public class EventsUsers : BaseModel<int>
     {
         public string UserId { get; set; }
 

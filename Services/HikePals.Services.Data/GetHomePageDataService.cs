@@ -16,8 +16,8 @@
         private readonly IRepository<Location> locationRepository;
         private readonly IRepository<Category> categoriesRepository;
 
-        public GetHomePageDataService 
-            (IRepository<Trip> tripRepositry,
+        public GetHomePageDataService(
+             IRepository<Trip> tripRepositry,
              IRepository<ApplicationUser> userRepository,
              IRepository<Location> locationRepository,
              IRepository<Category> categoriesRepository)
@@ -30,7 +30,6 @@
 
         public IndexViewModel GetCounts()
         {
-
             var data = new IndexViewModel()
             {
                 TripsCount = this.tripRepositry.All().Count(),

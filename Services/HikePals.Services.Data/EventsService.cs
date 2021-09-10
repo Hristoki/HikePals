@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using HikePals.Data.Common.Repositories;
@@ -18,10 +17,10 @@
     {
         private readonly IDeletableEntityRepository<Event> eventsRepository;
         private readonly IDeletableEntityRepository<Trip> tripsRepository;
-        private readonly IDeletableEntityRepository<EventsUsers> eventUserRepository;
+        private readonly IRepository<EventsUsers> eventUserRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
-        public EventsService(IDeletableEntityRepository<Event> eventsRepository, IDeletableEntityRepository<Trip> tripsRepository, IDeletableEntityRepository<EventsUsers> evenUserRepository, IDeletableEntityRepository<ApplicationUser> userRepository)
+        public EventsService(IDeletableEntityRepository<Event> eventsRepository, IDeletableEntityRepository<Trip> tripsRepository, IRepository<EventsUsers> evenUserRepository, IDeletableEntityRepository<ApplicationUser> userRepository)
         {
             this.eventsRepository = eventsRepository;
             this.tripsRepository = tripsRepository;
@@ -47,7 +46,6 @@
             await this.eventsRepository.AddAsync(@event);
             await this.eventsRepository.SaveChangesAsync();
             return @event.Id;
-
         }
 
         public async Task DeleteAsync(int id)
@@ -87,9 +85,9 @@
             return this.eventsRepository.AllAsNoTracking().Count();
         }
 
-        public async Task RequestJoinEvent(ApplicationUser user, int eventId)
+        public async Task RequestJoinEvent(int eventId, string userId, bool isAdmin)
         {
-            if (user == null)
+            if (userId == null)
             {
                 throw new ArgumentException("User does not exist!");
             }
@@ -99,7 +97,7 @@
                 throw new ArgumentException("Event does not exist!");
             }
 
-            var eventUser = this.eventUserRepository.All().FirstOrDefault(x => x.UserId == user.Id && x.EventId == eventId);
+            var eventUser = this.eventUserRepository.All().FirstOrDefault(x => x.UserId == userId && x.EventId == eventId);
 
             if (eventUser != null && !eventUser.PendingJoinRequest)
             {
@@ -117,9 +115,10 @@
                 throw new ArgumentException("This event is full! You can't join this event! ");
             }
 
-            eventUser = new EventsUsers { UserId = user.Id, EventId = eventId };
+            eventUser = new EventsUsers { UserId = userId, EventId = eventId };
 
-            if (@event.CreatedById == user.Id)
+
+            if (@event.CreatedById == userId || isAdmin)
             {
                 eventUser.PendingJoinRequest = false;
                 @event.Participants.Add(eventUser);
@@ -139,12 +138,10 @@
 
             if (eventUser == null)
             {
-                throw new ArgumentException("This user does not take part in the event!");
+                throw new ArgumentException("This user has not joined the event!");
             }
 
-            var eventEntity = this.eventsRepository.All().FirstOrDefault(x => x.Id == id);
-            eventEntity.Participants.Remove(eventUser);
-
+            this.eventUserRepository.Delete(eventUser);
             await this.eventUserRepository.SaveChangesAsync();
         }
 
@@ -220,6 +217,13 @@
         public async Task UndoJoinRequest(string userId, int id)
         {
             await this.LeaveEvent(userId, id);
+        }
+
+        public bool HasJoinedEvent(int id, string userId)
+        {
+            return this.eventUserRepository
+                .All()
+                .FirstOrDefault(x => x.EventId == id && x.UserId == userId && x.PendingJoinRequest == false) != null;
         }
     }
 }

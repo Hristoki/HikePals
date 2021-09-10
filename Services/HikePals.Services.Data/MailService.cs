@@ -11,16 +11,16 @@
 
     public class MailService : IMailService
     {
-        private IConfiguration _configuration;
+        private IConfiguration configuration;
 
         public MailService(IConfiguration configuration)
         {
-            this._configuration = configuration;
+            this.configuration = configuration;
         }
 
         public async Task SendContactFormEmailAsync(string sentByEmail, string subject, string content, string name)
         {
-            var apiKey = this._configuration["SendGridAPIKey"];
+            var apiKey = this.configuration["SendGridAPIKey"];
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("hikepals@abv.bg", name);
             var to = from;
@@ -41,7 +41,7 @@
 
         public async Task SendResetEmailPasswordAsync(string toEmail, string subject, string content)
         {
-            var apiKey = this._configuration["SendGridAPIKey"];
+            var apiKey = this.configuration["SendGridAPIKey"];
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("hikepals@abv.bg", "Hike Pals");
             var to = new EmailAddress(toEmail, "Example User");

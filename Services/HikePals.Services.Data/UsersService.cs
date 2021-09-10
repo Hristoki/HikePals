@@ -24,8 +24,6 @@
         public int GetAllUsersCount()
         {
             return this.usersRepository.All().Count();
-
         }
-
     }
 }

@@ -1,8 +1,6 @@
 ﻿namespace HikePals.Web.Controllers
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -56,11 +54,11 @@
 
             var imagesDirPath = $"{this.environment.WebRootPath}\\images";
 
-            var user = await this.userManager.GetUserAsync(this.User);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             try
             {
-                await this.tripsService.AddNewTrip(input, user.Id, imagesDirPath);
+                await this.tripsService.Create(input, userId, imagesDirPath);
             }
             catch (Exception ex)
             {
@@ -77,7 +75,7 @@
 
         public IActionResult All([FromQuery] AllTripsViewModel query)
         {
-            var model = this.tripsService.GetAllTrips(query.SearchTerm, query.Category, query.Sorting, query.CurrentPage, AllTripsViewModel.TripPerPage);
+            var model = this.tripsService.GetAll(query.SearchTerm, query.Category, query.Sorting, query.CurrentPage, AllTripsViewModel.TripPerPage);
 
             var categories = this.categoriesService.All();
             model.Categories = categories;
@@ -87,7 +85,7 @@
 
         public IActionResult ByCategory(int id)
         {
-            var model = this.tripsService.GetAllTripsByCategory<TripViewModel>(id);
+            var model = this.tripsService.GetAllByCategory<TripViewModel>(id);
             return this.View("All", model);
         }
 
@@ -101,8 +99,8 @@
                 return this.RedirectToAction("NotFoundError", "Error");
             }
 
-            var user = await this.userManager.GetUserAsync(this.User);
-            model.UserId = user.Id;
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            model.UserId = userId;
 
             return this.View(model);
         }
@@ -110,26 +108,30 @@
         [Authorize]
         public IActionResult Edit(int id)
         {
-            var model = this.tripsService.GetById<EditTripViewModel>(id);
+            var model = this.tripsService.GetById<CreateTripInputViewModel>(id);
 
             model.CityItems = this.citiesService.GetAllCities();
-            model.CategoriesItems = this.categoriesService.GetAllCategoriesAsListItems();
+            model.CategoryItems = this.categoriesService.GetAllCategoriesAsListItems();
 
             return this.View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EditTripViewModel input)
+        public async Task<IActionResult> Edit(CreateTripInputViewModel input)
         {
             if (!this.ModelState.IsValid)
             {
-                input.CategoriesItems = this.categoriesService.GetAllCategoriesAsListItems();
+                input.CategoryItems = this.categoriesService.GetAllCategoriesAsListItems();
                 input.CityItems = this.citiesService.GetAllCities();
 
                 this.View(input);
             }
 
-            await this.tripsService.UpdateAsync(input);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var imagesDirPath = $"{this.environment.WebRootPath}\\images";
+
+            await this.tripsService.UpdateAsync(input, userId, imagesDirPath);
 
             var model = this.tripsService.GetById<TripViewModel>(input.Id);
 

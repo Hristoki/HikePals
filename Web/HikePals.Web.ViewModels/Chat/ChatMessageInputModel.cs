@@ -14,6 +14,5 @@
         public string SentById { get; set; }
 
         public string Content { get; set; }
-
     }
 }

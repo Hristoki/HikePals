@@ -28,7 +28,6 @@
             {
                 await SeedUserAsync(userManager, $"testUser{i}");
             }
-
         }
 
         private static async Task SeedUserAsync(UserManager<ApplicationUser> userManager, string username)
@@ -60,8 +59,8 @@
             {
                 user = new ApplicationUser
                 {
-                    UserName = $"{ username}@gmail.com",
-                    Email = $"{ username}@gmail.com",
+                    UserName = $"{username}@gmail.com",
+                    Email = $"{username}@gmail.com",
                     DateOfBirth = DateTime.UtcNow,
                     CityId = 2,
                     Name = $"{username}@gmail.com",

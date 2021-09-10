@@ -8,11 +8,16 @@
 
     public interface ITripsService
     {
-        Task AddNewTrip(CreateTripInputViewModel model, string userId, string imageDirectoryPath);
+        Task Create(CreateTripInputViewModel model, string userId, string imageDirectoryPath);
 
-        AllTripsViewModel GetAllTrips (string searchTerm, string categoy, TripSort sorting, int currentPage, int tripsPerPage);
+        AllTripsViewModel GetAll(
+            string searchTerm,
+            string categoy,
+            TripSort sorting,
+            int currentPage,
+            int tripsPerPage);
 
-        IEnumerable<SingleTripViewModel> GetAllTripsWithDeleted();
+        IEnumerable<SingleTripViewModel> GetAllWithDeleted();
 
         bool Exists(int id);
 
@@ -20,18 +25,18 @@
 
         T GetByIdWithDeleted<T>(int tripId);
 
-        Task UpdateAsync(EditTripViewModel model);
+        Task UpdateAsync(CreateTripInputViewModel model, string userId, string imageDirPath);
 
         Task DeleteAsync(int id);
 
-        int GetAllTripsCount();
+        int GetCount();
 
-        Task RestoreTripAsync(int id);
+        Task RestoreAsync(int id);
 
-        int GetUserTripsCount(string userId);
+        int GetUserCount(string userId);
 
         List<T> GetAllUserTrips<T>(string userId);
 
-        IEnumerable<T> GetAllTripsByCategory<T>(int categoryId);
+        IEnumerable<T> GetAllByCategory<T>(int categoryId);
     }
 }

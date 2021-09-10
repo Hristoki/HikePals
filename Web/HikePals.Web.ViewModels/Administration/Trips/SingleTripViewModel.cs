@@ -13,8 +13,6 @@
 
     public class SingleTripViewModel : BaseTripViewModel, IMapFrom<Trip>, IHaveCustomMappings
     {
-        public int Id { get; set; }
-
         public bool IsDeleted { get; set; }
 
         public string DeletedOn { get; set; }

@@ -33,7 +33,7 @@ namespace HikePals.Data.Models
         public int CityId { get; set; }
 
         public virtual City City { get; set; }
- 
+
         public DateTime DateOfBirth { get; set; }
 
         public virtual ICollection<Rating> Ratings { get; set; }
@@ -59,6 +59,5 @@ namespace HikePals.Data.Models
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         public virtual ICollection<Trip> Favourites { get; set; }
-
     }
 }

@@ -3,17 +3,17 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
-
+    using AutoMapper;
+    using HikePals.Common;
     using HikePals.Data.Models;
     using HikePals.Services.Mapping;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
-    using HikePals.Common;
-
-    public class CreateTripInputViewModel
+    public class CreateTripInputViewModel : IMapFrom<Trip>, IHaveCustomMappings
     {
+        public int Id { get; set; }
+
         [Required]
         [MaxLength(GlobalConstants.MaxTripTitleLenght, ErrorMessage = GlobalConstants.TripTitleErrorMessage)]
         [MinLength(GlobalConstants.MinTripTitleLenght, ErrorMessage = GlobalConstants.TripTitleErrorMessage)]
@@ -50,5 +50,13 @@
 
         [AllowedImageExtensionsAttribute]
         public IFormFile TripImage { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration
+                .CreateMap<Trip, CreateTripInputViewModel>()
+                .ForMember(t => t.CategoryId, s => s.MapFrom(x => x.Location.CategoryId))
+                .ForMember(t => t.CityId, s => s.MapFrom(x => x.Location.CityId));
+        }
     }
 }

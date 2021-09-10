@@ -1,8 +1,9 @@
-﻿using HikePals.Data.Common.Models;
-using System;
-
-namespace HikePals.Data.Models
+﻿namespace HikePals.Data.Models
 {
+    using System;
+
+    using HikePals.Data.Common.Models;
+
     public class Image: BaseDeletableModel<string>
     {
         public Image()

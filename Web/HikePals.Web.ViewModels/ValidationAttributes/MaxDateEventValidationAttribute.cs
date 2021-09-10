@@ -25,10 +25,10 @@
                 }
             }
 
-            if (value is DateTime dtValue)
+            if (value is DateTime dateTimeValue)
             {
-                if (dtValue.Year >= DateTime.UtcNow.Year
-                    && dtValue.Year <= this.MaxYear)
+                if (dateTimeValue.Year >= DateTime.UtcNow.Year
+                    && dateTimeValue.Year <= this.MaxYear)
                 {
                     return true;
                 }

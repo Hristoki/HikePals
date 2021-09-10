@@ -13,7 +13,6 @@
     using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class CreateEventInputViewModel : TripViewModel, IMapTo<Event>, IHaveCustomMappings
-
     {
         public int TripId { get; set; }
 

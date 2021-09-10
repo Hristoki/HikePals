@@ -10,7 +10,6 @@
 
     public class LocationsSeeder : ISeeder
     {
-
         public LocationsSeeder()
         {
         }
@@ -25,7 +24,7 @@
                 return;
             }
 
-            await dbContext.Locations.AddAsync (new Location { Name = "Cherni Vrah", Category = GetCategory(dbContext, "Summit"), CityId = GetCity(dbContext, "Sofia") });
+            await dbContext.Locations.AddAsync(new Location { Name = "Cherni Vrah", Category = GetCategory(dbContext, "Summit"), CityId = GetCity(dbContext, "Sofia") });
 
             await dbContext.Locations.AddAsync(new Location { Name = "Musala", Category = GetCategory(dbContext, "Summit"), CityId = GetCity(dbContext, "Borovets"), });
 
@@ -37,7 +36,7 @@
 
             await dbContext.Locations.AddAsync(new Location { Name = "Pod Kamiko", Category = GetCategory(dbContext, "Eco trail"), CityId = GetCity(dbContext, "Svoge"), });
 
-            await dbContext.Locations.AddAsync (new Location { Name = "Rila Monastery", Category = GetCategory(dbContext, "Monastery"), CityId = GetCity(dbContext, "Blagoevgrad"), });
+            await dbContext.Locations.AddAsync(new Location { Name = "Rila Monastery", Category = GetCategory(dbContext, "Monastery"), CityId = GetCity(dbContext, "Blagoevgrad"), });
 
             await dbContext.Locations.AddAsync(new Location { Name = "Ambaritsa Chattel", Category = GetCategory(dbContext, "Chattel"), CityId = GetCity(dbContext, "Troyan"), });
 
@@ -54,6 +53,5 @@
         {
            return dbContext.Categories.FirstOrDefault(x => x.Name == categoryName);
         }
-
     }
 }

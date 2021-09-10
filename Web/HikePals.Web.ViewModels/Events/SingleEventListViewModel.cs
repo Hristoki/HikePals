@@ -1,8 +1,5 @@
 ﻿namespace HikePals.Web.ViewModels.Events
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using AutoMapper;
     using HikePals.Data.Models;
     using HikePals.Services.Mapping;

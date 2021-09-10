@@ -1,14 +1,11 @@
 ﻿namespace HikePals.Web.ViewModels.Events
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using AutoMapper;
+
     using HikePals.Data.Models;
     using HikePals.Services.Mapping;
-    using HikePals.Web.ViewModels.Users;
 
-    public abstract class BaseEventViewModel: IMapFrom<Event>
+    public abstract class BaseEventViewModel : IMapFrom<Event>
     {
         public int Id { get; set; }
 
@@ -31,6 +28,5 @@
         public string ImageUrl { get; set; }
 
         public string CreatedById { get; set; }
-
     }
 }

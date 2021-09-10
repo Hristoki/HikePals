@@ -1,15 +1,13 @@
 ﻿namespace HikePals.Web.ViewModels.Chat
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using AutoMapper;
     using HikePals.Data.Models;
     using HikePals.Services.Mapping;
 
     public class MessageResponseModel : IMapFrom<Message>, IMapTo<Message>, IHaveCustomMappings
     {
-
         public string Time { get; set; }
 
         public DateTime TimeInUtc { get; set; }

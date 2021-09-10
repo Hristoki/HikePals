@@ -29,7 +29,7 @@
             this.imageRepository = imageRepository;
         }
 
-        public async Task AddNewTrip(CreateTripInputViewModel model, string userId, string path)
+        public async Task Create(CreateTripInputViewModel model, string userId, string imageDirPath)
         {
             var location = this.locationRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == model.Description);
 
@@ -44,7 +44,7 @@
                 };
             }
 
-            this.IsTripNameAvailable(model);
+            this.IsNameAvailable(model);
 
             var trip = new Trip
             {
@@ -56,10 +56,18 @@
                 CreatedByUserId = userId,
             };
 
+            Stream fileStream = await SaveImage(model, userId, imageDirPath, trip);
+
+            await this.tripRepository.AddAsync(trip);
+            await this.tripRepository.SaveChangesAsync();
+        }
+
+        private static async Task<Stream> SaveImage(CreateTripInputViewModel model, string userId, string imageDirPath, Trip trip)
+        {
             string imageExtension = null;
             if (model.TripImage != null)
             {
-             imageExtension = Path.GetExtension(model.TripImage.FileName.ToLower());
+                imageExtension = Path.GetExtension(model.TripImage.FileName.ToLower());
             }
 
             var image = new Image
@@ -72,15 +80,13 @@
             trip.Image = image;
 
             // Add image to File System
-            var physicalPath = $"{path}/trips/{image.Id}{imageExtension}";
-            using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+            var physicalPath = $"{imageDirPath}/trips/{image.Id}{imageExtension}";
+            Stream fileStream = new FileStream(physicalPath, FileMode.Create);
             await model.TripImage.CopyToAsync(fileStream);
-
-            await this.tripRepository.AddAsync(trip);
-            await this.tripRepository.SaveChangesAsync();
+            return fileStream;
         }
 
-        public AllTripsViewModel GetAllTrips(string searchTerm, string category, TripSort sorting, int currentPage, int tripsPerPage)
+        public AllTripsViewModel GetAll(string searchTerm, string category, TripSort sorting, int currentPage, int tripsPerPage)
         {
             var tripsQuery = this.tripRepository.All();
             if (!string.IsNullOrWhiteSpace(searchTerm))
@@ -123,7 +129,7 @@
             };
         }
 
-        public IEnumerable<T> GetAllTripsByCategory<T>(int categoryId)
+        public IEnumerable<T> GetAllByCategory<T>(int categoryId)
         {
             return this.tripRepository.AllAsNoTracking().Where(x => x.Location.CategoryId == categoryId).To<T>().ToList();
         }
@@ -137,7 +143,7 @@
                 .FirstOrDefault();
         }
 
-        public async Task UpdateAsync(EditTripViewModel model)
+        public async Task UpdateAsync(CreateTripInputViewModel model, string userId, string imageDirPath)
         {
             var location = this.locationRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == model.LocationName);
             if (location == null)
@@ -146,7 +152,7 @@
                 {
                     Name = model.LocationName,
                     CityId = model.CityId,
-                    CategoryId = model.TypeOfDestinationId,
+                    CategoryId = model.CategoryId,
                 };
             }
 
@@ -156,6 +162,11 @@
             trip.Description = model.Description;
             trip.Distance = model.Distance;
             trip.Location = location;
+
+            if (model.TripImage != null)
+            {
+                Stream fileStream = await SaveImage(model, userId, imageDirPath, trip);
+            }
 
             await this.tripRepository.SaveChangesAsync();
         }
@@ -167,7 +178,7 @@
             await this.tripRepository.SaveChangesAsync();
         }
 
-        public int GetAllTripsCount()
+        public int GetCount()
         {
           return this.tripRepository.AllAsNoTracking().Count();
         }
@@ -181,7 +192,7 @@
                 .FirstOrDefault();
         }
 
-        public IEnumerable<SingleTripViewModel> GetAllTripsWithDeleted()
+        public IEnumerable<SingleTripViewModel> GetAllWithDeleted()
         {
             return this.tripRepository.AllWithDeleted().To<SingleTripViewModel>().ToList();
         }
@@ -191,14 +202,14 @@
             return this.tripRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id) != null;
         }
 
-        public async Task RestoreTripAsync(int id)
+        public async Task RestoreAsync(int id)
         {
             var eventEntity = await this.tripRepository.GetByIdWithDeletedAsync(id);
             eventEntity.IsDeleted = false;
             await this.tripRepository.SaveChangesAsync();
         }
 
-        public int GetUserTripsCount(string id)
+        public int GetUserCount(string id)
         {
             return this.tripRepository.AllAsNoTracking().Where(x => x.CreatedByUserId == id).Count();
         }
@@ -208,7 +219,7 @@
             return this.tripRepository.All().Where(x => x.CreatedByUserId == userId).To<T>().ToList();
         }
 
-        private void IsTripNameAvailable(CreateTripInputViewModel model)
+        private void IsNameAvailable(CreateTripInputViewModel model)
         {
             var isNameFree = this.tripRepository.AllAsNoTracking().FirstOrDefault(x => x.Title == model.Title);
 

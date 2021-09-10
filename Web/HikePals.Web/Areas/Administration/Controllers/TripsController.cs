@@ -6,9 +6,8 @@
     using HikePals.Services.Data.Contracts;
     using HikePals.Web.ViewModels.Trips;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
 
-    public class TripsController : Controller
+    public class TripsController : AdministrationController
     {
         private readonly ITripsService tripsService;
         private readonly ICitiesService citiesService;
@@ -24,7 +23,7 @@
         // GET: Administration/Trips
         public IActionResult Index()
         {
-            var model = this.tripsService.GetAllTripsWithDeleted();
+            var model = this.tripsService.GetAllWithDeleted();
 
             return this.View(model);
         }
@@ -44,58 +43,7 @@
         // GET: Administration/Trips/Create
         public IActionResult Create()
         {
-            return this.RedirectToAction("Create", nameof(HikePals.Web.Controllers.TripsController));
-        }
-
-        public IActionResult Edit(int id)
-        {
-            var model = this.tripsService.GetByIdWithDeleted<EditTripViewModel>(id);
-
-            if (model == null)
-            {
-                return this.NotFound();
-            }
-
-            model.CityItems = this.citiesService.GetAllCities();
-            model.CategoriesItems = this.categoriesService.GetAllCategoriesAsListItems();
-
-            return this.View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, EditTripViewModel trip)
-        {
-            if (id != trip.Id)
-            {
-                return this.NotFound();
-            }
-
-            if (this.ModelState.IsValid)
-            {
-                try
-                {
-                    await this.tripsService.UpdateAsync(trip);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!this.tripsService.Exists(trip.Id))
-                    {
-                        return this.NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
-                return this.RedirectToAction(nameof(this.Index));
-            }
-
-            trip.CityItems = this.citiesService.GetAllCities();
-            trip.CategoriesItems = this.categoriesService.GetAllCategoriesAsListItems();
-
-            return this.View(trip);
+            return this.RedirectToAction("Create", nameof(Web.Controllers.TripsController));
         }
 
         // GET: Administration/Trips/Delete/5
@@ -112,7 +60,7 @@
 
         public async Task<IActionResult> Restore(int id)
         {
-            await this.tripsService.RestoreTripAsync(id);
+            await this.tripsService.RestoreAsync(id);
             return this.RedirectToAction(nameof(this.Index));
         }
     }

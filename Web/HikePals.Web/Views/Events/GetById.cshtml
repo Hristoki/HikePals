@@ -40,7 +40,7 @@
     }
     else if (Model.CurrentUserHasJoinedEvent)
     {
-        <a type="button" class="btn btn-danger" asp-controller="Events" asp-action="Leave" asp-route-id="@Model.Id">Leave</a>
+        <a type="button" class="btn btn-danger" asp-controller="Events" asp-action="Leave" asp-route-id="@Model.Id" asp-route-participantId="@Model.UserId">Leave</a>
     }
     else
     {
@@ -139,7 +139,6 @@
 
         </div>
     </div>
-     @*" @Model.Id" + " @Model.UserId"*@
 
     @section Scripts {
         <script>
@@ -179,9 +178,13 @@
                 $("#messageInput").val("");
             };
 
-            connection.start().catch(function (err) {
+            connection.start()
+                .then(() => connection.invoke("JoinGroup", requestId))
+                .catch(function (err) {
                 return console.error(err.toString());
             });
+
+
             function escapeHtml(unsafe) {
                 return unsafe
                     .replace(/&/g, "&amp;")

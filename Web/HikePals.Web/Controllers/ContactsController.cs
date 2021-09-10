@@ -1,9 +1,5 @@
 ﻿namespace HikePals.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using HikePals.Data.Models;
     using HikePals.Services.Data;
     using HikePals.Web.ViewModels.Contacts;
@@ -29,7 +25,6 @@
         [HttpPost]
         public IActionResult Index(ContactFormInputViewModel input)
         {
-
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);

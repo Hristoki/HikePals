@@ -14,7 +14,7 @@
 <div class=role aria-label="Basic example" style="vertical-align:middle; text-align: center; margin-left:10px; margin-right:10px; ">
     @if (this.User.IsInRole("Administrator") || Model.UserId == Model.CreatedById)
 	{
-    <a type="button" class="btn btn-primary" style="vertical-align:middle; text-align: center; margin-left:10px; margin-right:10px; margin-bottom: 10px;" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <a type="button" class="btn btn-primary" style="vertical-align:middle; text-align: center; margin-left:10px; margin-right:10px; margin-bottom: 10px;" asp-area="" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
     <a type="button" class="btn btn-danger" style="vertical-align:middle; text-align: center; margin-left:10px; margin-right:10px; margin-bottom: 10px;" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>		 
 	}
     <a type="button" class="btn btn-success" style="vertical-align:middle; text-align: center; margin-left:10px; margin-right:10px; margin-bottom: 10px;" asp-controller="Events" asp-action="Create" asp-route-id="@Model.Id">Create Event</a>

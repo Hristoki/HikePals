@@ -1,35 +1,31 @@
 ﻿namespace HikePals.Web.Hub
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
+
     using HikePals.Data.Models;
+    using HikePals.Services.Data;
     using HikePals.Services.Data.Contracts;
     using HikePals.Web.ViewModels.Chat;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.SignalR;
-    using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
     public class ChatHub : Hub
     {
         private readonly IChatService chatService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IEventsService eventsService;
 
-        public ChatHub(IChatService chatService, UserManager<ApplicationUser> userManager)
+        public ChatHub(IChatService chatService, UserManager<ApplicationUser> userManager, IEventsService eventsService)
         {
             this.chatService = chatService;
             this.userManager = userManager;
+            this.eventsService = eventsService;
         }
 
         public async Task Send(ChatMessageInputModel input)
         {
-            //var username = this.Context.User.Identity.Name;
-
-            //var userId = this.Context.User.FindFirst(ClaimTypes.NameIdentifier).Type;
-            //var input = new ChatMessageInputModel() { Content = content, EventId = eventId, SentById = userId };
-
             var user = this.userManager.GetUserAsync(this.Context.User).Result;
             input.SentById = user.Id;
             var msgLogTime = DateTime.UtcNow;
@@ -41,6 +37,18 @@
             await this.Clients.All.SendAsync(
                     "NewMessage",
                     new MessageResponseModel { SendByName = username, Text = input.Content, Time = localTime });
+        }
+
+        public async Task JoinGroup(int eventId)
+        {
+            var userId = this.Context.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (this.eventsService.HasJoinedEvent(eventId, userId))
+            {
+             await this.Groups.AddToGroupAsync(this.Context.ConnectionId, eventId.ToString());
+            }
+
+            return;
         }
     }
 }
