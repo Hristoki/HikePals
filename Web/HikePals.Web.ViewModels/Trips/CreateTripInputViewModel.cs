@@ -49,6 +49,7 @@
         public IEnumerable<SelectListItem> CityItems { get; set; }
 
         [AllowedImageExtensionsAttribute]
+        [Display(Name = "Image")]
         public IFormFile TripImage { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

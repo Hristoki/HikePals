@@ -6,8 +6,7 @@
 
     @foreach (var hike in Model.Events)
     {
-
-        <div class="card col-md-4">
+        <div class="card col-md-4 m-5">
             <div class="embed-responsive embed-responsive-4by3">
                 <a asp-controller="Events" asp-action="GetById" asp-route-id="@hike.Id">
                     <img class="card-img-top img-responsive embed-responsive-item" src="@hike.ImageUrl" alt="@hike.Title" style="margin:10px; margin-left:0">

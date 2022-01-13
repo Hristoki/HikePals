@@ -4,7 +4,7 @@
 <div class="row">
     @foreach (var trip in this.Model.Trips)
     {
-        <div class="card col-md-4">
+        <div class="card col-md-4 m-5">
             <div class="embed-responsive embed-responsive-4by3">
                 <a asp-controller="Trips" asp-action="GetById" asp-route-id="@trip.Id">
                     <img class="card-img-top img-responsive embed-responsive-item" src="@trip.ImageUrl" alt="@trip.Title" style="margin: 10px; margin-left:0">
