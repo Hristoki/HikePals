@@ -85,7 +85,7 @@
 
         public IActionResult ByCategory(int id)
         {
-            var model = this.tripsService.GetAllByCategory<TripViewModel>(id);
+            var model = this.tripsService.GetAllByCategory<AllTripsViewModel>(id);
             return this.View("All", model);
         }
 

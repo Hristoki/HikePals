@@ -7,42 +7,6 @@
 
 @foreach (var category in Model.Categories)
 {
-    <li><a asp-controller="Trips" asp-action="ByCategory" asp-route-id="@category.Id">@category.Name</a></li>
+    <li><a asp-controller="Trips" asp-action="All" asp-route-category="@category.Name">@category.Name</a></li>
 }
 </ul>
-
-
-
-    @*<table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>
-                       Category:
-                    </th>
-
-                    <th>
-                        Locations:
-                    </th>
-                    <th>
-                      № Hike Routes:
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="text-left">
-                @foreach (var category in @Model.Categories)
-                {
-                    <tr>
-                        <td>
-                           @category.Name
-                        </td>
-                        <td>
-                            @category.LocationsCount
-                        </td>
-                        <td>
-                            @category.TripsCount
-                        </td>
-
-                    </tr>
-                }
-            </tbody>
-        </table>*@

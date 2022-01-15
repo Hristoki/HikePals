@@ -1,5 +1,10 @@
 ﻿@model HikePals.Web.ViewModels.Events.CreateEventInputViewModel
 
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    </head>
+
 <form method="post" class="col-md-6 offset-md-3" enctype="multipart/form-data">
 
     <div class="flex-wrap">
@@ -39,16 +44,38 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="StartTime">StartTime</label>
-                <input asp-for="StartTime" class="form-control" type="date" value="@DateTime.Now  />
+                <label asp-for="StartTime" class="control-label"></label>
+                <div class='input-group date' id='startTimePicker'>
+                    <input asp-for="StartTime" type="text" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
                 <span asp-validation-for="StartTime" class="text-danger"></span>
             </div>
 
+            @*<div class="form-group">
+            <label asp-for="StartTime">StartTime</label>
+            <input asp-for="StartTime" class="form-control" type="date" value="@DateTime.Now" />
+            <span asp-validation-for="StartTime" class="text-danger"></span>
+        </div>*@
+
             <div class="form-group">
+                <label asp-for="EndTime" class="control-label"></label>
+                <div class='input-group date' id='endTimePicker'>
+                    <input asp-for="EndTime" type="text" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+
+            @*<div class="form-group">
                 <label asp-for="EndTime">EndTime</label>
                 <input asp-for="EndTime" class="form-control" type="date" value="@DateTime.Now" />
                 <span asp-validation-for="EndTime" class="text-danger"></span>
-            </div>
+            </div>*@
 
             <div class="form-group">
                 <label asp-for="MaxGroupSize">Group Size</label>
@@ -71,3 +98,17 @@
     <input type="submit" value="Submit" class="btn-block" />
 
 </form>
+
+@section Scripts
+    {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script>
+        $(function () {
+            $('#startTimePicker, #endTimePicker').datetimepicker();
+        });
+    </script>
+}
