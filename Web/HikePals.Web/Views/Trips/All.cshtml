@@ -40,7 +40,7 @@
         <div class="form-group col-md-4">
                     <div class="form-group">
                         <label asp-for="Sorting"></label>
-                        <select asp-for="Sorting" class="form-control">
+                        <select id="sortBy" asp-for="Sorting" class="form-control">
                             <option value="0" selected>Category</option>
                             <option value="1">Location</option>
                             <option value="2">Date added</option>
@@ -165,7 +165,7 @@
 
 @section Scripts{ 
 <script>
-    $("#category").change(function () {
+    $('#category, #sortBy').change(function () {
 
         let formData = $('#form').serialize();
         let currentUrl = 'https://localhost:44319/Trips/All?';
