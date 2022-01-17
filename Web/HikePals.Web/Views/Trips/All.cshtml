@@ -91,10 +91,10 @@
     </div>
 
 </div>
-<div class="row">
+<div class="row justify-content-around">
     @foreach (var trip in this.Model.Trips)
     {
-        <div class="card col-md-4">
+        <div class="card col-md-3 m-1">
             <div class="embed-responsive embed-responsive-4by3">
                 <a asp-controller="Trips" asp-action="GetById" asp-route-id="@trip.Id">
                     <img class="card-img-top img-responsive embed-responsive-item" src="@trip.ImageUrl" alt="@trip.Title" style="margin: 10px; margin-left:0">
@@ -148,14 +148,16 @@
                     <span id="averageRating">@trip.AverageRating.ToString("0.0")</span> <span>/ 5</span>
 
                 </div>
+                    <div class="text-center">
                 @if (this.User.IsInRole("User") || this.User.IsInRole("Administrator"))
                 {
-                    <a asp-controller="Trips" asp-action="GetById" asp-route-id="@trip.Id" class="btn btn-primary">Read more</a>
+                        <a class="btn btn-primary " asp-controller="Trips" asp-action="GetById" asp-route-id="@trip.Id" >Read more</a>
                 }
                 else
                 {
-                    <a class="btn btn-dark  btn-pill" asp-area="Identity" asp-page="/Account/Register">Read more</a>
+                        <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register">Read more</a>
                 }
+                    </div>
             </div>
         </div>
     }
