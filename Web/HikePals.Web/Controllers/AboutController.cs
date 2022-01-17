@@ -12,11 +12,6 @@
     {
         public IActionResult Index()
         {
-
-            SmtpClient client = new SmtpClient("asdas", 80);
-            var message = new MailMessage();
-            client.SendMailAsync(message);
-
             return this.View();
         }
     }

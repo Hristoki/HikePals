@@ -12,6 +12,7 @@
     using HikePals.Web.ViewModels.Events;
     using HikePals.Web.ViewModels.Trips;
     using HikePals.Web.ViewModels.Users;
+    using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;

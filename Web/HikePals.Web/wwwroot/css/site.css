@@ -131,3 +131,15 @@ body {
     max-width: 120px;
     max-height: 100px;
 }
+
+.headerButton{
+    color:white;
+    border: none;
+    background-color:transparent;
+    margin-left: 1rem;
+}
+
+.userControls {
+    display: flex;
+    align-items: center;
+}
