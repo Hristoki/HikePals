@@ -118,7 +118,6 @@
            try
            {
               await this.eventsService.RequestJoinEvent(eventId, userId, isAdmin);
-
            }
            catch (Exception ex)
            {
@@ -144,7 +143,9 @@
             }
 
              // Get previous page Url address
-            var referer = this.Request.Headers["Referer"].ToString();
+            var referer = this.Request
+                .Headers["Referer"]
+                .ToString();
 
             return this.Redirect(referer);
         }

@@ -8,6 +8,7 @@
     using HikePals.Services.Data;
     using HikePals.Services.Data.Contracts;
     using HikePals.Web.ViewModels.Trips;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -21,7 +22,15 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
 
-        public TripsController(ICitiesService citiesService, ICountriesService countryService, ICategoriesService categoriesService, ITransportService transportService, ITripsService tripsService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment, IRatingsService ratingsService)
+        public TripsController(
+            ICitiesService citiesService,
+            ICountriesService countryService,
+            ICategoriesService categoriesService,
+            ITransportService transportService,
+            ITripsService tripsService,
+            UserManager<ApplicationUser> userManager,
+            IWebHostEnvironment environment,
+            IRatingsService ratingsService)
         {
             this.citiesService = citiesService;
             this.categoriesService = categoriesService;
@@ -75,7 +84,13 @@
 
         public IActionResult All([FromQuery] AllTripsViewModel query)
         {
-            var model = this.tripsService.GetAll(query.SearchTerm, query.Category, query.Sorting, query.CurrentPage, AllTripsViewModel.TripPerPage);
+            var model = this.tripsService
+                .GetAll(
+                query.SearchTerm,
+                query.Category,
+                query.Sorting,
+                query.CurrentPage,
+                AllTripsViewModel.TripPerPage);
 
             var categories = this.categoriesService.All();
             model.Categories = categories;
@@ -99,7 +114,10 @@
                 return this.RedirectToAction("NotFoundError", "Error");
             }
 
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = this.User
+                .FindFirst(ClaimTypes.NameIdentifier)
+                .Value;
+
             model.UserId = userId;
 
             return this.View(model);

@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
-
+    using HikePals.Common;
     using HikePals.Data.Models;
     using HikePals.Services.Data;
     using HikePals.Web.ViewModels.Events;
@@ -27,7 +27,12 @@
         private readonly IEventsService eventsService;
         private readonly ITripsService tripsService;
 
-        public UsersController(UserManager<ApplicationUser> userManager, IWebHostEnvironment environment, IMailService mailService, IEventsService eventsService, ITripsService tripsService)
+        public UsersController(
+            UserManager<ApplicationUser> userManager,
+            IWebHostEnvironment environment,
+            IMailService mailService,
+            IEventsService eventsService,
+            ITripsService tripsService)
         {
             this.userManager = userManager;
             this.environment = environment;
@@ -101,7 +106,7 @@
 
                     var passwordResetLink = this.Url.Action("ResetPassword", "Users", new { email = model.Email, token = token }, this.Request.Scheme);
 
-                    var content = $"<h1>Reset your password</h1><p> You told us you forgot your password. If you really did, click here to choose a new one:</p><p><a href='{passwordResetLink}' >Click here to reset</a></p><p>If you didn't request this email message, please ignore it!</p>";
+                    var content = string.Format(GlobalConstants.ResetPasswordMessage, passwordResetLink);
 
                     await this.mailService.SendResetEmailPasswordAsync(model.Email, "HikePals: Reset password requested!", content);
 

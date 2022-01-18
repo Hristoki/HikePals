@@ -22,8 +22,10 @@
 
         public IActionResult Index()
         {
-            var model = new AllCategoriesViewModel();
-            model.Categories = this.categoriesService.GetAllCategories();
+            var model = new AllCategoriesViewModel()
+            {
+                Categories = this.categoriesService.GetAllCategories(),
+            };
             return this.View(model);
         }
     }

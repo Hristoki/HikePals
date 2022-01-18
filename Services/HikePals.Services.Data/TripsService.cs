@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-
+    using HikePals.Common;
     using HikePals.Data.Common.Repositories;
     using HikePals.Data.Models;
     using HikePals.Services.Mapping;
@@ -131,7 +131,11 @@
 
         public IEnumerable<T> GetAllByCategory<T>(int categoryId)
         {
-            return this.tripRepository.AllAsNoTracking().Where(x => x.Location.CategoryId == categoryId).To<T>().ToList();
+            return this.tripRepository
+                .AllAsNoTracking()
+                .Where(x => x.Location.CategoryId == categoryId)
+                .To<T>()
+                .ToList();
         }
 
         public T GetById<T>(int tripId)
@@ -156,7 +160,10 @@
                 };
             }
 
-            var trip = this.tripRepository.AllWithDeleted().FirstOrDefault(x => x.Id == model.Id);
+            var trip = this.tripRepository
+                .AllWithDeleted()
+                .FirstOrDefault(x => x.Id == model.Id);
+
             trip.Title = model.Title;
             trip.Duration = model.Duration;
             trip.Description = model.Description;
@@ -194,12 +201,17 @@
 
         public IEnumerable<SingleTripViewModel> GetAllWithDeleted()
         {
-            return this.tripRepository.AllWithDeleted().To<SingleTripViewModel>().ToList();
+            return this.tripRepository
+                .AllWithDeleted()
+                .To<SingleTripViewModel>()
+                .ToList();
         }
 
         public bool Exists(int id)
         {
-            return this.tripRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id) != null;
+            return this.tripRepository
+                .AllAsNoTracking()
+                .FirstOrDefault(x => x.Id == id) != null;
         }
 
         public async Task RestoreAsync(int id)
@@ -211,21 +223,30 @@
 
         public int GetUserCount(string id)
         {
-            return this.tripRepository.AllAsNoTracking().Where(x => x.CreatedByUserId == id).Count();
+            return this.tripRepository
+                .AllAsNoTracking()
+                .Where(x => x.CreatedByUserId == id)
+                .Count();
         }
 
         public List<T> GetAllUserTrips<T>(string userId)
         {
-            return this.tripRepository.All().Where(x => x.CreatedByUserId == userId).To<T>().ToList();
+            return this.tripRepository
+                .All()
+                .Where(x => x.CreatedByUserId == userId)
+                .To<T>()
+                .ToList();
         }
 
         private void IsNameAvailable(CreateTripInputViewModel model)
         {
-            var isNameFree = this.tripRepository.AllAsNoTracking().FirstOrDefault(x => x.Title == model.Title);
+            var isNameFree = this.tripRepository
+                .AllAsNoTracking()
+                .FirstOrDefault(x => x.Title == model.Title);
 
             if (isNameFree != null)
             {
-                throw new ArgumentException("This trip name is already available!");
+                throw new ArgumentException(GlobalConstants.TripNameUnavailable);
             }
         }
     }

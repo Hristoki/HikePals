@@ -28,6 +28,7 @@
         public const int MaxTripDistance = 1000;
         public const int MinTripDistance = 1;
         public const string TripDistanceErrorMessage = "Trip distance should be between 1 and 1000 km long";
+        public const string TripNameUnavailable = "This trip name is already taken!";
 
         public const int MaxGroupSize = 25;
         public const int MinGorupSize = 2;
@@ -40,10 +41,10 @@
         public const int MaxContactsContentLenght = 1000;
         public const int MinContactsContentLenght = 10;
         public const string ContactsContentLengthErrorMessage = "Text Message should be between 10 and 1000 symbols long";
-       
+
         public const string ConfirmPassErrorMessage = "Password and Confirm Password must match";
 
-        public const string ResetPasswordMessage = "<h1>Reset your password</h1><p> You told us you forgot your password. If you really did, click here to choose a new one:</p><p><a href='..URL..' >Click here to reset</a></p><p>If you didn't request this email message, please ignore it!</p>";
+        public const string ResetPasswordMessage = "<h1>Reset your password</h1><div> You told us you forgot your password. If you really did, click here to choose a new one:</div><div><a href='{0}' >Click here to reset</a></div><div>If you didn't request this email message, please ignore it!</div>";
 
         public static readonly string[] AllowedImageExtensions = { ".jpeg", ".jpg", ".png", ".tiff", ".gif" };
     }
