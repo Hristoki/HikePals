@@ -16,10 +16,7 @@
     @if (this.User.IsInRole("Administrator") || Model.UserId == Model.CreatedById)
     {
         <a type="button" style="vertical-align:middle; text-align: center; margin-left:10px; margin-right:10px;"  class="btn btn-primary" asp-controller="Events" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-    }
 
-    @if (this.User.IsInRole("Administrator"))
-    {
         <a type="button" style="vertical-align:middle; text-align: center; margin-left:10px; margin-right:10px;"  class="btn btn-danger" asp-controller="Events" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
     }
 
@@ -55,7 +52,7 @@
             <div class="card col-md-7">
 
                 <div class="flex-column">
-                    <span class="card-text">Start: @Model.StartTime.Date.ToString("g", System.Globalization.CultureInfo.InvariantCulture) | </span>
+                    <span class="card-text">Start: @Model.StartTime.ToString("g", System.Globalization.CultureInfo.InvariantCulture) | </span>
                     <span class="card-text"><i class="far fa-clock"></i> @Model.TripDuration.TotalHours.ToString("0.0") h |</span>
                     <span class="card-text"><i class="fas fa-road"></i> @Model.TripDistance km |</span>
                     <div class="col-10"></div>

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -34,8 +35,8 @@
             {
                 CreatedById = userId,
                 Details = input.Details,
-                EndTime = input.EndTime,
-                StartTime = input.StartTime,
+                EndTime = DateTime.Parse(input.EndTime, CultureInfo.InvariantCulture),
+                StartTime = DateTime.Parse(input.StartTime, CultureInfo.InvariantCulture),
                 TransportId = input.TransportId,
                 MaxGroupSize = input.MaxGroupSize,
                 TripId = input.TripId,
@@ -166,8 +167,8 @@
 
             eventToUpdate.Title = input.Title;
             eventToUpdate.TransportId = input.TransportId;
-            eventToUpdate.StartTime = input.StartTime;
-            eventToUpdate.EndTime = input.EndTime;
+            eventToUpdate.StartTime = DateTime.Parse(input.StartTime);
+            eventToUpdate.EndTime = DateTime.Parse(input.EndTime);
             eventToUpdate.Details = input.Details;
             eventToUpdate.MaxGroupSize = input.MaxGroupSize;
 

@@ -25,11 +25,11 @@
 
         [Required]
         [MaxDateEventValidationAttribute(1)]
-        public DateTime StartTime { get; set; }
+        public string StartTime { get; set; }
 
         [Required]
         [MaxDateEventValidationAttribute(1)]
-        public DateTime EndTime { get; set; }
+        public string EndTime { get; set; }
 
         [Required]
         [Range(GlobalConstants.MinGorupSize, GlobalConstants.MaxGroupSize, ErrorMessage = GlobalConstants.GroupsSizeErrorMessage)]
