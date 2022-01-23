@@ -33,6 +33,7 @@
             this.chatService = chatService;
         }
 
+        [HttpGet]
         public IActionResult Create(int id)
         {
             var model = this.eventsService.MapTripData(id);
@@ -51,6 +52,7 @@
             return this.RedirectToAction(nameof(this.GetById), new { id = eventId });
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
             var model = this.eventsService.GetById<EventViewModel>(id);
@@ -75,6 +77,7 @@
             return this.View(model);
         }
 
+        [HttpGet]
         public IActionResult Edit(int id)
         {
            var model = this.eventsService.GetById<EditEventViewModel>(id);
@@ -167,7 +170,8 @@
 
         public async Task<IActionResult> UndoJoinRequest(int id)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = this.User
+                .FindFirstValue(ClaimTypes.NameIdentifier);
 
             try
             {

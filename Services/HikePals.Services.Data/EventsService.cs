@@ -21,7 +21,11 @@
         private readonly IRepository<EventsUsers> eventUserRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
-        public EventsService(IDeletableEntityRepository<Event> eventsRepository, IDeletableEntityRepository<Trip> tripsRepository, IRepository<EventsUsers> evenUserRepository, IDeletableEntityRepository<ApplicationUser> userRepository)
+        public EventsService(
+            IDeletableEntityRepository<Event> eventsRepository,
+            IDeletableEntityRepository<Trip> tripsRepository,
+            IRepository<EventsUsers> evenUserRepository,
+            IDeletableEntityRepository<ApplicationUser> userRepository)
         {
             this.eventsRepository = eventsRepository;
             this.tripsRepository = tripsRepository;
@@ -58,12 +62,25 @@
 
         public bool Exists(int id)
         {
-            return this.eventsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id) == null ? false : true;
+            return this.eventsRepository
+                .AllAsNoTracking()
+                .FirstOrDefault(x => x.Id == id) == null ? false : true;
         }
 
         public IEnumerable<T> GetAll<T>()
         {
             return this.eventsRepository.AllAsNoTracking().OrderByDescending(x => x.CreatedOn).To<T>().ToList<T>();
+        }
+
+        /// <summary>
+        ///    Returns the events a particular user has created.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public IEnumerable<T> GetAll<T>(string userId)
+        {
+            return this.eventsRepository.All().Where(x => x.CreatedById == userId).To<T>().ToList();
         }
 
         public IEnumerable<SingleEventAdminViewModel> GetAllWithDeleted()
@@ -78,7 +95,11 @@
 
         public T GetByIdWithDeleted<T>(int id)
         {
-            return this.eventsRepository.AllAsNoTrackingWithDeleted().Where(x => x.Id == id).To<T>().FirstOrDefault();
+            return this.eventsRepository
+                .AllAsNoTrackingWithDeleted()
+                .Where(x => x.Id == id).
+                To<T>()
+                .FirstOrDefault();
         }
 
         public int GetAllEventsCount()
@@ -86,6 +107,13 @@
             return this.eventsRepository.AllAsNoTracking().Count();
         }
 
+        /// <summary>
+        ///    Adds a request for joining the given event. Admins require no confirmation and automatically join if free slots are available.
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="userId"></param>
+        /// <param name="isAdmin"></param>
+        /// <returns></returns>
         public async Task RequestJoinEvent(int eventId, string userId, bool isAdmin)
         {
             if (userId == null)
@@ -180,10 +208,6 @@
             return this.eventsRepository.All().Where(x => x.CreatedById == userId).Count();
         }
 
-        public IEnumerable<T> GetAllUserEvents<T>(string userId)
-        {
-            return this.eventsRepository.All().Where(x => x.CreatedById == userId).To<T>().ToList();
-        }
 
         public async Task ApproveJoinRequest(string participantId, int eventId)
         {
@@ -220,7 +244,7 @@
             await this.LeaveEvent(userId, id);
         }
 
-        public bool HasJoinedEvent(int id, string userId)
+        public bool UserHasJoinedEvent(int id, string userId)
         {
             return this.eventUserRepository
                 .All()

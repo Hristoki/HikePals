@@ -42,10 +42,10 @@
 
         int GetUserEventsCount(string userId);
 
-        IEnumerable<T> GetAllUserEvents<T>(string userId);
+        IEnumerable<T> GetAll<T>(string userId);
 
         Task UndoJoinRequest(string userId, int id);
 
-        bool HasJoinedEvent(int id, string userId);
+        bool UserHasJoinedEvent(int id, string userId);
     }
 }

@@ -58,6 +58,8 @@
             return this.View(model);
         }
 
+        //TODO:: Move actions to respective controllers;
+
         [Authorize]
         public IActionResult MyTrips()
         {
@@ -83,8 +85,7 @@
                 return this.NotFound();
             }
 
-            var model = new AllEventAsListViewModel { Events = this.eventsService.GetAllUserEvents<SingleEventListViewModel>(userId) };
-
+            var model = new AllEventAsListViewModel { Events = this.eventsService.GetAll<SingleEventListViewModel>(userId) };
             return this.View(model);
         }
 

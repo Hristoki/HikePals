@@ -43,7 +43,7 @@
         {
             var userId = this.Context.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            if (this.eventsService.HasJoinedEvent(eventId, userId))
+            if (this.eventsService.UserHasJoinedEvent(eventId, userId))
             {
              await this.Groups.AddToGroupAsync(this.Context.ConnectionId, eventId.ToString());
             }
